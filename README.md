@@ -44,13 +44,13 @@ Do these in order. Each step prints what it did; you don't need to edit anything
 
 ## What you should see
 
-On the DFT labels, held out = 45 structures of 15 orderings the model never
+On the DFT labels, held out = 51 structures of 17 orderings the model never
 saw (CPU and GPU give the same numbers; training is seeded):
 
 | | foundation MACE-MP-0 | fine-tuned, 20 epochs | fine-tuned, 30 epochs |
 | --- | --- | --- | --- |
-| formation-energy MAE (meV/atom) | 11.4 | 7.9 | 4.0 |
-| force RMSE (meV/Å) | 115 | 26 | 23 |
+| formation-energy MAE (meV/atom) | 10.7 | 7.9 | ~4 |
+| force RMSE (meV/Å) | 112 | 26 | ~23 |
 
 Step 3, in every configuration: the GA's champion is `00010001` — Cu₃Au in
 the L1₂ ordering — and DFT confirms it is the ground state. MACE's predicted
