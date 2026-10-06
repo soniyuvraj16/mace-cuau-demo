@@ -19,4 +19,6 @@ NSW    = 0
 LWAVE  = .FALSE.
 LCHARG = .FALSE.
 
-NCORE  = 4
+# 12 MPI ranks per calculation: 4 k-point groups x 3 ranks (see submit_array.sh)
+KPAR   = 4
+NCORE  = 3

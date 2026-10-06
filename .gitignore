@@ -10,3 +10,6 @@ figures/*.png
 potpaw*/
 **/POTCAR
 vasp/calcs/
+vasp/submit_array.sh
+run_aimd.sh
+*.tar.gz

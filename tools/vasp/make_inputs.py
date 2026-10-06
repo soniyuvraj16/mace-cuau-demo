@@ -38,7 +38,7 @@ def find_potcar(potcar_dir, element):
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("--out", default=str(ROOT / "vasp" / "calcs"))
-    p.add_argument("--potcar-dir", default=None)
+    p.add_argument("--potcar-dir", default=None, help="directory holding Cu/POTCAR and Au/POTCAR (e.g. the repo root)")
     args = p.parse_args()
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
@@ -66,7 +66,9 @@ def main():
         names.append(name)
 
     (out / "list.txt").write_text("\n".join(names) + "\n")
+    shutil.copy(ROOT / "tools" / "vasp" / "submit_array.sh", out.parent / "submit_array.sh")
     print(f"wrote {len(names)} calculation directories under {out}")
+    print(f"submit script: {out.parent / 'submit_array.sh'}")
     print(f"POTCAR {'included' if potcar_dir else 'NOT included (pass --potcar-dir or add on the cluster)'}")
 
 

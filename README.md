@@ -125,27 +125,60 @@ python tools/build_structures.py          # -> data/structures.xyz (180 structur
 python tools/make_reference_data.py       # EMT stand-in -> data/train.xyz, data/holdout.xyz
 ```
 
-### With VASP
+### What the DFT jobs are
 
-1. Make the calculation directories, concatenating POTCARs from a local
-   `potpaw_PBE/` (needs `potpaw_PBE/Cu/POTCAR` and `potpaw_PBE/Au/POTCAR`;
-   standard PBE `Cu` and `Au`, 11 valence electrons each):
+180 **static single-point calculations** — no relaxation, no MD. Each one
+takes a fixed geometry and returns its total energy and the force on every
+atom. DFT is not searching for anything here; it is producing the *labels* the
+machine-learned potential is trained on and judged against. Four groups:
+
+| group | count | why it is there |
+| --- | --- | --- |
+| 4-atom cells, 7-point volume scan (±5 %) for each of the 5 orderings | 35 | energy-vs-volume curve per composition — how stiff each alloy is and where its lattice constant sits |
+| 4-atom cells, rattled (σ = 0.05 / 0.10 Å) at three volumes | 60 | non-zero forces: the local shape of the energy surface around each ordering |
+| 8-atom cells, 10 orderings (Cu₈, Au₈ + 8 random mixed), ideal + 3 rattled | 40 | ordering patterns that do not exist in a 4-atom cell; teaches the composition dependence |
+| 8-atom cells, the other 15 mixed orderings, ideal + 2 rattled | 45 | **never trained on** — validation in step 2, and the answer key for step 3 |
+
+The scientific question the demo answers with these labels: *which arrangement
+of Cu and Au on the FCC lattice is most stable at each composition?* — the
+ordering ground states and the convex hull. The textbook answer is Cu₃Au (L1₂)
+and CuAu (L1₀). The point is that MACE, fine-tuned on the 135 training
+labels, predicts the other 15 orderings well enough for a genetic algorithm to
+find those ground states using MACE instead of DFT, and the held-out labels
+prove it.
+
+### Running them with VASP
+
+1. Make the calculation directories, concatenating POTCARs from `Cu/POTCAR`
+   and `Au/POTCAR` (standard PBE `Cu` 22Jun2005 and `Au` 04Oct2007, 11
+   valence electrons each; put the two folders in the repo root, they are
+   gitignored):
 
    ```
-   python tools/vasp/make_inputs.py --potcar-dir potpaw_PBE
+   python tools/vasp/make_inputs.py --potcar-dir .
    ```
 
-   This writes `vasp/calcs/<name>/{POSCAR,KPOINTS,INCAR,POTCAR,meta.json}`
-   and `vasp/calcs/list.txt`. Settings (`tools/vasp/INCAR`): PBE, ENCUT 400,
-   Methfessel-Paxton smearing 0.1 eV, EDIFF 1e-6, Γ-centred 8×8×8 (4-atom
-   cells) / 4×8×8 (8-atom cells), single point with forces. Nothing is
-   relaxed: the volume scan brackets the equilibrium, and the hull in step 3
-   compares MACE and DFT on the same fixed geometries.
+   This writes `vasp/calcs/<name>/{POSCAR,KPOINTS,INCAR,POTCAR,meta.json}`,
+   `vasp/calcs/list.txt` and `vasp/submit_array.sh` — `vasp/` is then
+   self-contained (~70 MB). Settings (`tools/vasp/INCAR`): PBE, ENCUT 400,
+   PREC Accurate, Methfessel-Paxton smearing 0.1 eV, EDIFF 1e-6, Γ-centred
+   8×8×8 (4-atom cells) / 4×8×8 (8-atom cells), KPAR 4 × NCORE 3 for 12
+   ranks. Nothing is relaxed: the volume scan brackets the equilibrium, and the
+   hull in step 3 compares MACE and DFT on the same fixed geometries.
 
-2. Copy `vasp/` to the cluster and submit `tools/vasp/submit_array.sh` (a
-   SLURM array over `list.txt`; adapt the header, module and launcher).
+2. On the cluster (written for TAMU HPRC Grace: `intel/2022a`, `vasp/6.3.2`,
+   `srun vasp_std`; SLURM array of 180 twelve-core tasks, 30 at a time, 2 h
+   limit each — expect well under an hour per task):
 
-3. Copy `vasp/calcs/` back and collect:
+   ```
+   tar xzf cuau_vasp.tar.gz && cd vasp
+   mkdir -p logs
+   sbatch submit_array.sh
+   ```
+
+   Re-submitting is safe: converged directories are skipped.
+
+3. Copy `vasp/calcs/` back (only `OUTCAR` and `meta.json` are needed) and:
 
    ```
    python tools/vasp/collect.py
@@ -153,7 +186,8 @@ python tools/make_reference_data.py       # EMT stand-in -> data/train.xyz, data
 
    It takes `energy(sigma->0)` and the forces from each OUTCAR, restores the
    structure's own site order, writes `data/train.xyz` and `data/holdout.xyz`,
-   and lists any run that is missing or did not converge.
+   and lists any run that is missing or did not converge. Then `run_demo.py`
+   runs unchanged on real DFT labels.
 
-POTCARs and `vasp/calcs/` are gitignored: the potentials are licensed and the
-directories are regenerable.
+POTCARs, `vasp/calcs/` and the tarball are gitignored: the potentials are
+licensed and the directories are regenerable.
