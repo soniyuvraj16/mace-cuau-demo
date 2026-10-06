@@ -1,0 +1,22 @@
+SYSTEM = Cu-Au ordering reference set (single point, energy + forces)
+
+PREC   = Accurate
+ENCUT  = 400
+EDIFF  = 1E-6
+NELM   = 120
+ALGO   = Normal
+
+ISMEAR = 1
+SIGMA  = 0.10
+
+ISPIN  = 1
+LREAL  = .FALSE.
+ADDGRID = .TRUE.
+
+IBRION = -1
+NSW    = 0
+
+LWAVE  = .FALSE.
+LCHARG = .FALSE.
+
+NCORE  = 4

@@ -111,8 +111,45 @@ CuAu₃ form ordered intermetallics. That gives the search something real to
 rediscover, and the 4-atom training cells are small enough that the whole
 reference dataset is a day of DFT on a laptop.
 
-## Regenerating the reference data
+## Producing the reference data (authors only)
 
-Only the author needs this. `tools/make_reference_data.py` builds the
-structures and labels them; to use real DFT, replace its `label()` function
-with your calculator and keep the `REF_energy` / `REF_forces` keys.
+The structures are fixed once, in `data/structures.xyz`, and every labeller
+works from that file:
+
+```
+python tools/build_structures.py          # -> data/structures.xyz (180 structures)
+python tools/make_reference_data.py       # EMT stand-in -> data/train.xyz, data/holdout.xyz
+```
+
+### With VASP
+
+1. Make the calculation directories, concatenating POTCARs from a local
+   `potpaw_PBE/` (needs `potpaw_PBE/Cu/POTCAR` and `potpaw_PBE/Au/POTCAR`;
+   standard PBE `Cu` and `Au`, 11 valence electrons each):
+
+   ```
+   python tools/vasp/make_inputs.py --potcar-dir potpaw_PBE
+   ```
+
+   This writes `vasp/calcs/<name>/{POSCAR,KPOINTS,INCAR,POTCAR,meta.json}`
+   and `vasp/calcs/list.txt`. Settings (`tools/vasp/INCAR`): PBE, ENCUT 400,
+   Methfessel-Paxton smearing 0.1 eV, EDIFF 1e-6, Γ-centred 8×8×8 (4-atom
+   cells) / 4×8×8 (8-atom cells), single point with forces. Nothing is
+   relaxed: the volume scan brackets the equilibrium, and the hull in step 3
+   compares MACE and DFT on the same fixed geometries.
+
+2. Copy `vasp/` to the cluster and submit `tools/vasp/submit_array.sh` (a
+   SLURM array over `list.txt`; adapt the header, module and launcher).
+
+3. Copy `vasp/calcs/` back and collect:
+
+   ```
+   python tools/vasp/collect.py
+   ```
+
+   It takes `energy(sigma->0)` and the forces from each OUTCAR, restores the
+   structure's own site order, writes `data/train.xyz` and `data/holdout.xyz`,
+   and lists any run that is missing or did not converge.
+
+POTCARs and `vasp/calcs/` are gitignored: the potentials are licensed and the
+directories are regenerable.

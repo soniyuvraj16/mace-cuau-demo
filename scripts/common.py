@@ -21,8 +21,8 @@ MODELS = ROOT / "models"
 RESULTS = ROOT / "results"
 FIGURES = ROOT / "figures"
 
-A_CU = 3.61
-A_AU = 4.08
+A_CU = 3.63  # PBE lattice constants
+A_AU = 4.16
 FINGERPRINT_A = 4.0
 MODEL_NAME = "cuau_ft"
 

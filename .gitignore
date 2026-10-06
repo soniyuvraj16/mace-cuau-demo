@@ -5,3 +5,8 @@ results/
 figures/*.png
 *.log
 *_valid_indices_*.txt
+
+# VASP: licensed potentials and generated calculation directories never go in git
+potpaw*/
+**/POTCAR
+vasp/calcs/

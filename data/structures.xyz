@@ -1,0 +1,1420 @@
+4
+Lattice="3.4484999999999997 0.0 0.0 0.0 3.4484999999999997 0.0 0.0 0.0 3.4484999999999997" Properties=species:S:1:pos:R:3 ordering=0000 split=train config_type=eos4 kind=ideal in_training=T name=000_eos4_0000_ideal pbc="T T T"
+Cu       0.00000000       0.00000000       0.00000000
+Cu       0.00000000       1.72425000       1.72425000
+Cu       1.72425000       0.00000000       1.72425000
+Cu       1.72425000       1.72425000       0.00000000
+4
+Lattice="3.509 0.0 0.0 0.0 3.509 0.0 0.0 0.0 3.509" Properties=species:S:1:pos:R:3 ordering=0000 split=train config_type=eos4 kind=ideal in_training=T name=001_eos4_0000_ideal pbc="T T T"
+Cu       0.00000000       0.00000000       0.00000000
+Cu       0.00000000       1.75450000       1.75450000
+Cu       1.75450000       0.00000000       1.75450000
+Cu       1.75450000       1.75450000       0.00000000
+4
+Lattice="3.5694999999999997 0.0 0.0 0.0 3.5694999999999997 0.0 0.0 0.0 3.5694999999999997" Properties=species:S:1:pos:R:3 ordering=0000 split=train config_type=eos4 kind=ideal in_training=T name=002_eos4_0000_ideal pbc="T T T"
+Cu       0.00000000       0.00000000       0.00000000
+Cu       0.00000000       1.78475000       1.78475000
+Cu       1.78475000       0.00000000       1.78475000
+Cu       1.78475000       1.78475000       0.00000000
+4
+Lattice="3.63 0.0 0.0 0.0 3.63 0.0 0.0 0.0 3.63" Properties=species:S:1:pos:R:3 ordering=0000 split=train config_type=eos4 kind=ideal in_training=T name=003_eos4_0000_ideal pbc="T T T"
+Cu       0.00000000       0.00000000       0.00000000
+Cu       0.00000000       1.81500000       1.81500000
+Cu       1.81500000       0.00000000       1.81500000
+Cu       1.81500000       1.81500000       0.00000000
+4
+Lattice="3.6904999999999997 0.0 0.0 0.0 3.6904999999999997 0.0 0.0 0.0 3.6904999999999997" Properties=species:S:1:pos:R:3 ordering=0000 split=train config_type=eos4 kind=ideal in_training=T name=004_eos4_0000_ideal pbc="T T T"
+Cu       0.00000000       0.00000000       0.00000000
+Cu       0.00000000       1.84525000       1.84525000
+Cu       1.84525000       0.00000000       1.84525000
+Cu       1.84525000       1.84525000       0.00000000
+4
+Lattice="3.7510000000000003 0.0 0.0 0.0 3.7510000000000003 0.0 0.0 0.0 3.7510000000000003" Properties=species:S:1:pos:R:3 ordering=0000 split=train config_type=eos4 kind=ideal in_training=T name=005_eos4_0000_ideal pbc="T T T"
+Cu       0.00000000       0.00000000       0.00000000
+Cu       0.00000000       1.87550000       1.87550000
+Cu       1.87550000       0.00000000       1.87550000
+Cu       1.87550000       1.87550000       0.00000000
+4
+Lattice="3.8115 0.0 0.0 0.0 3.8115 0.0 0.0 0.0 3.8115" Properties=species:S:1:pos:R:3 ordering=0000 split=train config_type=eos4 kind=ideal in_training=T name=006_eos4_0000_ideal pbc="T T T"
+Cu       0.00000000       0.00000000       0.00000000
+Cu       0.00000000       1.90575000       1.90575000
+Cu       1.90575000       0.00000000       1.90575000
+Cu       1.90575000       1.90575000       0.00000000
+4
+Lattice="3.5210999999999997 0.0 0.0 0.0 3.5210999999999997 0.0 0.0 0.0 3.5210999999999997" Properties=species:S:1:pos:R:3 ordering=0000 split=train config_type=rattle4 kind=rattled in_training=T name=007_rattle4_0000_rattled pbc="T T T"
+Cu      -0.00418416       0.02640946       0.04945808
+Cu      -0.03073507       1.79251511       1.72253981
+Cu       1.84391824       0.08528857       1.72335022
+Cu       1.71272433       1.70150390      -0.05913830
+4
+Lattice="3.5210999999999997 0.0 0.0 0.0 3.5210999999999997 0.0 0.0 0.0 3.5210999999999997" Properties=species:S:1:pos:R:3 ordering=0000 split=train config_type=rattle4 kind=rattled in_training=T name=008_rattle4_0000_rattled pbc="T T T"
+Cu       0.11682172      -0.01033885       0.02183962
+Cu      -0.08136934       1.77002043       1.74333520
+Cu       1.78919932       0.00919850       1.80462588
+Cu       1.85316134       1.76687855       0.01420192
+4
+Lattice="3.5210999999999997 0.0 0.0 0.0 3.5210999999999997 0.0 0.0 0.0 3.5210999999999997" Properties=species:S:1:pos:R:3 ordering=0000 split=train config_type=rattle4 kind=rattled in_training=T name=009_rattle4_0000_rattled pbc="T T T"
+Cu      -0.08671378      -0.25161957       0.01758033
+Cu       0.01172838       1.69520414       1.77448741
+Cu       1.62454739       0.01924184       1.78913456
+Cu       1.92471905       1.74047564      -0.04023177
+4
+Lattice="3.5210999999999997 0.0 0.0 0.0 3.5210999999999997 0.0 0.0 0.0 3.5210999999999997" Properties=species:S:1:pos:R:3 ordering=0000 split=train config_type=rattle4 kind=rattled in_training=T name=010_rattle4_0000_rattled pbc="T T T"
+Cu       0.21365545       0.08350747       0.09113273
+Cu       0.00029959       1.77713443       1.80536969
+Cu       1.57212319       0.00189004       1.70872978
+Cu       1.78263311       1.75174915      -0.00962893
+4
+Lattice="3.63 0.0 0.0 0.0 3.63 0.0 0.0 0.0 3.63" Properties=species:S:1:pos:R:3 ordering=0000 split=train config_type=rattle4 kind=rattled in_training=T name=011_rattle4_0000_rattled pbc="T T T"
+Cu       0.04876823      -0.06744008      -0.06268931
+Cu       0.05188969       1.85411538       1.83791386
+Cu       1.83597420       0.00258895       1.84212573
+Cu       1.83712314       1.83548999      -0.00277770
+4
+Lattice="3.63 0.0 0.0 0.0 3.63 0.0 0.0 0.0 3.63" Properties=species:S:1:pos:R:3 ordering=0000 split=train config_type=rattle4 kind=rattled in_training=T name=012_rattle4_0000_rattled pbc="T T T"
+Cu      -0.05041356      -0.01871154       0.06394807
+Cu       0.02023354       1.86952535       1.82035810
+Cu       1.77534014      -0.02433129       1.81725188
+Cu       1.74569139       1.71747329      -0.06884098
+4
+Lattice="3.63 0.0 0.0 0.0 3.63 0.0 0.0 0.0 3.63" Properties=species:S:1:pos:R:3 ordering=0000 split=train config_type=rattle4 kind=rattled in_training=T name=013_rattle4_0000_rattled pbc="T T T"
+Cu       0.08453212       0.11138558      -0.09057725
+Cu       0.09234630       1.86767018       1.81132179
+Cu       1.82722677       0.11699330       1.88910239
+Cu       1.61443577       1.99847237       0.02379932
+4
+Lattice="3.63 0.0 0.0 0.0 3.63 0.0 0.0 0.0 3.63" Properties=species:S:1:pos:R:3 ordering=0000 split=train config_type=rattle4 kind=rattled in_training=T name=014_rattle4_0000_rattled pbc="T T T"
+Cu       0.01687475      -0.08396610      -0.05569318
+Cu       0.01934070       1.77708638       1.78011956
+Cu       2.02692488       0.03737655       1.86045925
+Cu       1.79699373       1.84429539       0.14863484
+4
+Lattice="3.7389 0.0 0.0 0.0 3.7389 0.0 0.0 0.0 3.7389" Properties=species:S:1:pos:R:3 ordering=0000 split=train config_type=rattle4 kind=rattled in_training=T name=015_rattle4_0000_rattled pbc="T T T"
+Cu      -0.04002610      -0.01677331      -0.03910845
+Cu       0.06834138       1.87863383       1.76805194
+Cu       1.90391726      -0.04657504       1.76645475
+Cu       1.84098293       1.77336327       0.05122295
+4
+Lattice="3.7389 0.0 0.0 0.0 3.7389 0.0 0.0 0.0 3.7389" Properties=species:S:1:pos:R:3 ordering=0000 split=train config_type=rattle4 kind=rattled in_training=T name=016_rattle4_0000_rattled pbc="T T T"
+Cu       0.06900358       0.00112377       0.09046809
+Cu      -0.06529032       1.88660691       1.87998034
+Cu       1.82070703      -0.02337640       1.76618663
+Cu       1.94327924       1.92280556      -0.01433080
+4
+Lattice="3.7389 0.0 0.0 0.0 3.7389 0.0 0.0 0.0 3.7389" Properties=species:S:1:pos:R:3 ordering=0000 split=train config_type=rattle4 kind=rattled in_training=T name=017_rattle4_0000_rattled pbc="T T T"
+Cu      -0.08088853      -0.05633070      -0.05157272
+Cu      -0.03607221       1.78687832       1.78262950
+Cu       1.83303046       0.06066211       1.70483583
+Cu       2.08956539       2.04206248       0.11706149
+4
+Lattice="3.7389 0.0 0.0 0.0 3.7389 0.0 0.0 0.0 3.7389" Properties=species:S:1:pos:R:3 ordering=0000 split=train config_type=rattle4 kind=rattled in_training=T name=018_rattle4_0000_rattled pbc="T T T"
+Cu       0.19038881      -0.03523334      -0.04419608
+Cu       0.21038980       2.00247249       1.67283647
+Cu       1.77789080      -0.05600016       1.67996518
+Cu       1.81198746       1.77220414       0.06674858
+4
+Lattice="3.574375 0.0 0.0 0.0 3.574375 0.0 0.0 0.0 3.574375" Properties=species:S:1:pos:R:3 ordering=0001 split=train config_type=eos4 kind=ideal in_training=T name=019_eos4_0001_ideal pbc="T T T"
+Cu       0.00000000       0.00000000       0.00000000
+Cu       0.00000000       1.78718750       1.78718750
+Cu       1.78718750       0.00000000       1.78718750
+Au       1.78718750       1.78718750       0.00000000
+4
+Lattice="3.6370833333333334 0.0 0.0 0.0 3.6370833333333334 0.0 0.0 0.0 3.6370833333333334" Properties=species:S:1:pos:R:3 ordering=0001 split=train config_type=eos4 kind=ideal in_training=T name=020_eos4_0001_ideal pbc="T T T"
+Cu       0.00000000       0.00000000       0.00000000
+Cu       0.00000000       1.81854167       1.81854167
+Cu       1.81854167       0.00000000       1.81854167
+Au       1.81854167       1.81854167       0.00000000
+4
+Lattice="3.6997916666666666 0.0 0.0 0.0 3.6997916666666666 0.0 0.0 0.0 3.6997916666666666" Properties=species:S:1:pos:R:3 ordering=0001 split=train config_type=eos4 kind=ideal in_training=T name=021_eos4_0001_ideal pbc="T T T"
+Cu       0.00000000       0.00000000       0.00000000
+Cu       0.00000000       1.84989583       1.84989583
+Cu       1.84989583       0.00000000       1.84989583
+Au       1.84989583       1.84989583       0.00000000
+4
+Lattice="3.7625 0.0 0.0 0.0 3.7625 0.0 0.0 0.0 3.7625" Properties=species:S:1:pos:R:3 ordering=0001 split=train config_type=eos4 kind=ideal in_training=T name=022_eos4_0001_ideal pbc="T T T"
+Cu       0.00000000       0.00000000       0.00000000
+Cu       0.00000000       1.88125000       1.88125000
+Cu       1.88125000       0.00000000       1.88125000
+Au       1.88125000       1.88125000       0.00000000
+4
+Lattice="3.8252083333333333 0.0 0.0 0.0 3.8252083333333333 0.0 0.0 0.0 3.8252083333333333" Properties=species:S:1:pos:R:3 ordering=0001 split=train config_type=eos4 kind=ideal in_training=T name=023_eos4_0001_ideal pbc="T T T"
+Cu       0.00000000       0.00000000       0.00000000
+Cu       0.00000000       1.91260417       1.91260417
+Cu       1.91260417       0.00000000       1.91260417
+Au       1.91260417       1.91260417       0.00000000
+4
+Lattice="3.8879166666666674 0.0 0.0 0.0 3.8879166666666674 0.0 0.0 0.0 3.8879166666666674" Properties=species:S:1:pos:R:3 ordering=0001 split=train config_type=eos4 kind=ideal in_training=T name=024_eos4_0001_ideal pbc="T T T"
+Cu       0.00000000       0.00000000       0.00000000
+Cu       0.00000000       1.94395833       1.94395833
+Cu       1.94395833       0.00000000       1.94395833
+Au       1.94395833       1.94395833       0.00000000
+4
+Lattice="3.9506250000000005 0.0 0.0 0.0 3.9506250000000005 0.0 0.0 0.0 3.9506250000000005" Properties=species:S:1:pos:R:3 ordering=0001 split=train config_type=eos4 kind=ideal in_training=T name=025_eos4_0001_ideal pbc="T T T"
+Cu       0.00000000       0.00000000       0.00000000
+Cu       0.00000000       1.97531250       1.97531250
+Cu       1.97531250       0.00000000       1.97531250
+Au       1.97531250       1.97531250       0.00000000
+4
+Lattice="3.649625 0.0 0.0 0.0 3.649625 0.0 0.0 0.0 3.649625" Properties=species:S:1:pos:R:3 ordering=0001 split=train config_type=rattle4 kind=rattled in_training=T name=026_rattle4_0001_rattled pbc="T T T"
+Cu      -0.05001333       0.00503849      -0.03937017
+Cu       0.11532602       1.82116559       1.83420282
+Cu       1.88563567      -0.03717687       1.86394232
+Au       1.75572521       1.88659229       0.05594981
+4
+Lattice="3.649625 0.0 0.0 0.0 3.649625 0.0 0.0 0.0 3.649625" Properties=species:S:1:pos:R:3 ordering=0001 split=train config_type=rattle4 kind=rattled in_training=T name=027_rattle4_0001_rattled pbc="T T T"
+Cu       0.00726302      -0.01415545      -0.05183882
+Cu      -0.05822510       1.84060472       1.83036472
+Cu       1.77817700      -0.05718427       1.84618172
+Au       1.75498159       1.73247444      -0.05764232
+4
+Lattice="3.649625 0.0 0.0 0.0 3.649625 0.0 0.0 0.0 3.649625" Properties=species:S:1:pos:R:3 ordering=0001 split=train config_type=rattle4 kind=rattled in_training=T name=028_rattle4_0001_rattled pbc="T T T"
+Cu       0.07220285       0.12215061      -0.00640704
+Cu       0.20519052       1.81289448       1.82989677
+Cu       1.83984341       0.10794768       1.85598941
+Au       1.82343194       1.98579737      -0.00099181
+4
+Lattice="3.649625 0.0 0.0 0.0 3.649625 0.0 0.0 0.0 3.649625" Properties=species:S:1:pos:R:3 ordering=0001 split=train config_type=rattle4 kind=rattled in_training=T name=029_rattle4_0001_rattled pbc="T T T"
+Cu       0.12950430      -0.05854563      -0.02503468
+Cu      -0.08487040       1.86871965       1.70090730
+Cu       1.77035526      -0.00974217       1.74058319
+Au       1.91096887       1.78223582      -0.05197389
+4
+Lattice="3.7625 0.0 0.0 0.0 3.7625 0.0 0.0 0.0 3.7625" Properties=species:S:1:pos:R:3 ordering=0001 split=train config_type=rattle4 kind=rattled in_training=T name=030_rattle4_0001_rattled pbc="T T T"
+Cu      -0.00662717       0.07776320      -0.03563024
+Cu       0.09272559       1.93763174       1.81560407
+Cu       2.01555573      -0.08196824       1.93010059
+Au       1.83461699       1.87087668       0.01234460
+4
+Lattice="3.7625 0.0 0.0 0.0 3.7625 0.0 0.0 0.0 3.7625" Properties=species:S:1:pos:R:3 ordering=0001 split=train config_type=rattle4 kind=rattled in_training=T name=031_rattle4_0001_rattled pbc="T T T"
+Cu      -0.02813102       0.04144367      -0.02929080
+Cu       0.01827797       1.85256826       1.91614651
+Cu       1.93532221       0.05647356       1.88663737
+Au       1.81484761       1.99284123      -0.01924839
+4
+Lattice="3.7625 0.0 0.0 0.0 3.7625 0.0 0.0 0.0 3.7625" Properties=species:S:1:pos:R:3 ordering=0001 split=train config_type=rattle4 kind=rattled in_training=T name=032_rattle4_0001_rattled pbc="T T T"
+Cu       0.04624986      -0.09553644      -0.00408383
+Cu       0.00771098       1.74542822       2.03310396
+Cu       1.76471302       0.03754286       1.88859260
+Au       1.97331917       1.83768761      -0.13790513
+4
+Lattice="3.7625 0.0 0.0 0.0 3.7625 0.0 0.0 0.0 3.7625" Properties=species:S:1:pos:R:3 ordering=0001 split=train config_type=rattle4 kind=rattled in_training=T name=033_rattle4_0001_rattled pbc="T T T"
+Cu      -0.08385540      -0.02647099       0.11114935
+Cu      -0.23839308       1.82106349       1.74198784
+Cu       1.86523934       0.11044766       1.84875114
+Au       1.87838527       1.70383692       0.11371447
+4
+Lattice="3.8753750000000005 0.0 0.0 0.0 3.8753750000000005 0.0 0.0 0.0 3.8753750000000005" Properties=species:S:1:pos:R:3 ordering=0001 split=train config_type=rattle4 kind=rattled in_training=T name=034_rattle4_0001_rattled pbc="T T T"
+Cu       0.09489319      -0.02412105      -0.01457517
+Cu       0.00396253       1.90152562       1.87731486
+Cu       1.94442611       0.02801440       1.92443745
+Au       1.95419494       1.96330025      -0.02234036
+4
+Lattice="3.8753750000000005 0.0 0.0 0.0 3.8753750000000005 0.0 0.0 0.0 3.8753750000000005" Properties=species:S:1:pos:R:3 ordering=0001 split=train config_type=rattle4 kind=rattled in_training=T name=035_rattle4_0001_rattled pbc="T T T"
+Cu       0.02445401      -0.03881116      -0.05625808
+Cu      -0.04043620       1.87774129       1.94439510
+Cu       1.97572620       0.01946303       1.94738919
+Au       1.95489537       2.04431808      -0.06274446
+4
+Lattice="3.8753750000000005 0.0 0.0 0.0 3.8753750000000005 0.0 0.0 0.0 3.8753750000000005" Properties=species:S:1:pos:R:3 ordering=0001 split=train config_type=rattle4 kind=rattled in_training=T name=036_rattle4_0001_rattled pbc="T T T"
+Cu      -0.11432785       0.15708764      -0.04649588
+Cu       0.03012672       1.78474427       1.88944583
+Cu       2.06144192       0.09413656       1.94118492
+Au       1.89867849       1.77224914      -0.03996252
+4
+Lattice="3.8753750000000005 0.0 0.0 0.0 3.8753750000000005 0.0 0.0 0.0 3.8753750000000005" Properties=species:S:1:pos:R:3 ordering=0001 split=train config_type=rattle4 kind=rattled in_training=T name=037_rattle4_0001_rattled pbc="T T T"
+Cu      -0.06064497      -0.06533388       0.00640048
+Cu       0.10087975       1.91090658       1.91701096
+Cu       2.04776470      -0.02846651       2.03309839
+Au       1.83454110       1.87871527       0.00227124
+4
+Lattice="3.70025 0.0 0.0 0.0 3.70025 0.0 0.0 0.0 3.70025" Properties=species:S:1:pos:R:3 ordering=0011 split=train config_type=eos4 kind=ideal in_training=T name=038_eos4_0011_ideal pbc="T T T"
+Cu       0.00000000       0.00000000       0.00000000
+Cu       0.00000000       1.85012500       1.85012500
+Au       1.85012500       0.00000000       1.85012500
+Au       1.85012500       1.85012500       0.00000000
+4
+Lattice="3.7651666666666666 0.0 0.0 0.0 3.7651666666666666 0.0 0.0 0.0 3.7651666666666666" Properties=species:S:1:pos:R:3 ordering=0011 split=train config_type=eos4 kind=ideal in_training=T name=039_eos4_0011_ideal pbc="T T T"
+Cu       0.00000000       0.00000000       0.00000000
+Cu       0.00000000       1.88258333       1.88258333
+Au       1.88258333       0.00000000       1.88258333
+Au       1.88258333       1.88258333       0.00000000
+4
+Lattice="3.830083333333333 0.0 0.0 0.0 3.830083333333333 0.0 0.0 0.0 3.830083333333333" Properties=species:S:1:pos:R:3 ordering=0011 split=train config_type=eos4 kind=ideal in_training=T name=040_eos4_0011_ideal pbc="T T T"
+Cu       0.00000000       0.00000000       0.00000000
+Cu       0.00000000       1.91504167       1.91504167
+Au       1.91504167       0.00000000       1.91504167
+Au       1.91504167       1.91504167       0.00000000
+4
+Lattice="3.895 0.0 0.0 0.0 3.895 0.0 0.0 0.0 3.895" Properties=species:S:1:pos:R:3 ordering=0011 split=train config_type=eos4 kind=ideal in_training=T name=041_eos4_0011_ideal pbc="T T T"
+Cu       0.00000000       0.00000000       0.00000000
+Cu       0.00000000       1.94750000       1.94750000
+Au       1.94750000       0.00000000       1.94750000
+Au       1.94750000       1.94750000       0.00000000
+4
+Lattice="3.9599166666666665 0.0 0.0 0.0 3.9599166666666665 0.0 0.0 0.0 3.9599166666666665" Properties=species:S:1:pos:R:3 ordering=0011 split=train config_type=eos4 kind=ideal in_training=T name=042_eos4_0011_ideal pbc="T T T"
+Cu       0.00000000       0.00000000       0.00000000
+Cu       0.00000000       1.97995833       1.97995833
+Au       1.97995833       0.00000000       1.97995833
+Au       1.97995833       1.97995833       0.00000000
+4
+Lattice="4.0248333333333335 0.0 0.0 0.0 4.0248333333333335 0.0 0.0 0.0 4.0248333333333335" Properties=species:S:1:pos:R:3 ordering=0011 split=train config_type=eos4 kind=ideal in_training=T name=043_eos4_0011_ideal pbc="T T T"
+Cu       0.00000000       0.00000000       0.00000000
+Cu       0.00000000       2.01241667       2.01241667
+Au       2.01241667       0.00000000       2.01241667
+Au       2.01241667       2.01241667       0.00000000
+4
+Lattice="4.08975 0.0 0.0 0.0 4.08975 0.0 0.0 0.0 4.08975" Properties=species:S:1:pos:R:3 ordering=0011 split=train config_type=eos4 kind=ideal in_training=T name=044_eos4_0011_ideal pbc="T T T"
+Cu       0.00000000       0.00000000       0.00000000
+Cu       0.00000000       2.04487500       2.04487500
+Au       2.04487500       0.00000000       2.04487500
+Au       2.04487500       2.04487500       0.00000000
+4
+Lattice="3.77815 0.0 0.0 0.0 3.77815 0.0 0.0 0.0 3.77815" Properties=species:S:1:pos:R:3 ordering=0011 split=train config_type=rattle4 kind=rattled in_training=T name=045_rattle4_0011_rattled pbc="T T T"
+Cu      -0.01871004       0.01963293      -0.05601655
+Cu      -0.02773937       1.90658178       1.87155388
+Au       1.92833211      -0.00268947       1.89892100
+Au       1.87857542       1.89234559       0.00167399
+4
+Lattice="3.77815 0.0 0.0 0.0 3.77815 0.0 0.0 0.0 3.77815" Properties=species:S:1:pos:R:3 ordering=0011 split=train config_type=rattle4 kind=rattled in_training=T name=046_rattle4_0011_rattled pbc="T T T"
+Cu      -0.03251098      -0.01610648      -0.04926949
+Cu      -0.00313609       1.95823198       1.87424391
+Au       1.89708928       0.00839624       1.85726710
+Au       1.87353024       1.92082447       0.05471714
+4
+Lattice="3.77815 0.0 0.0 0.0 3.77815 0.0 0.0 0.0 3.77815" Properties=species:S:1:pos:R:3 ordering=0011 split=train config_type=rattle4 kind=rattled in_training=T name=047_rattle4_0011_rattled pbc="T T T"
+Cu       0.09690040      -0.03526117       0.07547301
+Cu       0.04271337       1.68183977       2.02301966
+Au       1.83269978       0.02926392       1.92452165
+Au       1.86032504       2.04065159       0.05436706
+4
+Lattice="3.77815 0.0 0.0 0.0 3.77815 0.0 0.0 0.0 3.77815" Properties=species:S:1:pos:R:3 ordering=0011 split=train config_type=rattle4 kind=rattled in_training=T name=048_rattle4_0011_rattled pbc="T T T"
+Cu       0.13516114      -0.04818801       0.14190176
+Cu       0.07816988       1.75405773       1.87314837
+Au       2.01874433       0.04879226       1.85599540
+Au       1.87320241       1.93291150       0.02793070
+4
+Lattice="3.895 0.0 0.0 0.0 3.895 0.0 0.0 0.0 3.895" Properties=species:S:1:pos:R:3 ordering=0011 split=train config_type=rattle4 kind=rattled in_training=T name=049_rattle4_0011_rattled pbc="T T T"
+Cu      -0.02215978      -0.04401275       0.02455726
+Cu       0.02487632       1.93568312       1.97287196
+Au       1.95678630      -0.07236179       2.04960939
+Au       1.89517516       1.93215381       0.03821980
+4
+Lattice="3.895 0.0 0.0 0.0 3.895 0.0 0.0 0.0 3.895" Properties=species:S:1:pos:R:3 ordering=0011 split=train config_type=rattle4 kind=rattled in_training=T name=050_rattle4_0011_rattled pbc="T T T"
+Cu       0.09045514      -0.03071783       0.01628811
+Cu       0.04334619       1.92458763       1.97853711
+Au       1.93885063      -0.02861503       1.90653855
+Au       1.90405051       1.89393552      -0.04549935
+4
+Lattice="3.895 0.0 0.0 0.0 3.895 0.0 0.0 0.0 3.895" Properties=species:S:1:pos:R:3 ordering=0011 split=train config_type=rattle4 kind=rattled in_training=T name=051_rattle4_0011_rattled pbc="T T T"
+Cu      -0.08047034       0.11760344       0.14219196
+Cu      -0.02898950       2.09191712       1.90274656
+Au       1.91441014      -0.04682732       2.01200904
+Au       1.94668475       1.88817467       0.05447641
+4
+Lattice="3.895 0.0 0.0 0.0 3.895 0.0 0.0 0.0 3.895" Properties=species:S:1:pos:R:3 ordering=0011 split=train config_type=rattle4 kind=rattled in_training=T name=052_rattle4_0011_rattled pbc="T T T"
+Cu      -0.00357288       0.03366233       0.05224036
+Cu       0.06493599       2.05764411       2.00235487
+Au       1.95557045      -0.01288787       1.83078007
+Au       2.01775993       2.00013673       0.09674852
+4
+Lattice="4.01185 0.0 0.0 0.0 4.01185 0.0 0.0 0.0 4.01185" Properties=species:S:1:pos:R:3 ordering=0011 split=train config_type=rattle4 kind=rattled in_training=T name=053_rattle4_0011_rattled pbc="T T T"
+Cu       0.03365154       0.02072124       0.06188146
+Cu      -0.04309995       1.98521464       1.93815899
+Au       1.92477782       0.02361493       2.01941734
+Au       2.01008119       2.00588035      -0.01897126
+4
+Lattice="4.01185 0.0 0.0 0.0 4.01185 0.0 0.0 0.0 4.01185" Properties=species:S:1:pos:R:3 ordering=0011 split=train config_type=rattle4 kind=rattled in_training=T name=054_rattle4_0011_rattled pbc="T T T"
+Cu       0.11831855      -0.00913371       0.01331035
+Cu      -0.00498469       2.05364446       1.97980107
+Au       2.01337611       0.10418269       1.99491078
+Au       2.02806641       2.02606121       0.04369501
+4
+Lattice="4.01185 0.0 0.0 0.0 4.01185 0.0 0.0 0.0 4.01185" Properties=species:S:1:pos:R:3 ordering=0011 split=train config_type=rattle4 kind=rattled in_training=T name=055_rattle4_0011_rattled pbc="T T T"
+Cu      -0.00239269      -0.17664296       0.27167630
+Cu      -0.05388630       1.83628700       2.07636795
+Au       2.08590733      -0.09237126       1.83776295
+Au       2.06222307       1.97625253       0.05413759
+4
+Lattice="4.01185 0.0 0.0 0.0 4.01185 0.0 0.0 0.0 4.01185" Properties=species:S:1:pos:R:3 ordering=0011 split=train config_type=rattle4 kind=rattled in_training=T name=056_rattle4_0011_rattled pbc="T T T"
+Cu       0.08063153      -0.07742656       0.15119074
+Cu       0.03911228       1.86458478       2.06412059
+Au       2.12993714       0.13699151       1.92974394
+Au       2.10848689       1.97429873       0.23686730
+4
+Lattice="3.8261249999999998 0.0 0.0 0.0 3.8261249999999998 0.0 0.0 0.0 3.8261249999999998" Properties=species:S:1:pos:R:3 ordering=0111 split=train config_type=eos4 kind=ideal in_training=T name=057_eos4_0111_ideal pbc="T T T"
+Cu       0.00000000       0.00000000       0.00000000
+Au       0.00000000       1.91306250       1.91306250
+Au       1.91306250       0.00000000       1.91306250
+Au       1.91306250       1.91306250       0.00000000
+4
+Lattice="3.89325 0.0 0.0 0.0 3.89325 0.0 0.0 0.0 3.89325" Properties=species:S:1:pos:R:3 ordering=0111 split=train config_type=eos4 kind=ideal in_training=T name=058_eos4_0111_ideal pbc="T T T"
+Cu       0.00000000       0.00000000       0.00000000
+Au       0.00000000       1.94662500       1.94662500
+Au       1.94662500       0.00000000       1.94662500
+Au       1.94662500       1.94662500       0.00000000
+4
+Lattice="3.9603749999999995 0.0 0.0 0.0 3.9603749999999995 0.0 0.0 0.0 3.9603749999999995" Properties=species:S:1:pos:R:3 ordering=0111 split=train config_type=eos4 kind=ideal in_training=T name=059_eos4_0111_ideal pbc="T T T"
+Cu       0.00000000       0.00000000       0.00000000
+Au       0.00000000       1.98018750       1.98018750
+Au       1.98018750       0.00000000       1.98018750
+Au       1.98018750       1.98018750       0.00000000
+4
+Lattice="4.0275 0.0 0.0 0.0 4.0275 0.0 0.0 0.0 4.0275" Properties=species:S:1:pos:R:3 ordering=0111 split=train config_type=eos4 kind=ideal in_training=T name=060_eos4_0111_ideal pbc="T T T"
+Cu       0.00000000       0.00000000       0.00000000
+Au       0.00000000       2.01375000       2.01375000
+Au       2.01375000       0.00000000       2.01375000
+Au       2.01375000       2.01375000       0.00000000
+4
+Lattice="4.094625 0.0 0.0 0.0 4.094625 0.0 0.0 0.0 4.094625" Properties=species:S:1:pos:R:3 ordering=0111 split=train config_type=eos4 kind=ideal in_training=T name=061_eos4_0111_ideal pbc="T T T"
+Cu       0.00000000       0.00000000       0.00000000
+Au       0.00000000       2.04731250       2.04731250
+Au       2.04731250       0.00000000       2.04731250
+Au       2.04731250       2.04731250       0.00000000
+4
+Lattice="4.1617500000000005 0.0 0.0 0.0 4.1617500000000005 0.0 0.0 0.0 4.1617500000000005" Properties=species:S:1:pos:R:3 ordering=0111 split=train config_type=eos4 kind=ideal in_training=T name=062_eos4_0111_ideal pbc="T T T"
+Cu       0.00000000       0.00000000       0.00000000
+Au       0.00000000       2.08087500       2.08087500
+Au       2.08087500       0.00000000       2.08087500
+Au       2.08087500       2.08087500       0.00000000
+4
+Lattice="4.228875 0.0 0.0 0.0 4.228875 0.0 0.0 0.0 4.228875" Properties=species:S:1:pos:R:3 ordering=0111 split=train config_type=eos4 kind=ideal in_training=T name=063_eos4_0111_ideal pbc="T T T"
+Cu       0.00000000       0.00000000       0.00000000
+Au       0.00000000       2.11443750       2.11443750
+Au       2.11443750       0.00000000       2.11443750
+Au       2.11443750       2.11443750       0.00000000
+4
+Lattice="3.906675 0.0 0.0 0.0 3.906675 0.0 0.0 0.0 3.906675" Properties=species:S:1:pos:R:3 ordering=0111 split=train config_type=rattle4 kind=rattled in_training=T name=064_rattle4_0111_rattled pbc="T T T"
+Cu      -0.02429147       0.09131124      -0.05371405
+Au       0.03627682       1.94530066       1.97434619
+Au       1.93650144       0.01950960       1.98332244
+Au       1.90256688       2.00542506      -0.00937696
+4
+Lattice="3.906675 0.0 0.0 0.0 3.906675 0.0 0.0 0.0 3.906675" Properties=species:S:1:pos:R:3 ordering=0111 split=train config_type=rattle4 kind=rattled in_training=T name=065_rattle4_0111_rattled pbc="T T T"
+Cu      -0.02037250       0.01427859      -0.04733716
+Au       0.06295023       1.99848371       1.97977077
+Au       1.89923760      -0.02349182       1.91620535
+Au       1.98617418       1.89260637       0.03784652
+4
+Lattice="3.906675 0.0 0.0 0.0 3.906675 0.0 0.0 0.0 3.906675" Properties=species:S:1:pos:R:3 ordering=0111 split=train config_type=rattle4 kind=rattled in_training=T name=066_rattle4_0111_rattled pbc="T T T"
+Cu      -0.02888953       0.13412287       0.12113295
+Au      -0.00938646       2.08865961       2.13947845
+Au       1.99706221       0.14494291       1.95296611
+Au       1.97699658       1.88892424      -0.15172904
+4
+Lattice="3.906675 0.0 0.0 0.0 3.906675 0.0 0.0 0.0 3.906675" Properties=species:S:1:pos:R:3 ordering=0111 split=train config_type=rattle4 kind=rattled in_training=T name=067_rattle4_0111_rattled pbc="T T T"
+Cu      -0.07120626      -0.12991687       0.13679547
+Au       0.08626554       1.79044713       1.93097925
+Au       2.01850364      -0.09311245       2.10234079
+Au       2.08406124       1.89721379      -0.02618281
+4
+Lattice="4.0275 0.0 0.0 0.0 4.0275 0.0 0.0 0.0 4.0275" Properties=species:S:1:pos:R:3 ordering=0111 split=train config_type=rattle4 kind=rattled in_training=T name=068_rattle4_0111_rattled pbc="T T T"
+Cu      -0.05061195       0.06981009       0.00408523
+Au       0.03635271       1.96552401       1.93405929
+Au       1.92729302       0.03854113       2.03361889
+Au       2.02338237       2.05444650      -0.06877147
+4
+Lattice="4.0275 0.0 0.0 0.0 4.0275 0.0 0.0 0.0 4.0275" Properties=species:S:1:pos:R:3 ordering=0111 split=train config_type=rattle4 kind=rattled in_training=T name=069_rattle4_0111_rattled pbc="T T T"
+Cu      -0.09077109      -0.04086246      -0.08413673
+Au      -0.01103351       2.04094295       1.89472114
+Au       2.00751741      -0.03003717       2.01530368
+Au       2.01117025       2.07969354      -0.04244132
+4
+Lattice="4.0275 0.0 0.0 0.0 4.0275 0.0 0.0 0.0 4.0275" Properties=species:S:1:pos:R:3 ordering=0111 split=train config_type=rattle4 kind=rattled in_training=T name=070_rattle4_0111_rattled pbc="T T T"
+Cu       0.10101941       0.08626196      -0.09820521
+Au      -0.09500832       2.05480820       2.02549665
+Au       2.13584718      -0.05405907       2.09370583
+Au       2.00707216       2.09128014      -0.03657877
+4
+Lattice="4.0275 0.0 0.0 0.0 4.0275 0.0 0.0 0.0 4.0275" Properties=species:S:1:pos:R:3 ordering=0111 split=train config_type=rattle4 kind=rattled in_training=T name=071_rattle4_0111_rattled pbc="T T T"
+Cu      -0.02729226       0.01486067       0.00664449
+Au      -0.04167136       2.06292502       2.08639696
+Au       2.06225819       0.02193907       2.09536056
+Au       1.99696894       2.08999318      -0.02644503
+4
+Lattice="4.148325 0.0 0.0 0.0 4.148325 0.0 0.0 0.0 4.148325" Properties=species:S:1:pos:R:3 ordering=0111 split=train config_type=rattle4 kind=rattled in_training=T name=072_rattle4_0111_rattled pbc="T T T"
+Cu       0.03954733      -0.02162524       0.03077757
+Au      -0.01400230       2.02034733       2.11054479
+Au       2.05767910       0.03033987       2.15988605
+Au       2.11871005       2.06454906       0.05352097
+4
+Lattice="4.148325 0.0 0.0 0.0 4.148325 0.0 0.0 0.0 4.148325" Properties=species:S:1:pos:R:3 ordering=0111 split=train config_type=rattle4 kind=rattled in_training=T name=073_rattle4_0111_rattled pbc="T T T"
+Cu      -0.01253662       0.09593747      -0.03405481
+Au       0.09453619       2.07222455       2.10753736
+Au       2.23722219      -0.01117598       2.09932998
+Au       2.05979928       2.03727041       0.04583487
+4
+Lattice="4.148325 0.0 0.0 0.0 4.148325 0.0 0.0 0.0 4.148325" Properties=species:S:1:pos:R:3 ordering=0111 split=train config_type=rattle4 kind=rattled in_training=T name=074_rattle4_0111_rattled pbc="T T T"
+Cu      -0.00011139      -0.03502944      -0.03007117
+Au      -0.01512190       2.03439977       2.14183822
+Au       1.90875764       0.15188548       2.10457416
+Au       2.06763493       1.94887017       0.05065363
+4
+Lattice="4.148325 0.0 0.0 0.0 4.148325 0.0 0.0 0.0 4.148325" Properties=species:S:1:pos:R:3 ordering=0111 split=train config_type=rattle4 kind=rattled in_training=T name=075_rattle4_0111_rattled pbc="T T T"
+Cu      -0.18638403       0.01219783       0.01264946
+Au       0.04060678       1.96795209       1.93900856
+Au       1.99400453      -0.21365640       2.11947218
+Au       2.05238609       2.08180487      -0.05176702
+4
+Lattice="3.952 0.0 0.0 0.0 3.952 0.0 0.0 0.0 3.952" Properties=species:S:1:pos:R:3 ordering=1111 split=train config_type=eos4 kind=ideal in_training=T name=076_eos4_1111_ideal pbc="T T T"
+Au       0.00000000       0.00000000       0.00000000
+Au       0.00000000       1.97600000       1.97600000
+Au       1.97600000       0.00000000       1.97600000
+Au       1.97600000       1.97600000       0.00000000
+4
+Lattice="4.021333333333334 0.0 0.0 0.0 4.021333333333334 0.0 0.0 0.0 4.021333333333334" Properties=species:S:1:pos:R:3 ordering=1111 split=train config_type=eos4 kind=ideal in_training=T name=077_eos4_1111_ideal pbc="T T T"
+Au       0.00000000       0.00000000       0.00000000
+Au       0.00000000       2.01066667       2.01066667
+Au       2.01066667       0.00000000       2.01066667
+Au       2.01066667       2.01066667       0.00000000
+4
+Lattice="4.0906666666666665 0.0 0.0 0.0 4.0906666666666665 0.0 0.0 0.0 4.0906666666666665" Properties=species:S:1:pos:R:3 ordering=1111 split=train config_type=eos4 kind=ideal in_training=T name=078_eos4_1111_ideal pbc="T T T"
+Au       0.00000000       0.00000000       0.00000000
+Au       0.00000000       2.04533333       2.04533333
+Au       2.04533333       0.00000000       2.04533333
+Au       2.04533333       2.04533333       0.00000000
+4
+Lattice="4.16 0.0 0.0 0.0 4.16 0.0 0.0 0.0 4.16" Properties=species:S:1:pos:R:3 ordering=1111 split=train config_type=eos4 kind=ideal in_training=T name=079_eos4_1111_ideal pbc="T T T"
+Au       0.00000000       0.00000000       0.00000000
+Au       0.00000000       2.08000000       2.08000000
+Au       2.08000000       0.00000000       2.08000000
+Au       2.08000000       2.08000000       0.00000000
+4
+Lattice="4.229333333333333 0.0 0.0 0.0 4.229333333333333 0.0 0.0 0.0 4.229333333333333" Properties=species:S:1:pos:R:3 ordering=1111 split=train config_type=eos4 kind=ideal in_training=T name=080_eos4_1111_ideal pbc="T T T"
+Au       0.00000000       0.00000000       0.00000000
+Au       0.00000000       2.11466667       2.11466667
+Au       2.11466667       0.00000000       2.11466667
+Au       2.11466667       2.11466667       0.00000000
+4
+Lattice="4.2986666666666675 0.0 0.0 0.0 4.2986666666666675 0.0 0.0 0.0 4.2986666666666675" Properties=species:S:1:pos:R:3 ordering=1111 split=train config_type=eos4 kind=ideal in_training=T name=081_eos4_1111_ideal pbc="T T T"
+Au       0.00000000       0.00000000       0.00000000
+Au       0.00000000       2.14933333       2.14933333
+Au       2.14933333       0.00000000       2.14933333
+Au       2.14933333       2.14933333       0.00000000
+4
+Lattice="4.368 0.0 0.0 0.0 4.368 0.0 0.0 0.0 4.368" Properties=species:S:1:pos:R:3 ordering=1111 split=train config_type=eos4 kind=ideal in_training=T name=082_eos4_1111_ideal pbc="T T T"
+Au       0.00000000       0.00000000       0.00000000
+Au       0.00000000       2.18400000       2.18400000
+Au       2.18400000       0.00000000       2.18400000
+Au       2.18400000       2.18400000       0.00000000
+4
+Lattice="4.0352 0.0 0.0 0.0 4.0352 0.0 0.0 0.0 4.0352" Properties=species:S:1:pos:R:3 ordering=1111 split=train config_type=rattle4 kind=rattled in_training=T name=083_rattle4_1111_rattled pbc="T T T"
+Au      -0.01679880      -0.02424033       0.09051337
+Au       0.04237082       1.95269707       2.02533387
+Au       2.07208447      -0.13428340       2.07261379
+Au       2.00663319       2.01598379       0.09341332
+4
+Lattice="4.0352 0.0 0.0 0.0 4.0352 0.0 0.0 0.0 4.0352" Properties=species:S:1:pos:R:3 ordering=1111 split=train config_type=rattle4 kind=rattled in_training=T name=084_rattle4_1111_rattled pbc="T T T"
+Au       0.02375605      -0.00853152      -0.00966164
+Au       0.03322150       2.05848374       2.01355350
+Au       2.01946788      -0.04959190       1.91704716
+Au       1.98166244       2.01028604       0.06003246
+4
+Lattice="4.0352 0.0 0.0 0.0 4.0352 0.0 0.0 0.0 4.0352" Properties=species:S:1:pos:R:3 ordering=1111 split=train config_type=rattle4 kind=rattled in_training=T name=085_rattle4_1111_rattled pbc="T T T"
+Au      -0.09237864       0.02155640      -0.02267865
+Au      -0.16444320       1.85096822       1.96246474
+Au       1.88644201      -0.09880418       1.95970699
+Au       2.13163417       2.10929834       0.27726754
+4
+Lattice="4.0352 0.0 0.0 0.0 4.0352 0.0 0.0 0.0 4.0352" Properties=species:S:1:pos:R:3 ordering=1111 split=train config_type=rattle4 kind=rattled in_training=T name=086_rattle4_1111_rattled pbc="T T T"
+Au       0.04017789      -0.22148216      -0.02801061
+Au       0.00268156       1.88377712       1.84837056
+Au       2.14506321      -0.10798519       1.97481313
+Au       2.18181534       2.05282961       0.16900750
+4
+Lattice="4.16 0.0 0.0 0.0 4.16 0.0 0.0 0.0 4.16" Properties=species:S:1:pos:R:3 ordering=1111 split=train config_type=rattle4 kind=rattled in_training=T name=087_rattle4_1111_rattled pbc="T T T"
+Au      -0.01536856      -0.07948688      -0.05091379
+Au      -0.00644685       1.92151133       2.01094277
+Au       2.10312400      -0.09940568       2.05478090
+Au       2.01596567       2.08920679       0.11592898
+4
+Lattice="4.16 0.0 0.0 0.0 4.16 0.0 0.0 0.0 4.16" Properties=species:S:1:pos:R:3 ordering=1111 split=train config_type=rattle4 kind=rattled in_training=T name=088_rattle4_1111_rattled pbc="T T T"
+Au      -0.02907543       0.01987929      -0.03903030
+Au      -0.03850465       2.03132510       1.98594211
+Au       2.05876795      -0.04833897       2.05489189
+Au       2.10432961       2.06526458      -0.07031246
+4
+Lattice="4.16 0.0 0.0 0.0 4.16 0.0 0.0 0.0 4.16" Properties=species:S:1:pos:R:3 ordering=1111 split=train config_type=rattle4 kind=rattled in_training=T name=089_rattle4_1111_rattled pbc="T T T"
+Au      -0.17372882      -0.13593329      -0.08887300
+Au       0.02857649       2.13862899       2.22105671
+Au       1.98889748       0.13634288       2.18770192
+Au       2.16570724       2.17019368      -0.08854928
+4
+Lattice="4.16 0.0 0.0 0.0 4.16 0.0 0.0 0.0 4.16" Properties=species:S:1:pos:R:3 ordering=1111 split=train config_type=rattle4 kind=rattled in_training=T name=090_rattle4_1111_rattled pbc="T T T"
+Au       0.04277403       0.07878323      -0.02350914
+Au      -0.00898918       1.91658183       2.13288294
+Au       1.98485891      -0.07014905       2.11874514
+Au       2.01841224       1.94929498       0.03428440
+4
+Lattice="4.284800000000001 0.0 0.0 0.0 4.284800000000001 0.0 0.0 0.0 4.284800000000001" Properties=species:S:1:pos:R:3 ordering=1111 split=train config_type=rattle4 kind=rattled in_training=T name=091_rattle4_1111_rattled pbc="T T T"
+Au      -0.01893265      -0.02274959       0.05490325
+Au      -0.01450301       2.14407701       2.15560895
+Au       2.07491851      -0.02910042       2.06755328
+Au       2.18469453       2.13992402      -0.04741552
+4
+Lattice="4.284800000000001 0.0 0.0 0.0 4.284800000000001 0.0 0.0 0.0 4.284800000000001" Properties=species:S:1:pos:R:3 ordering=1111 split=train config_type=rattle4 kind=rattled in_training=T name=092_rattle4_1111_rattled pbc="T T T"
+Au      -0.07420074       0.03542173       0.04842807
+Au      -0.01645981       2.16808553       2.09820761
+Au       2.06204189      -0.00046843       2.13933073
+Au       2.09550858       2.18130263       0.03548662
+4
+Lattice="4.284800000000001 0.0 0.0 0.0 4.284800000000001 0.0 0.0 0.0 4.284800000000001" Properties=species:S:1:pos:R:3 ordering=1111 split=train config_type=rattle4 kind=rattled in_training=T name=093_rattle4_1111_rattled pbc="T T T"
+Au       0.01570108      -0.07358299       0.13087775
+Au       0.00097869       2.41101751       2.19450305
+Au       2.06724214       0.01160274       2.09282634
+Au       2.06608324       2.23208434      -0.07418228
+4
+Lattice="4.284800000000001 0.0 0.0 0.0 4.284800000000001 0.0 0.0 0.0 4.284800000000001" Properties=species:S:1:pos:R:3 ordering=1111 split=train config_type=rattle4 kind=rattled in_training=T name=094_rattle4_1111_rattled pbc="T T T"
+Au      -0.02572381      -0.01670663       0.06030725
+Au      -0.07345942       2.04753133       2.00033011
+Au       2.18412421      -0.06408764       2.29021925
+Au       2.20999694       2.00792920      -0.29145667
+8
+Lattice="7.26 0.0 0.0 0.0 3.63 0.0 0.0 0.0 3.63" Properties=species:S:1:pos:R:3 ordering=00000000 split=train config_type=train8 kind=ideal in_training=T name=095_train8_00000000_ideal pbc="T T T"
+Cu       0.00000000       0.00000000       0.00000000
+Cu       0.00000000       1.81500000       1.81500000
+Cu       1.81500000       0.00000000       1.81500000
+Cu       1.81500000       1.81500000       0.00000000
+Cu       3.63000000       0.00000000       0.00000000
+Cu       3.63000000       1.81500000       1.81500000
+Cu       5.44500000       0.00000000       1.81500000
+Cu       5.44500000       1.81500000       0.00000000
+8
+Lattice="7.26 0.0 0.0 0.0 3.63 0.0 0.0 0.0 3.63" Properties=species:S:1:pos:R:3 ordering=00000000 split=train config_type=train8 kind=rattled in_training=T name=096_train8_00000000_rattled pbc="T T T"
+Cu      -0.04758544       0.03312618       0.03816312
+Cu       0.05863015       1.93245173       1.71331017
+Cu       1.78763959       0.09403606       1.81811582
+Cu       2.02448110       1.84772531       0.10653706
+Cu       3.56560376       0.01896963      -0.02095342
+Cu       3.67472054       1.86974152       1.80937158
+Cu       5.39242141       0.08126400       1.81172431
+Cu       5.61313305       1.81179037       0.17724188
+8
+Lattice="7.26 0.0 0.0 0.0 3.63 0.0 0.0 0.0 3.63" Properties=species:S:1:pos:R:3 ordering=00000000 split=train config_type=train8 kind=rattled in_training=T name=097_train8_00000000_rattled pbc="T T T"
+Cu       0.02465543       0.06261283       0.05305098
+Cu      -0.01000717       1.72616934       1.73584409
+Cu       1.93709210      -0.03354527       1.75987730
+Cu       1.88650665       1.78422011      -0.03852432
+Cu       3.64725017      -0.06155277      -0.00943228
+Cu       3.60157076       1.78543396       1.68349943
+Cu       5.32277393       0.09416404       1.79813901
+Cu       5.41760292       1.82970128      -0.08655323
+8
+Lattice="7.26 0.0 0.0 0.0 3.63 0.0 0.0 0.0 3.63" Properties=species:S:1:pos:R:3 ordering=00000000 split=train config_type=train8 kind=rattled in_training=T name=098_train8_00000000_rattled pbc="T T T"
+Cu       0.19946264      -0.00940508       0.04585520
+Cu       0.02470125       1.83608799       1.78955844
+Cu       1.84878873       0.14670543       1.92893272
+Cu       1.75392594       1.97065564       0.09915141
+Cu       3.54065250      -0.15412116       0.08137703
+Cu       3.63510267       1.88902040       1.75169551
+Cu       5.33325261      -0.06993264       1.79890904
+Cu       5.45319568       1.84855541       0.05529912
+8
+Lattice="8.32 0.0 0.0 0.0 4.16 0.0 0.0 0.0 4.16" Properties=species:S:1:pos:R:3 ordering=11111111 split=train config_type=train8 kind=ideal in_training=T name=099_train8_11111111_ideal pbc="T T T"
+Au       0.00000000       0.00000000       0.00000000
+Au       0.00000000       2.08000000       2.08000000
+Au       2.08000000       0.00000000       2.08000000
+Au       2.08000000       2.08000000       0.00000000
+Au       4.16000000       0.00000000       0.00000000
+Au       4.16000000       2.08000000       2.08000000
+Au       6.24000000       0.00000000       2.08000000
+Au       6.24000000       2.08000000       0.00000000
+8
+Lattice="8.32 0.0 0.0 0.0 4.16 0.0 0.0 0.0 4.16" Properties=species:S:1:pos:R:3 ordering=11111111 split=train config_type=train8 kind=rattled in_training=T name=100_train8_11111111_rattled pbc="T T T"
+Au      -0.03340424       0.05040790       0.02244339
+Au       0.08880115       2.00091291       2.33254599
+Au       2.07316764      -0.02700336       2.06705638
+Au       2.04254272       1.88362651      -0.05638299
+Au       4.07181499      -0.05683120      -0.01600153
+Au       4.15616267       2.08496255       1.93336607
+Au       6.44829505      -0.07983191       2.11509887
+Au       6.16770009       2.20922688       0.26086658
+8
+Lattice="8.32 0.0 0.0 0.0 4.16 0.0 0.0 0.0 4.16" Properties=species:S:1:pos:R:3 ordering=11111111 split=train config_type=train8 kind=rattled in_training=T name=101_train8_11111111_rattled pbc="T T T"
+Au       0.09190421       0.04402139      -0.15535527
+Au       0.09409434       2.11647744       2.05980528
+Au       2.10100767       0.05772682       2.11098940
+Au       2.12937442       1.98322469      -0.03465566
+Au       4.02903901      -0.13558599      -0.03847585
+Au       4.19677165       2.17605027       2.04588387
+Au       6.24839620      -0.01091035       2.17109556
+Au       6.19576898       2.01001400      -0.00795509
+8
+Lattice="8.32 0.0 0.0 0.0 4.16 0.0 0.0 0.0 4.16" Properties=species:S:1:pos:R:3 ordering=11111111 split=train config_type=train8 kind=rattled in_training=T name=102_train8_11111111_rattled pbc="T T T"
+Au      -0.09222363       0.00046530      -0.02806436
+Au      -0.01030094       2.07395970       2.14327834
+Au       2.08742353      -0.12409198       2.13535862
+Au       2.04284744       2.07680924       0.08767477
+Au       4.14937727      -0.06018600      -0.07776472
+Au       4.18453761       2.13296861       2.20373253
+Au       6.22433454      -0.05345705       2.10302453
+Au       6.27689463       2.11824939      -0.00039455
+8
+Lattice="7.3925 0.0 0.0 0.0 3.69625 0.0 0.0 0.0 3.69625" Properties=species:S:1:pos:R:3 ordering=00000001 split=train config_type=train8 kind=ideal in_training=T name=103_train8_00000001_ideal pbc="T T T"
+Cu       0.00000000       0.00000000       0.00000000
+Cu       0.00000000       1.84812500       1.84812500
+Cu       1.84812500       0.00000000       1.84812500
+Cu       1.84812500       1.84812500       0.00000000
+Cu       3.69625000       0.00000000       0.00000000
+Cu       3.69625000       1.84812500       1.84812500
+Cu       5.54437500       0.00000000       1.84812500
+Au       5.54437500       1.84812500       0.00000000
+8
+Lattice="7.3925 0.0 0.0 0.0 3.69625 0.0 0.0 0.0 3.69625" Properties=species:S:1:pos:R:3 ordering=00000001 split=train config_type=train8 kind=rattled in_training=T name=104_train8_00000001_rattled pbc="T T T"
+Cu       0.05559292      -0.20996406       0.00263598
+Cu      -0.00999286       1.75546640       1.85201072
+Cu       1.92246949       0.04739079       1.85648168
+Cu       1.84811441       1.92721361       0.10035980
+Cu       3.73676351       0.02186147       0.10097888
+Cu       3.70042058       1.88773752       1.84186187
+Cu       5.59308460      -0.03703208       1.78479750
+Au       5.53558989       1.88258010      -0.03114624
+8
+Lattice="7.3925 0.0 0.0 0.0 3.69625 0.0 0.0 0.0 3.69625" Properties=species:S:1:pos:R:3 ordering=00000001 split=train config_type=train8 kind=rattled in_training=T name=105_train8_00000001_rattled pbc="T T T"
+Cu      -0.07059059      -0.10478176       0.15059449
+Cu       0.05207544       1.80884323       1.76631731
+Cu       1.92824024      -0.14913914       1.93664249
+Cu       1.83384805       1.90711224      -0.06740392
+Cu       3.78112875      -0.08383683      -0.08975152
+Cu       3.60686889       1.85109556       2.00486178
+Cu       5.56636748       0.19357012       1.81772039
+Au       5.40155569       1.74303819       0.04507315
+8
+Lattice="7.3925 0.0 0.0 0.0 3.69625 0.0 0.0 0.0 3.69625" Properties=species:S:1:pos:R:3 ordering=00000001 split=train config_type=train8 kind=rattled in_training=T name=106_train8_00000001_rattled pbc="T T T"
+Cu      -0.10752194      -0.00703520      -0.00913969
+Cu       0.12203472       1.92618048       1.77772787
+Cu       1.81557425       0.01418370       1.84778124
+Cu       1.80114697       1.82115478      -0.14662576
+Cu       3.79044375      -0.01035260       0.10607071
+Cu       3.56887185       1.71593875       1.86878012
+Cu       5.47722576       0.02095056       1.76118360
+Au       5.57020909       1.85270774      -0.05813864
+8
+Lattice="7.525 0.0 0.0 0.0 3.7625 0.0 0.0 0.0 3.7625" Properties=species:S:1:pos:R:3 ordering=00000011 split=train config_type=train8 kind=ideal in_training=T name=107_train8_00000011_ideal pbc="T T T"
+Cu       0.00000000       0.00000000       0.00000000
+Cu       0.00000000       1.88125000       1.88125000
+Cu       1.88125000       0.00000000       1.88125000
+Cu       1.88125000       1.88125000       0.00000000
+Cu       3.76250000       0.00000000       0.00000000
+Cu       3.76250000       1.88125000       1.88125000
+Au       5.64375000       0.00000000       1.88125000
+Au       5.64375000       1.88125000       0.00000000
+8
+Lattice="7.525 0.0 0.0 0.0 3.7625 0.0 0.0 0.0 3.7625" Properties=species:S:1:pos:R:3 ordering=00000011 split=train config_type=train8 kind=rattled in_training=T name=108_train8_00000011_rattled pbc="T T T"
+Cu      -0.12051956      -0.06569898      -0.00912888
+Cu      -0.04781299       1.70432316       1.89785585
+Cu       1.86792456      -0.02482989       1.71860293
+Cu       1.80215017       1.72659461      -0.28321254
+Cu       3.89610344      -0.11095597      -0.03100836
+Cu       3.72479942       1.87220030       1.96690476
+Au       5.61859233      -0.09904407       1.89352891
+Au       5.63312289       1.88951158       0.04354548
+8
+Lattice="7.525 0.0 0.0 0.0 3.7625 0.0 0.0 0.0 3.7625" Properties=species:S:1:pos:R:3 ordering=00000011 split=train config_type=train8 kind=rattled in_training=T name=109_train8_00000011_rattled pbc="T T T"
+Cu       0.00711883       0.05134860      -0.14668073
+Cu      -0.02611752       1.81514914       1.91665314
+Cu       1.83172346      -0.01328718       1.71662726
+Cu       1.84826471       1.95554270      -0.01764010
+Cu       3.86894367       0.05908452       0.05533877
+Cu       3.79444801       1.95059890       1.96841812
+Au       5.54051252       0.17929449       1.84545275
+Au       5.56288614       1.77527783      -0.07626227
+8
+Lattice="7.525 0.0 0.0 0.0 3.7625 0.0 0.0 0.0 3.7625" Properties=species:S:1:pos:R:3 ordering=00000011 split=train config_type=train8 kind=rattled in_training=T name=110_train8_00000011_rattled pbc="T T T"
+Cu      -0.05690036       0.10667702      -0.05407935
+Cu       0.07092632       1.94742721       1.96884904
+Cu       1.92247893      -0.00187648       1.88873794
+Cu       1.88056108       1.84575336       0.03044326
+Cu       3.76521771      -0.01006871      -0.13715208
+Cu       3.65438245       1.83473729       1.94303239
+Au       5.68537220      -0.05104032       1.79635624
+Au       5.54324951       1.85397188       0.07809844
+8
+Lattice="7.525 0.0 0.0 0.0 3.7625 0.0 0.0 0.0 3.7625" Properties=species:S:1:pos:R:3 ordering=00010001 split=train config_type=train8 kind=ideal in_training=T name=111_train8_00010001_ideal pbc="T T T"
+Cu       0.00000000       0.00000000       0.00000000
+Cu       0.00000000       1.88125000       1.88125000
+Cu       1.88125000       0.00000000       1.88125000
+Au       1.88125000       1.88125000       0.00000000
+Cu       3.76250000       0.00000000       0.00000000
+Cu       3.76250000       1.88125000       1.88125000
+Cu       5.64375000       0.00000000       1.88125000
+Au       5.64375000       1.88125000       0.00000000
+8
+Lattice="7.525 0.0 0.0 0.0 3.7625 0.0 0.0 0.0 3.7625" Properties=species:S:1:pos:R:3 ordering=00010001 split=train config_type=train8 kind=rattled in_training=T name=112_train8_00010001_rattled pbc="T T T"
+Cu      -0.03264547       0.07044468      -0.05157902
+Cu       0.14152975       1.95662292       1.85054512
+Cu       1.86100405       0.10268750       1.77165127
+Au       1.80177373       1.88827372       0.04145597
+Cu       3.88821439      -0.01694235      -0.14912475
+Cu       3.75842436       1.84008245       1.85661074
+Cu       5.64807228      -0.11172637       1.78888500
+Au       5.60299061       1.89795854      -0.19352434
+8
+Lattice="7.525 0.0 0.0 0.0 3.7625 0.0 0.0 0.0 3.7625" Properties=species:S:1:pos:R:3 ordering=00010001 split=train config_type=train8 kind=rattled in_training=T name=113_train8_00010001_rattled pbc="T T T"
+Cu       0.11630534      -0.11736159       0.01375480
+Cu       0.03028218       1.92395041       1.75726363
+Cu       1.97033148       0.16405843       1.96819744
+Au       1.86169043       1.86450700       0.04138861
+Cu       3.76445436      -0.07607777      -0.12031201
+Cu       3.81750570       1.88126330       1.84640603
+Cu       5.55289314       0.13978488       1.81495809
+Au       5.53812594       1.88811827       0.01305861
+8
+Lattice="7.525 0.0 0.0 0.0 3.7625 0.0 0.0 0.0 3.7625" Properties=species:S:1:pos:R:3 ordering=00010001 split=train config_type=train8 kind=rattled in_training=T name=114_train8_00010001_rattled pbc="T T T"
+Cu       0.04042644      -0.06276477       0.09039114
+Cu       0.05620852       1.83545206       1.81151082
+Cu       1.91198927       0.02838515       1.92457219
+Au       1.87411204       1.91251606       0.04364533
+Cu       3.85546463       0.02309337      -0.11277685
+Cu       3.84446290       1.83791803       1.89594337
+Cu       5.61793607      -0.02463034       1.97073750
+Au       5.72241614       1.95712766       0.16085439
+8
+Lattice="7.525 0.0 0.0 0.0 3.7625 0.0 0.0 0.0 3.7625" Properties=species:S:1:pos:R:3 ordering=00010010 split=train config_type=train8 kind=ideal in_training=T name=115_train8_00010010_ideal pbc="T T T"
+Cu       0.00000000       0.00000000       0.00000000
+Cu       0.00000000       1.88125000       1.88125000
+Cu       1.88125000       0.00000000       1.88125000
+Au       1.88125000       1.88125000       0.00000000
+Cu       3.76250000       0.00000000       0.00000000
+Cu       3.76250000       1.88125000       1.88125000
+Au       5.64375000       0.00000000       1.88125000
+Cu       5.64375000       1.88125000       0.00000000
+8
+Lattice="7.525 0.0 0.0 0.0 3.7625 0.0 0.0 0.0 3.7625" Properties=species:S:1:pos:R:3 ordering=00010010 split=train config_type=train8 kind=rattled in_training=T name=116_train8_00010010_rattled pbc="T T T"
+Cu       0.00369192       0.00735711      -0.01881483
+Cu      -0.01825484       1.96639128       1.81329040
+Cu       1.87149484       0.04437111       1.88919264
+Au       1.94684952       1.72906480      -0.10899038
+Cu       3.73977568      -0.13730483      -0.11759484
+Cu       3.75219925       1.78608772       1.87358036
+Au       5.67905340       0.07834084       1.99622074
+Cu       5.71774067       1.89373964      -0.11540014
+8
+Lattice="7.525 0.0 0.0 0.0 3.7625 0.0 0.0 0.0 3.7625" Properties=species:S:1:pos:R:3 ordering=00010010 split=train config_type=train8 kind=rattled in_training=T name=117_train8_00010010_rattled pbc="T T T"
+Cu      -0.03180811      -0.00777827      -0.04101118
+Cu      -0.04237974       1.83747056       1.83652146
+Cu       1.89330478      -0.12848219       1.90593277
+Au       2.04331278       1.88563280       0.12479417
+Cu       3.72235493       0.04347788      -0.09554858
+Cu       3.69904332       1.82240105       1.79755109
+Au       5.70161795       0.09500262       1.83680772
+Cu       5.76284256       1.89188460       0.08801350
+8
+Lattice="7.525 0.0 0.0 0.0 3.7625 0.0 0.0 0.0 3.7625" Properties=species:S:1:pos:R:3 ordering=00010010 split=train config_type=train8 kind=rattled in_training=T name=118_train8_00010010_rattled pbc="T T T"
+Cu      -0.03016585       0.08010525      -0.06467561
+Cu       0.02274315       1.77830949       2.00929129
+Cu       1.83465644      -0.13835206       1.79542011
+Au       1.71499360       1.84417444      -0.04422149
+Cu       3.70132496       0.01058822       0.06659886
+Cu       3.86915690       1.80693601       1.86678472
+Au       5.51360005      -0.01382033       1.69362849
+Cu       5.63821902       1.88084652       0.00682185
+8
+Lattice="7.79 0.0 0.0 0.0 3.895 0.0 0.0 0.0 3.895" Properties=species:S:1:pos:R:3 ordering=00010111 split=train config_type=train8 kind=ideal in_training=T name=119_train8_00010111_ideal pbc="T T T"
+Cu       0.00000000       0.00000000       0.00000000
+Cu       0.00000000       1.94750000       1.94750000
+Cu       1.94750000       0.00000000       1.94750000
+Au       1.94750000       1.94750000       0.00000000
+Cu       3.89500000       0.00000000       0.00000000
+Au       3.89500000       1.94750000       1.94750000
+Au       5.84250000       0.00000000       1.94750000
+Au       5.84250000       1.94750000       0.00000000
+8
+Lattice="7.79 0.0 0.0 0.0 3.895 0.0 0.0 0.0 3.895" Properties=species:S:1:pos:R:3 ordering=00010111 split=train config_type=train8 kind=rattled in_training=T name=120_train8_00010111_rattled pbc="T T T"
+Cu       0.04828461       0.04903884      -0.01144484
+Cu      -0.04930067       1.97241694       1.87527877
+Cu       1.94115334       0.00704805       1.95948471
+Au       1.98569109       2.02005751       0.03210703
+Cu       3.93768535       0.06242446       0.03294593
+Au       3.60547835       1.86465646       1.96689525
+Au       5.75926534      -0.08979177       1.87113908
+Au       5.90917290       1.93740506      -0.07339076
+8
+Lattice="7.79 0.0 0.0 0.0 3.895 0.0 0.0 0.0 3.895" Properties=species:S:1:pos:R:3 ordering=00010111 split=train config_type=train8 kind=rattled in_training=T name=121_train8_00010111_rattled pbc="T T T"
+Cu       0.05038726      -0.07679001       0.02561391
+Cu       0.05171092       2.00106791       1.99844210
+Cu       1.93266407      -0.02811265       1.95022445
+Au       2.01066461       1.92494669      -0.03584697
+Cu       3.76160664       0.09208390       0.02163151
+Au       3.97067891       2.03016845       1.89109914
+Au       6.01659558       0.04527333       1.94377555
+Au       5.82251180       1.98983100      -0.04554034
+8
+Lattice="7.79 0.0 0.0 0.0 3.895 0.0 0.0 0.0 3.895" Properties=species:S:1:pos:R:3 ordering=00010111 split=train config_type=train8 kind=rattled in_training=T name=122_train8_00010111_rattled pbc="T T T"
+Cu       0.09152650      -0.00226510       0.04167241
+Cu       0.03673653       1.95427947       1.94883368
+Cu       1.86008633       0.04944976       1.94017892
+Au       1.88517032       1.87448787       0.00951838
+Cu       3.78098550       0.05983260       0.08228156
+Au       3.84920115       2.05852299       2.07634346
+Au       5.78834378      -0.01802095       1.95887327
+Au       5.87137944       2.16697785      -0.01422776
+8
+Lattice="7.79 0.0 0.0 0.0 3.895 0.0 0.0 0.0 3.895" Properties=species:S:1:pos:R:3 ordering=00011101 split=train config_type=train8 kind=ideal in_training=T name=123_train8_00011101_ideal pbc="T T T"
+Cu       0.00000000       0.00000000       0.00000000
+Cu       0.00000000       1.94750000       1.94750000
+Cu       1.94750000       0.00000000       1.94750000
+Au       1.94750000       1.94750000       0.00000000
+Au       3.89500000       0.00000000       0.00000000
+Au       3.89500000       1.94750000       1.94750000
+Cu       5.84250000       0.00000000       1.94750000
+Au       5.84250000       1.94750000       0.00000000
+8
+Lattice="7.79 0.0 0.0 0.0 3.895 0.0 0.0 0.0 3.895" Properties=species:S:1:pos:R:3 ordering=00011101 split=train config_type=train8 kind=rattled in_training=T name=124_train8_00011101_rattled pbc="T T T"
+Cu       0.02067268       0.08107639      -0.11063979
+Cu      -0.01920623       1.93907019       1.98323134
+Cu       1.95660392       0.04900335       1.96367120
+Au       1.76728371       1.88824990       0.03133208
+Au       3.94882494       0.08507664      -0.02173745
+Au       3.96595540       1.96144493       2.03170959
+Cu       5.90558874       0.07247631       1.92481916
+Au       5.79188846       1.99350747       0.04920413
+8
+Lattice="7.79 0.0 0.0 0.0 3.895 0.0 0.0 0.0 3.895" Properties=species:S:1:pos:R:3 ordering=00011101 split=train config_type=train8 kind=rattled in_training=T name=125_train8_00011101_rattled pbc="T T T"
+Cu      -0.07831085      -0.01538104      -0.13389208
+Cu      -0.10611564       1.91712644       1.91674362
+Cu       1.90759247       0.06067534       2.06725709
+Au       1.94196576       1.86155209      -0.06163163
+Au       3.87349981       0.01542921      -0.01907630
+Au       3.77807416       1.92614052       1.89168642
+Cu       5.87199323       0.01866442       2.06301017
+Au       5.98718275       2.14245526      -0.03067031
+8
+Lattice="7.79 0.0 0.0 0.0 3.895 0.0 0.0 0.0 3.895" Properties=species:S:1:pos:R:3 ordering=00011101 split=train config_type=train8 kind=rattled in_training=T name=126_train8_00011101_rattled pbc="T T T"
+Cu       0.08716997       0.06893950      -0.05572939
+Cu       0.05491281       2.02614467       2.06498569
+Cu       1.93502837      -0.00280797       1.88952264
+Au       1.92513514       2.03792054      -0.14778725
+Au       3.86656509      -0.01148412       0.02797660
+Au       3.98821030       1.99445733       1.87535854
+Cu       5.85317440       0.14339923       1.90386857
+Au       5.77619333       1.93858346       0.06645080
+8
+Lattice="7.79 0.0 0.0 0.0 3.895 0.0 0.0 0.0 3.895" Properties=species:S:1:pos:R:3 ordering=00110011 split=train config_type=train8 kind=ideal in_training=T name=127_train8_00110011_ideal pbc="T T T"
+Cu       0.00000000       0.00000000       0.00000000
+Cu       0.00000000       1.94750000       1.94750000
+Au       1.94750000       0.00000000       1.94750000
+Au       1.94750000       1.94750000       0.00000000
+Cu       3.89500000       0.00000000       0.00000000
+Cu       3.89500000       1.94750000       1.94750000
+Au       5.84250000       0.00000000       1.94750000
+Au       5.84250000       1.94750000       0.00000000
+8
+Lattice="7.79 0.0 0.0 0.0 3.895 0.0 0.0 0.0 3.895" Properties=species:S:1:pos:R:3 ordering=00110011 split=train config_type=train8 kind=rattled in_training=T name=128_train8_00110011_rattled pbc="T T T"
+Cu      -0.03746600      -0.04600304      -0.04272173
+Cu      -0.14488613       1.92325272       1.95416639
+Au       1.86356543      -0.17539623       1.74014154
+Au       2.04233654       2.01459631      -0.00613536
+Cu       4.00008035       0.01179004       0.07419386
+Cu       3.85240936       2.06065566       1.85813255
+Au       5.88917338       0.11318949       1.86901094
+Au       5.96609900       1.87646086       0.07958148
+8
+Lattice="7.79 0.0 0.0 0.0 3.895 0.0 0.0 0.0 3.895" Properties=species:S:1:pos:R:3 ordering=00110011 split=train config_type=train8 kind=rattled in_training=T name=129_train8_00110011_rattled pbc="T T T"
+Cu      -0.03331530       0.01896197       0.04440944
+Cu      -0.11342451       1.94879506       1.88183020
+Au       2.09556954       0.02429872       1.97384935
+Au       1.89292653       2.02641583      -0.07791232
+Cu       3.94441616      -0.04498434       0.10931408
+Cu       3.82012807       1.76757473       2.12516097
+Au       5.69689211       0.07925921       1.99255204
+Au       5.69402191       1.99357019       0.05293021
+8
+Lattice="7.79 0.0 0.0 0.0 3.895 0.0 0.0 0.0 3.895" Properties=species:S:1:pos:R:3 ordering=00110011 split=train config_type=train8 kind=rattled in_training=T name=130_train8_00110011_rattled pbc="T T T"
+Cu       0.11208303       0.11030736       0.00985070
+Cu      -0.07306214       1.86994619       1.97151293
+Au       1.80009577       0.04700944       1.94685061
+Au       1.97255529       1.94498277       0.06571558
+Cu       3.86173654      -0.13770707       0.04120218
+Cu       3.88991023       1.88035165       1.91068030
+Au       5.69403659       0.14901506       1.91395581
+Au       5.70372434       2.03276336      -0.03610293
+8
+Lattice="8.1875 0.0 0.0 0.0 4.09375 0.0 0.0 0.0 4.09375" Properties=species:S:1:pos:R:3 ordering=01111111 split=train config_type=train8 kind=ideal in_training=T name=131_train8_01111111_ideal pbc="T T T"
+Cu       0.00000000       0.00000000       0.00000000
+Au       0.00000000       2.04687500       2.04687500
+Au       2.04687500       0.00000000       2.04687500
+Au       2.04687500       2.04687500       0.00000000
+Au       4.09375000       0.00000000       0.00000000
+Au       4.09375000       2.04687500       2.04687500
+Au       6.14062500       0.00000000       2.04687500
+Au       6.14062500       2.04687500       0.00000000
+8
+Lattice="8.1875 0.0 0.0 0.0 4.09375 0.0 0.0 0.0 4.09375" Properties=species:S:1:pos:R:3 ordering=01111111 split=train config_type=train8 kind=rattled in_training=T name=132_train8_01111111_rattled pbc="T T T"
+Cu      -0.08257050      -0.12079024       0.10993857
+Au       0.04725575       2.14829313       2.04247640
+Au       1.97717600       0.07549385       2.05174348
+Au       1.96799610       2.02930593       0.03364410
+Au       3.99561426       0.05830347      -0.03293864
+Au       4.17330749       2.06699371       2.16501144
+Au       6.15851478      -0.03356335       2.08376475
+Au       6.22173578       2.05596952      -0.02641103
+8
+Lattice="8.1875 0.0 0.0 0.0 4.09375 0.0 0.0 0.0 4.09375" Properties=species:S:1:pos:R:3 ordering=01111111 split=train config_type=train8 kind=rattled in_training=T name=133_train8_01111111_rattled pbc="T T T"
+Cu       0.01532168       0.17575832       0.06314159
+Au      -0.08550011       2.03258625       2.06849347
+Au       2.11456914       0.13782159       2.20488459
+Au       2.09053570       2.05904618      -0.00683380
+Au       3.91758524      -0.05345454      -0.09385778
+Au       4.14692738       1.97981706       2.20532774
+Au       6.03647665       0.04220674       2.10258908
+Au       6.10120504       2.09903980      -0.08710170
+8
+Lattice="8.1875 0.0 0.0 0.0 4.09375 0.0 0.0 0.0 4.09375" Properties=species:S:1:pos:R:3 ordering=01111111 split=train config_type=train8 kind=rattled in_training=T name=134_train8_01111111_rattled pbc="T T T"
+Cu      -0.03170878      -0.03349714      -0.00242323
+Au       0.03039497       2.10625272       2.02679884
+Au       2.06459914      -0.07737860       2.10720044
+Au       1.93299280       2.01864457       0.03525677
+Au       4.16199924      -0.14547917      -0.03640831
+Au       4.16135429       2.11046898       2.04751094
+Au       6.15691095      -0.01595162       2.12025047
+Au       5.98376675       2.20654053      -0.04793461
+8
+Lattice="7.525 0.0 0.0 0.0 3.7625 0.0 0.0 0.0 3.7625" Properties=species:S:1:pos:R:3 ordering=00000101 split=holdout config_type=holdout8 kind=ideal in_training=F name=135_holdout8_00000101_ideal pbc="T T T"
+Cu       0.00000000       0.00000000       0.00000000
+Cu       0.00000000       1.88125000       1.88125000
+Cu       1.88125000       0.00000000       1.88125000
+Cu       1.88125000       1.88125000       0.00000000
+Cu       3.76250000       0.00000000       0.00000000
+Au       3.76250000       1.88125000       1.88125000
+Cu       5.64375000       0.00000000       1.88125000
+Au       5.64375000       1.88125000       0.00000000
+8
+Lattice="7.525 0.0 0.0 0.0 3.7625 0.0 0.0 0.0 3.7625" Properties=species:S:1:pos:R:3 ordering=00000101 split=holdout config_type=holdout8 kind=rattled in_training=F name=136_holdout8_00000101_rattled pbc="T T T"
+Cu       0.06255154      -0.08120410      -0.15766401
+Cu      -0.06465949       1.81646107       1.96635991
+Cu       2.00028028      -0.17761274       1.90608657
+Cu       1.99119294       1.86203607      -0.16753100
+Cu       3.76660620       0.10828384      -0.04500412
+Au       3.67324011       1.82511543       1.69728986
+Cu       5.71432177       0.05310563       1.79319881
+Au       5.67837132       1.83690665      -0.01877795
+8
+Lattice="7.525 0.0 0.0 0.0 3.7625 0.0 0.0 0.0 3.7625" Properties=species:S:1:pos:R:3 ordering=00000101 split=holdout config_type=holdout8 kind=rattled in_training=F name=137_holdout8_00000101_rattled pbc="T T T"
+Cu      -0.02435077       0.04991363       0.05263744
+Cu      -0.05158430       1.92538570       1.85923986
+Cu       1.96963853      -0.04304507       1.92535611
+Cu       1.88542899       1.90207136      -0.10612620
+Cu       3.57720784       0.02459769       0.10591546
+Au       3.83635858       1.83852352       1.80099482
+Cu       5.72003892      -0.14293387       1.86446400
+Au       5.77930486       1.86393438      -0.09315623
+8
+Lattice="7.6575 0.0 0.0 0.0 3.82875 0.0 0.0 0.0 3.82875" Properties=species:S:1:pos:R:3 ordering=00000111 split=holdout config_type=holdout8 kind=ideal in_training=F name=138_holdout8_00000111_ideal pbc="T T T"
+Cu       0.00000000       0.00000000       0.00000000
+Cu       0.00000000       1.91437500       1.91437500
+Cu       1.91437500       0.00000000       1.91437500
+Cu       1.91437500       1.91437500       0.00000000
+Cu       3.82875000       0.00000000       0.00000000
+Au       3.82875000       1.91437500       1.91437500
+Au       5.74312500       0.00000000       1.91437500
+Au       5.74312500       1.91437500       0.00000000
+8
+Lattice="7.6575 0.0 0.0 0.0 3.82875 0.0 0.0 0.0 3.82875" Properties=species:S:1:pos:R:3 ordering=00000111 split=holdout config_type=holdout8 kind=rattled in_training=F name=139_holdout8_00000111_rattled pbc="T T T"
+Cu       0.02330186       0.12865814      -0.10824200
+Cu      -0.01684823       2.01457757       1.91689173
+Cu       1.79548029       0.02429473       1.92594850
+Cu       1.93111419       1.93613096       0.02890466
+Cu       3.80102143       0.01487111       0.02643362
+Au       3.93465113       1.95160882       1.96232893
+Au       5.64632281      -0.00674458       1.90284952
+Au       5.80520953       1.88638552       0.05676944
+8
+Lattice="7.6575 0.0 0.0 0.0 3.82875 0.0 0.0 0.0 3.82875" Properties=species:S:1:pos:R:3 ordering=00000111 split=holdout config_type=holdout8 kind=rattled in_training=F name=140_holdout8_00000111_rattled pbc="T T T"
+Cu      -0.16311581      -0.02554065       0.02013299
+Cu      -0.12456911       1.92736961       1.81281432
+Cu       1.97745913       0.00082771       1.85270930
+Cu       1.94830614       1.85287110      -0.05824102
+Cu       3.84335095      -0.08529310      -0.14505682
+Au       3.76412265       1.91605228       1.92238725
+Au       5.83116228      -0.05455088       1.94118834
+Au       5.65271552       1.94555257      -0.11333684
+8
+Lattice="7.79 0.0 0.0 0.0 3.895 0.0 0.0 0.0 3.895" Properties=species:S:1:pos:R:3 ordering=00001111 split=holdout config_type=holdout8 kind=ideal in_training=F name=141_holdout8_00001111_ideal pbc="T T T"
+Cu       0.00000000       0.00000000       0.00000000
+Cu       0.00000000       1.94750000       1.94750000
+Cu       1.94750000       0.00000000       1.94750000
+Cu       1.94750000       1.94750000       0.00000000
+Au       3.89500000       0.00000000       0.00000000
+Au       3.89500000       1.94750000       1.94750000
+Au       5.84250000       0.00000000       1.94750000
+Au       5.84250000       1.94750000       0.00000000
+8
+Lattice="7.79 0.0 0.0 0.0 3.895 0.0 0.0 0.0 3.895" Properties=species:S:1:pos:R:3 ordering=00001111 split=holdout config_type=holdout8 kind=rattled in_training=F name=142_holdout8_00001111_rattled pbc="T T T"
+Cu       0.00101600       0.01911462       0.05683332
+Cu      -0.02885018       1.90947013       1.91909180
+Cu       1.90892097      -0.08255319       2.00555627
+Cu       1.91030467       1.84423110       0.00617310
+Au       3.70381436      -0.03929119       0.14695645
+Au       3.96528270       2.08061126       2.05984510
+Au       5.85220282       0.03266913       2.07277306
+Au       5.76462104       1.93180213      -0.00713846
+8
+Lattice="7.79 0.0 0.0 0.0 3.895 0.0 0.0 0.0 3.895" Properties=species:S:1:pos:R:3 ordering=00001111 split=holdout config_type=holdout8 kind=rattled in_training=F name=143_holdout8_00001111_rattled pbc="T T T"
+Cu      -0.09129633       0.16396517      -0.09693597
+Cu      -0.10832860       1.86218797       2.08683072
+Cu       1.88189795       0.21576879       1.92653412
+Cu       1.93854673       1.90567518       0.05996599
+Au       3.95243954      -0.06847954       0.03351846
+Au       3.95535112       2.06667413       1.78586520
+Au       5.71642561       0.03060431       1.98415362
+Au       5.90534295       1.92939454       0.12852127
+8
+Lattice="7.6575 0.0 0.0 0.0 3.82875 0.0 0.0 0.0 3.82875" Properties=species:S:1:pos:R:3 ordering=00010011 split=holdout config_type=holdout8 kind=ideal in_training=F name=144_holdout8_00010011_ideal pbc="T T T"
+Cu       0.00000000       0.00000000       0.00000000
+Cu       0.00000000       1.91437500       1.91437500
+Cu       1.91437500       0.00000000       1.91437500
+Au       1.91437500       1.91437500       0.00000000
+Cu       3.82875000       0.00000000       0.00000000
+Cu       3.82875000       1.91437500       1.91437500
+Au       5.74312500       0.00000000       1.91437500
+Au       5.74312500       1.91437500       0.00000000
+8
+Lattice="7.6575 0.0 0.0 0.0 3.82875 0.0 0.0 0.0 3.82875" Properties=species:S:1:pos:R:3 ordering=00010011 split=holdout config_type=holdout8 kind=rattled in_training=F name=145_holdout8_00010011_rattled pbc="T T T"
+Cu      -0.03730697      -0.21713225      -0.11153685
+Cu       0.07610507       1.93391991       1.89107517
+Cu       1.74010208      -0.09544828       1.89401812
+Au       1.79509112       1.83377373       0.06353700
+Cu       3.86883581       0.04012615       0.01778284
+Cu       3.67900611       2.00851703       1.84526792
+Au       5.83119955       0.03002681       1.82918670
+Au       5.71693990       1.82353286      -0.03959588
+8
+Lattice="7.6575 0.0 0.0 0.0 3.82875 0.0 0.0 0.0 3.82875" Properties=species:S:1:pos:R:3 ordering=00010011 split=holdout config_type=holdout8 kind=rattled in_training=F name=146_holdout8_00010011_rattled pbc="T T T"
+Cu       0.00939945       0.04978384       0.05150286
+Cu       0.04067902       1.88384673       1.97638502
+Cu       1.87884710      -0.11748336       2.02008837
+Au       1.84068239       1.86238704       0.01495254
+Cu       3.83149334      -0.00437712      -0.03246757
+Cu       3.90438432       1.92964802       1.87146808
+Au       5.58315782       0.04091212       2.05893426
+Au       5.63310981       1.86370616       0.04432525
+8
+Lattice="7.6575 0.0 0.0 0.0 3.82875 0.0 0.0 0.0 3.82875" Properties=species:S:1:pos:R:3 ordering=00010110 split=holdout config_type=holdout8 kind=ideal in_training=F name=147_holdout8_00010110_ideal pbc="T T T"
+Cu       0.00000000       0.00000000       0.00000000
+Cu       0.00000000       1.91437500       1.91437500
+Cu       1.91437500       0.00000000       1.91437500
+Au       1.91437500       1.91437500       0.00000000
+Cu       3.82875000       0.00000000       0.00000000
+Au       3.82875000       1.91437500       1.91437500
+Au       5.74312500       0.00000000       1.91437500
+Cu       5.74312500       1.91437500       0.00000000
+8
+Lattice="7.6575 0.0 0.0 0.0 3.82875 0.0 0.0 0.0 3.82875" Properties=species:S:1:pos:R:3 ordering=00010110 split=holdout config_type=holdout8 kind=rattled in_training=F name=148_holdout8_00010110_rattled pbc="T T T"
+Cu      -0.01585368       0.07928453       0.03061938
+Cu      -0.04051337       1.95125882       1.83850053
+Cu       2.05738217      -0.00931226       1.86307818
+Au       1.91089331       1.97503766       0.03525897
+Cu       3.88256156      -0.03129760      -0.00646370
+Au       3.92868603       1.74310073       1.95752536
+Au       5.81472189      -0.07140084       1.98833983
+Cu       5.75200460       1.83678100       0.03425988
+8
+Lattice="7.6575 0.0 0.0 0.0 3.82875 0.0 0.0 0.0 3.82875" Properties=species:S:1:pos:R:3 ordering=00010110 split=holdout config_type=holdout8 kind=rattled in_training=F name=149_holdout8_00010110_rattled pbc="T T T"
+Cu       0.03127301      -0.02911061      -0.01198078
+Cu       0.04815360       1.93823143       1.80644673
+Cu       1.87756639      -0.09694115       1.93691935
+Au       1.74531248       1.92671101      -0.09667912
+Cu       4.00909621       0.13222068       0.07076873
+Au       3.77139536       1.91325309       1.92235681
+Au       5.81043236      -0.06942485       1.95762333
+Cu       5.80916818       1.89169225       0.09191774
+8
+Lattice="7.79 0.0 0.0 0.0 3.895 0.0 0.0 0.0 3.895" Properties=species:S:1:pos:R:3 ordering=00011110 split=holdout config_type=holdout8 kind=ideal in_training=F name=150_holdout8_00011110_ideal pbc="T T T"
+Cu       0.00000000       0.00000000       0.00000000
+Cu       0.00000000       1.94750000       1.94750000
+Cu       1.94750000       0.00000000       1.94750000
+Au       1.94750000       1.94750000       0.00000000
+Au       3.89500000       0.00000000       0.00000000
+Au       3.89500000       1.94750000       1.94750000
+Au       5.84250000       0.00000000       1.94750000
+Cu       5.84250000       1.94750000       0.00000000
+8
+Lattice="7.79 0.0 0.0 0.0 3.895 0.0 0.0 0.0 3.895" Properties=species:S:1:pos:R:3 ordering=00011110 split=holdout config_type=holdout8 kind=rattled in_training=F name=151_holdout8_00011110_rattled pbc="T T T"
+Cu       0.15040248      -0.07336496      -0.02795355
+Cu      -0.12307598       1.83119158       1.90969397
+Cu       1.98377050      -0.00133586       1.88639792
+Au       1.83952986       2.08131206      -0.03536943
+Au       4.07957418       0.09856537      -0.02031065
+Au       3.94909095       2.18121522       2.05262141
+Au       5.97056311       0.03523610       2.04203087
+Cu       5.95795935       2.13380759       0.05690714
+8
+Lattice="7.79 0.0 0.0 0.0 3.895 0.0 0.0 0.0 3.895" Properties=species:S:1:pos:R:3 ordering=00011110 split=holdout config_type=holdout8 kind=rattled in_training=F name=152_holdout8_00011110_rattled pbc="T T T"
+Cu      -0.10783908       0.04438450      -0.22471197
+Cu       0.09803877       1.91729846       1.86373918
+Cu       1.93735497      -0.07749658       1.89244901
+Au       2.16181598       1.79682326       0.03124344
+Au       3.94845007       0.07448120      -0.14877039
+Au       3.99614243       1.98465111       1.88884129
+Au       5.94857754       0.12540022       1.95227249
+Cu       5.85570810       1.82773178      -0.17895731
+8
+Lattice="7.9225 0.0 0.0 0.0 3.96125 0.0 0.0 0.0 3.96125" Properties=species:S:1:pos:R:3 ordering=00011111 split=holdout config_type=holdout8 kind=ideal in_training=F name=153_holdout8_00011111_ideal pbc="T T T"
+Cu       0.00000000       0.00000000       0.00000000
+Cu       0.00000000       1.98062500       1.98062500
+Cu       1.98062500       0.00000000       1.98062500
+Au       1.98062500       1.98062500       0.00000000
+Au       3.96125000       0.00000000       0.00000000
+Au       3.96125000       1.98062500       1.98062500
+Au       5.94187500       0.00000000       1.98062500
+Au       5.94187500       1.98062500       0.00000000
+8
+Lattice="7.9225 0.0 0.0 0.0 3.96125 0.0 0.0 0.0 3.96125" Properties=species:S:1:pos:R:3 ordering=00011111 split=holdout config_type=holdout8 kind=rattled in_training=F name=154_holdout8_00011111_rattled pbc="T T T"
+Cu       0.01963661      -0.02443665       0.04410413
+Cu      -0.09998645       2.01857392       2.04667647
+Cu       2.11629056      -0.11887276       2.10033129
+Au       2.04106654       2.14539352       0.03114893
+Au       3.94558074      -0.00768847       0.06663480
+Au       3.92139355       1.85205714       2.07570003
+Au       5.94340074       0.03191004       2.02015258
+Au       5.89084561       1.95747081      -0.13015738
+8
+Lattice="7.9225 0.0 0.0 0.0 3.96125 0.0 0.0 0.0 3.96125" Properties=species:S:1:pos:R:3 ordering=00011111 split=holdout config_type=holdout8 kind=rattled in_training=F name=155_holdout8_00011111_rattled pbc="T T T"
+Cu       0.05788267      -0.01234097      -0.11987561
+Cu      -0.10800771       2.01413360       1.89563718
+Cu       2.00257602      -0.16268870       1.99965599
+Au       2.04036760       1.87533661      -0.02602461
+Au       3.95122204       0.04242467       0.02553133
+Au       4.04528668       1.90003948       1.85162999
+Au       5.91694736      -0.06990204       1.81363792
+Au       5.86072712       2.01650278       0.08332794
+8
+Lattice="7.9225 0.0 0.0 0.0 3.96125 0.0 0.0 0.0 3.96125" Properties=species:S:1:pos:R:3 ordering=00110111 split=holdout config_type=holdout8 kind=ideal in_training=F name=156_holdout8_00110111_ideal pbc="T T T"
+Cu       0.00000000       0.00000000       0.00000000
+Cu       0.00000000       1.98062500       1.98062500
+Au       1.98062500       0.00000000       1.98062500
+Au       1.98062500       1.98062500       0.00000000
+Cu       3.96125000       0.00000000       0.00000000
+Au       3.96125000       1.98062500       1.98062500
+Au       5.94187500       0.00000000       1.98062500
+Au       5.94187500       1.98062500       0.00000000
+8
+Lattice="7.9225 0.0 0.0 0.0 3.96125 0.0 0.0 0.0 3.96125" Properties=species:S:1:pos:R:3 ordering=00110111 split=holdout config_type=holdout8 kind=rattled in_training=F name=157_holdout8_00110111_rattled pbc="T T T"
+Cu      -0.04434875       0.07670977       0.01097874
+Cu      -0.06977366       1.95892694       2.08537263
+Au       2.00753009       0.08835829       1.99092595
+Au       2.08227793       2.17569046      -0.09403918
+Cu       3.99962294      -0.03310111      -0.00721554
+Au       4.01447488       2.00904216       1.93443707
+Au       5.90116960      -0.08779089       1.94507119
+Au       6.08878511       2.00007376      -0.02111793
+8
+Lattice="7.9225 0.0 0.0 0.0 3.96125 0.0 0.0 0.0 3.96125" Properties=species:S:1:pos:R:3 ordering=00110111 split=holdout config_type=holdout8 kind=rattled in_training=F name=158_holdout8_00110111_rattled pbc="T T T"
+Cu       0.04295982       0.05463880      -0.11302655
+Cu       0.01033514       1.91022088       1.87512658
+Au       1.99755575      -0.07856838       2.04678178
+Au       1.93601147       2.02491067      -0.01006612
+Cu       3.88720849      -0.09498322      -0.08332240
+Au       3.99673361       1.90234080       1.97561997
+Au       5.94569764      -0.09584139       1.98837775
+Au       5.99525065       1.91080659      -0.02540863
+8
+Lattice="8.055 0.0 0.0 0.0 4.0275 0.0 0.0 0.0 4.0275" Properties=species:S:1:pos:R:3 ordering=00111111 split=holdout config_type=holdout8 kind=ideal in_training=F name=159_holdout8_00111111_ideal pbc="T T T"
+Cu       0.00000000       0.00000000       0.00000000
+Cu       0.00000000       2.01375000       2.01375000
+Au       2.01375000       0.00000000       2.01375000
+Au       2.01375000       2.01375000       0.00000000
+Au       4.02750000       0.00000000       0.00000000
+Au       4.02750000       2.01375000       2.01375000
+Au       6.04125000       0.00000000       2.01375000
+Au       6.04125000       2.01375000       0.00000000
+8
+Lattice="8.055 0.0 0.0 0.0 4.0275 0.0 0.0 0.0 4.0275" Properties=species:S:1:pos:R:3 ordering=00111111 split=holdout config_type=holdout8 kind=rattled in_training=F name=160_holdout8_00111111_rattled pbc="T T T"
+Cu      -0.14235547       0.07425276      -0.05693032
+Cu      -0.04465939       2.15021925       1.99068358
+Au       1.97501289      -0.01031377       2.10858478
+Au       1.90645643       1.93521923      -0.00064018
+Au       4.05663126      -0.00678175      -0.11779851
+Au       3.95660089       2.08197196       2.05744718
+Au       6.02406701      -0.03046080       2.01077341
+Au       6.11740912       2.14257168      -0.02994720
+8
+Lattice="8.055 0.0 0.0 0.0 4.0275 0.0 0.0 0.0 4.0275" Properties=species:S:1:pos:R:3 ordering=00111111 split=holdout config_type=holdout8 kind=rattled in_training=F name=161_holdout8_00111111_rattled pbc="T T T"
+Cu      -0.06074172      -0.04286219       0.07312657
+Cu       0.02427356       2.04181178       2.04379332
+Au       1.94330335      -0.05490390       1.94056024
+Au       2.21668662       2.03690609      -0.01304750
+Au       4.07227639      -0.08937122      -0.08901986
+Au       4.02458860       2.08652423       2.03449194
+Au       5.97998051       0.04174650       2.06734869
+Au       5.88803629       1.90615066       0.09851262
+8
+Lattice="7.79 0.0 0.0 0.0 3.895 0.0 0.0 0.0 3.895" Properties=species:S:1:pos:R:3 ordering=01010110 split=holdout config_type=holdout8 kind=ideal in_training=F name=162_holdout8_01010110_ideal pbc="T T T"
+Cu       0.00000000       0.00000000       0.00000000
+Au       0.00000000       1.94750000       1.94750000
+Cu       1.94750000       0.00000000       1.94750000
+Au       1.94750000       1.94750000       0.00000000
+Cu       3.89500000       0.00000000       0.00000000
+Au       3.89500000       1.94750000       1.94750000
+Au       5.84250000       0.00000000       1.94750000
+Cu       5.84250000       1.94750000       0.00000000
+8
+Lattice="7.79 0.0 0.0 0.0 3.895 0.0 0.0 0.0 3.895" Properties=species:S:1:pos:R:3 ordering=01010110 split=holdout config_type=holdout8 kind=rattled in_training=F name=163_holdout8_01010110_rattled pbc="T T T"
+Cu       0.02896988      -0.01573795       0.01323190
+Au      -0.01810645       1.88641658       2.05410128
+Cu       2.00126825       0.03969099       1.96997593
+Au       1.87579339       1.98848358      -0.09949485
+Cu       4.03891779      -0.07433970       0.06163533
+Au       3.85427850       1.92668898       1.98245013
+Au       5.78516309       0.02650600       1.99636677
+Cu       5.79054096       1.93918879       0.20111774
+8
+Lattice="7.79 0.0 0.0 0.0 3.895 0.0 0.0 0.0 3.895" Properties=species:S:1:pos:R:3 ordering=01010110 split=holdout config_type=holdout8 kind=rattled in_training=F name=164_holdout8_01010110_rattled pbc="T T T"
+Cu      -0.09070143      -0.17459095       0.13199261
+Au      -0.08019016       1.91999040       1.98867609
+Cu       1.76894862      -0.00443144       2.09950356
+Au       1.84894883       1.88507863      -0.00336815
+Cu       3.86251984       0.08154404       0.01615431
+Au       3.85878922       2.01459827       1.98810853
+Au       5.79285985      -0.05950757       1.92153425
+Cu       5.91104712       1.96510985      -0.18121694
+8
+Lattice="7.79 0.0 0.0 0.0 3.895 0.0 0.0 0.0 3.895" Properties=species:S:1:pos:R:3 ordering=01011010 split=holdout config_type=holdout8 kind=ideal in_training=F name=165_holdout8_01011010_ideal pbc="T T T"
+Cu       0.00000000       0.00000000       0.00000000
+Au       0.00000000       1.94750000       1.94750000
+Cu       1.94750000       0.00000000       1.94750000
+Au       1.94750000       1.94750000       0.00000000
+Au       3.89500000       0.00000000       0.00000000
+Cu       3.89500000       1.94750000       1.94750000
+Au       5.84250000       0.00000000       1.94750000
+Cu       5.84250000       1.94750000       0.00000000
+8
+Lattice="7.79 0.0 0.0 0.0 3.895 0.0 0.0 0.0 3.895" Properties=species:S:1:pos:R:3 ordering=01011010 split=holdout config_type=holdout8 kind=rattled in_training=F name=166_holdout8_01011010_rattled pbc="T T T"
+Cu      -0.09902888       0.01327659       0.07083100
+Au      -0.09803495       1.82174333       2.11648100
+Cu       1.92272597       0.03731300       1.94227654
+Au       1.91915199       2.02526357      -0.16833491
+Au       3.91277283       0.14283393       0.11207753
+Cu       3.99303292       1.94886186       2.00571977
+Au       5.86320339       0.11489017       1.89006435
+Cu       5.90946465       1.76773363      -0.03137155
+8
+Lattice="7.79 0.0 0.0 0.0 3.895 0.0 0.0 0.0 3.895" Properties=species:S:1:pos:R:3 ordering=01011010 split=holdout config_type=holdout8 kind=rattled in_training=F name=167_holdout8_01011010_rattled pbc="T T T"
+Cu      -0.00710431      -0.19443666      -0.01186692
+Au       0.07490392       1.92366451       1.91813763
+Cu       1.89754273      -0.03133875       1.83211170
+Au       1.91480704       1.79363965       0.08717611
+Au       3.90112711      -0.03347085      -0.11974280
+Cu       3.88484214       1.93936587       2.04294273
+Au       5.81946402      -0.18343089       2.04913911
+Cu       5.80701917       1.94258700      -0.04280912
+8
+Lattice="7.9225 0.0 0.0 0.0 3.96125 0.0 0.0 0.0 3.96125" Properties=species:S:1:pos:R:3 ordering=01011011 split=holdout config_type=holdout8 kind=ideal in_training=F name=168_holdout8_01011011_ideal pbc="T T T"
+Cu       0.00000000       0.00000000       0.00000000
+Au       0.00000000       1.98062500       1.98062500
+Cu       1.98062500       0.00000000       1.98062500
+Au       1.98062500       1.98062500       0.00000000
+Au       3.96125000       0.00000000       0.00000000
+Cu       3.96125000       1.98062500       1.98062500
+Au       5.94187500       0.00000000       1.98062500
+Au       5.94187500       1.98062500       0.00000000
+8
+Lattice="7.9225 0.0 0.0 0.0 3.96125 0.0 0.0 0.0 3.96125" Properties=species:S:1:pos:R:3 ordering=01011011 split=holdout config_type=holdout8 kind=rattled in_training=F name=169_holdout8_01011011_rattled pbc="T T T"
+Cu       0.02501266       0.04972923       0.16859483
+Au       0.05021178       1.90650462       1.97463817
+Cu       1.88369102      -0.03608173       2.01717163
+Au       1.91424190       1.96988709       0.06400505
+Au       3.94597692       0.04306689       0.19420541
+Cu       3.95193947       2.19313961       1.91891590
+Au       5.85336620       0.05792795       1.94190540
+Au       5.92684106       1.96822255      -0.04779351
+8
+Lattice="7.9225 0.0 0.0 0.0 3.96125 0.0 0.0 0.0 3.96125" Properties=species:S:1:pos:R:3 ordering=01011011 split=holdout config_type=holdout8 kind=rattled in_training=F name=170_holdout8_01011011_rattled pbc="T T T"
+Cu      -0.00009865      -0.10341057       0.01127394
+Au       0.07719069       1.97052480       1.95407610
+Cu       1.94703312       0.00774900       2.04027998
+Au       1.81754127       1.97539891      -0.07657122
+Au       3.93540019       0.04346379       0.03934074
+Cu       3.97415735       2.04329376       1.92923069
+Au       5.85961514      -0.05481940       1.89175167
+Au       5.85936865       2.01859165      -0.15428844
+8
+Lattice="8.055 0.0 0.0 0.0 4.0275 0.0 0.0 0.0 4.0275" Properties=species:S:1:pos:R:3 ordering=01011111 split=holdout config_type=holdout8 kind=ideal in_training=F name=171_holdout8_01011111_ideal pbc="T T T"
+Cu       0.00000000       0.00000000       0.00000000
+Au       0.00000000       2.01375000       2.01375000
+Cu       2.01375000       0.00000000       2.01375000
+Au       2.01375000       2.01375000       0.00000000
+Au       4.02750000       0.00000000       0.00000000
+Au       4.02750000       2.01375000       2.01375000
+Au       6.04125000       0.00000000       2.01375000
+Au       6.04125000       2.01375000       0.00000000
+8
+Lattice="8.055 0.0 0.0 0.0 4.0275 0.0 0.0 0.0 4.0275" Properties=species:S:1:pos:R:3 ordering=01011111 split=holdout config_type=holdout8 kind=rattled in_training=F name=172_holdout8_01011111_rattled pbc="T T T"
+Cu      -0.03456692      -0.01653818       0.04215990
+Au       0.13612632       2.01746153       2.22616805
+Cu       1.92897936       0.01658804       2.10221845
+Au       2.01606543       1.86003384      -0.04759304
+Au       4.02668501      -0.10204137       0.11104414
+Au       3.90371824       2.17424493       2.05622739
+Au       6.09970844      -0.03673078       1.97271077
+Au       5.89535002       2.10641595      -0.02719336
+8
+Lattice="8.055 0.0 0.0 0.0 4.0275 0.0 0.0 0.0 4.0275" Properties=species:S:1:pos:R:3 ordering=01011111 split=holdout config_type=holdout8 kind=rattled in_training=F name=173_holdout8_01011111_rattled pbc="T T T"
+Cu      -0.08621790      -0.03628587      -0.00360127
+Au       0.03151653       1.98194943       1.97445916
+Cu       2.06221705      -0.09930492       2.00778782
+Au       2.25102320       2.05153160       0.07840023
+Au       4.08309242       0.04763778      -0.16537076
+Au       4.09203501       2.19462575       2.19143503
+Au       6.04350539      -0.01029401       2.05250803
+Au       5.99341778       2.12425077      -0.00374783
+8
+Lattice="8.055 0.0 0.0 0.0 4.0275 0.0 0.0 0.0 4.0275" Properties=species:S:1:pos:R:3 ordering=01110111 split=holdout config_type=holdout8 kind=ideal in_training=F name=174_holdout8_01110111_ideal pbc="T T T"
+Cu       0.00000000       0.00000000       0.00000000
+Au       0.00000000       2.01375000       2.01375000
+Au       2.01375000       0.00000000       2.01375000
+Au       2.01375000       2.01375000       0.00000000
+Cu       4.02750000       0.00000000       0.00000000
+Au       4.02750000       2.01375000       2.01375000
+Au       6.04125000       0.00000000       2.01375000
+Au       6.04125000       2.01375000       0.00000000
+8
+Lattice="8.055 0.0 0.0 0.0 4.0275 0.0 0.0 0.0 4.0275" Properties=species:S:1:pos:R:3 ordering=01110111 split=holdout config_type=holdout8 kind=rattled in_training=F name=175_holdout8_01110111_rattled pbc="T T T"
+Cu       0.06604266       0.11608896      -0.05745056
+Au      -0.14324056       1.87609626       2.02379370
+Au       1.90410121      -0.11370249       1.88111237
+Au       2.04963242       2.10006825       0.10429961
+Cu       3.94712547      -0.03617899      -0.15927284
+Au       4.09693313       2.10007217       1.88656091
+Au       6.05118590      -0.06029886       2.00911187
+Au       6.14939372       2.11366878      -0.00182439
+8
+Lattice="8.055 0.0 0.0 0.0 4.0275 0.0 0.0 0.0 4.0275" Properties=species:S:1:pos:R:3 ordering=01110111 split=holdout config_type=holdout8 kind=rattled in_training=F name=176_holdout8_01110111_rattled pbc="T T T"
+Cu      -0.00154287       0.05638427       0.14339876
+Au       0.08415568       2.09222523       2.04384999
+Au       1.96001287      -0.02272289       2.01981377
+Au       2.13251626       1.96194910       0.11161244
+Cu       4.02450746       0.00874292       0.06654407
+Au       4.11497278       2.01127464       1.92524178
+Au       6.05823672       0.09303677       2.05235307
+Au       6.04775559       1.90515955      -0.03622291
+8
+Lattice="8.055 0.0 0.0 0.0 4.0275 0.0 0.0 0.0 4.0275" Properties=species:S:1:pos:R:3 ordering=01111011 split=holdout config_type=holdout8 kind=ideal in_training=F name=177_holdout8_01111011_ideal pbc="T T T"
+Cu       0.00000000       0.00000000       0.00000000
+Au       0.00000000       2.01375000       2.01375000
+Au       2.01375000       0.00000000       2.01375000
+Au       2.01375000       2.01375000       0.00000000
+Au       4.02750000       0.00000000       0.00000000
+Cu       4.02750000       2.01375000       2.01375000
+Au       6.04125000       0.00000000       2.01375000
+Au       6.04125000       2.01375000       0.00000000
+8
+Lattice="8.055 0.0 0.0 0.0 4.0275 0.0 0.0 0.0 4.0275" Properties=species:S:1:pos:R:3 ordering=01111011 split=holdout config_type=holdout8 kind=rattled in_training=F name=178_holdout8_01111011_rattled pbc="T T T"
+Cu       0.01665028       0.06082552      -0.03258935
+Au      -0.11510705       1.98267780       1.92403022
+Au       2.04824345      -0.00304403       2.06553883
+Au       2.08892637       2.06493024      -0.12363021
+Au       4.10492379       0.12720182       0.07954544
+Cu       4.19162021       2.02839160       2.07288770
+Au       6.07046777       0.13006741       2.18465535
+Au       6.07839929       1.94824059       0.00296522
+8
+Lattice="8.055 0.0 0.0 0.0 4.0275 0.0 0.0 0.0 4.0275" Properties=species:S:1:pos:R:3 ordering=01111011 split=holdout config_type=holdout8 kind=rattled in_training=F name=179_holdout8_01111011_rattled pbc="T T T"
+Cu      -0.06303046      -0.03665616      -0.14727677
+Au       0.05778571       1.93745405       2.05547289
+Au       1.98288726      -0.05193442       1.94236859
+Au       2.02473675       1.94496058      -0.11460183
+Au       3.97167331      -0.00854260       0.07461952
+Cu       4.07322171       2.03571558       1.87685126
+Au       6.02941149      -0.13657264       2.12180054
+Au       6.17534763       2.01705386       0.02623721
