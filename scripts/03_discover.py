@@ -131,6 +131,24 @@ def main():
         verdict = f"MISS: champion sits {gap:.1f} meV/atom above the reference ground state"
     print(f"  reference global minimum: {ref_best['ordering']} at {ref_best['ref_formation'] * 1000:.2f} meV/atom")
     print(f"  -> {verdict}")
+
+    ref_gs_at = {}
+    for r in rows:
+        if r["x_au"] not in ref_gs_at or r["ref_formation"] < ref_gs_at[r["x_au"]]["ref_formation"]:
+            ref_gs_at[r["x_au"]] = r
+    shortlist = sorted([r for r in rows if r["on_mace_hull"] and 0 < r["x_au"] < 1], key=lambda r: r["x_au"])
+    print("\nVerify step - the agent sends the vertices of MACE's hull (its predicted ground state at each composition) to DFT:")
+    print(f"  {'ordering':9s} {'x_Au':>5s} {'MACE':>8s} {'reference':>10s} {'error':>7s}  (meV/atom)")
+    hits = 0
+    for r in shortlist:
+        is_gs = ref_gs_at[r["x_au"]]["ordering"] == r["ordering"]
+        hits += is_gs
+        flag = "  confirmed: reference ground state at this composition" if is_gs else \
+            f"  rejected: reference prefers {ref_gs_at[r['x_au']]['ordering']} ({ref_gs_at[r['x_au']]['ref_formation'] * 1000:.2f})"
+        print(f"  {r['ordering']:9s} {r['x_au']:5.3f} {r['mace_formation'] * 1000:8.2f} {r['ref_formation'] * 1000:10.2f} "
+              f"{abs(r['mace_formation'] - r['ref_formation']) * 1000:7.2f}{flag}")
+    print(f"  -> {hits}/{len(shortlist)} predicted ground states confirmed with {len(shortlist)} DFT calls instead of {len(rows)}; "
+          f"rejected ones go back into training (the 'refine' step)")
     print(f"\nconvex hull: MACE puts {len(mace_hull)} orderings on the hull, reference {len(ref_hull)}; "
           f"agreement on {len(mace_hull & ref_hull)}/{len(ref_hull)} reference ground states")
     print(f"mean |MACE - reference| over the {sum(1 for r in rows if not r['in_training'])} never-trained orderings: "
@@ -143,6 +161,7 @@ def main():
     (RESULTS / "discovery.json").write_text(json.dumps({
         "champion": champ | {"mace_formation": champ_mace},
         "reference_global_minimum": ref_best,
+        "shortlist": shortlist,
         "ga_history": history,
         "ga_unique_evaluations": ga_calls,
         "ga_seconds": round(ga_time, 2),

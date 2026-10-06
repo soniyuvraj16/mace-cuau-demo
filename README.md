@@ -58,9 +58,11 @@ So: install *before* the session if you can, and the live part is about three
 and a half minutes. On a laptop GPU (GTX 1650) the pipeline takes about two
 minutes.
 
-Knobs, all on `run_demo.py`: `--epochs N` (20 by default; 30 gets the
-held-out error from ~5 to ~2 meV/atom for another ~100 s on CPU, 15 is too
-few), `--skip-finetune` to reuse `models/cuau_ft.model` from a previous run.
+Knobs, all on `run_demo.py`: `--epochs N` (20 by default, chosen so install
+plus run fits in 8 minutes; **if the environment is already installed, use
+`--epochs 30`** — held-out error drops from ~6 to ~3.5 meV/atom for another
+~90 s on CPU; 15 is too few), `--skip-finetune` to reuse `models/cuau_ft.model`
+from a previous run.
 
 The first run downloads the MACE-MP-0 small foundation model (a few MB) into
 `~/.cache/mace`; after that everything is offline.
@@ -68,9 +70,11 @@ The first run downloads the MACE-MP-0 small foundation model (a few MB) into
 ## Prompt to give the agent
 
 > Clone this repo, read README.md, and run the demo exactly as it describes:
-> create the venv, install the requirements, run `run_demo.py`. Then report
-> the timing table, the before/after validation table, the step-3 verdict, and
-> open the two figures. Don't change any code.
+> create the venv, install the requirements, run `run_demo.py` (with
+> `--epochs 30` if the environment was already installed). Then report the
+> timing table, the before/after validation table, the step-3 champion verdict
+> and the verify-step shortlist, and open the two figures. Don't change any
+> code.
 
 ## What is in the data
 
