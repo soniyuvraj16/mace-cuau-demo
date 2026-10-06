@@ -122,9 +122,8 @@ flags it if no label exists yet — which is what an agent would then request).
 > potential for timing the pipeline without DFT; it refuses to overwrite DFT
 > files unless forced. Two orderings (`00010101`, `01010111`) were found after
 > the first 180 calculations, through a bug in the symmetry reduction that had
-> merged each with a look-alike; their 6 structures are labelled in a top-up
-> run. Until that lands, `data/holdout.xyz` has 45 frames and step 3 reports
-> those two orderings as "no DFT label yet".
+> merged each with a look-alike; their 6 structures were labelled in a top-up
+> run, so all 27 orderings have DFT labels.
 
 ## Why Cu–Au
 

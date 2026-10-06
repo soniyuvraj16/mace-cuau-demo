@@ -76,8 +76,22 @@ def main():
     shutil.copy(ROOT / "scripts" / "common.py", bundle / "tools" / "common.py")
     (bundle / "data").mkdir(exist_ok=True)
     shutil.copy(DATA / "structures.xyz", bundle / "data" / "structures.xyz")
+    fixed = normalize_newlines(bundle)
     print(f"wrote {len(names)} calculation directories under {out}")
     print(f"bundle {bundle} is self-contained: submit_array.sh, HANDOFF_GRACE.md, tools/collect.py, data/structures.xyz")
+    print(f"line endings: {fixed} files converted to LF (the cluster is Linux; Windows writes CRLF)")
+
+
+def normalize_newlines(bundle):
+    fixed = 0
+    for path in bundle.rglob("*"):
+        if not path.is_file() or path.name == "POTCAR":
+            continue
+        raw = path.read_bytes()
+        if b"\r\n" in raw:
+            path.write_bytes(raw.replace(b"\r\n", b"\n"))
+            fixed += 1
+    return fixed
     print(f"POTCAR {'included' if potcar_dir else 'NOT included (pass --potcar-dir or add on the cluster)'}")
 
 
