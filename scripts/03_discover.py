@@ -2,7 +2,7 @@
 fine-tuned MACE instead of DFT. The champion is then graded against reference
 data for the same ordering.
 
-Search space: all 2^8 decorations of an 8-site FCC supercell (25 distinct
+Search space: all 2^8 decorations of an 8-site FCC supercell (27 distinct
 orderings after symmetry). Small enough to also brute-force, which shows how
 many evaluations the genetic algorithm actually needed.
 """
@@ -16,7 +16,7 @@ import numpy as np
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 
-from common import FIGURES, MODELS, MODEL_NAME, RESULTS, banner, build, device, fingerprint, formation_energy_per_atom, lower_hull, mace_calculator, pure_per_atom, reference_ideals_8atom  # noqa: E402
+from common import FIGURES, MODELS, MODEL_NAME, RESULTS, banner, build, canonical, device, distinct_orderings, formation_energy_per_atom, lower_hull, mace_calculator, pure_per_atom, reference_ideals_8atom  # noqa: E402
 
 REPEAT = (2, 1, 1)
 N_SITES = 8
@@ -33,13 +33,13 @@ class Oracle:
         self.e_cu, self.e_au = pure_per_atom(self.total, N_SITES)
 
     def total(self, bits):
-        fp = fingerprint(bits, REPEAT)
-        if fp not in self.cache:
+        key = canonical(bits, REPEAT)
+        if key not in self.cache:
             at = build(bits, repeat=REPEAT)
             at.calc = self.calc
-            self.cache[fp] = float(at.get_potential_energy())
+            self.cache[key] = float(at.get_potential_energy())
             self.calls += 1
-        return self.cache[fp]
+        return self.cache[key]
 
     def formation(self, bits):
         n_au = sum(bits)
@@ -78,7 +78,7 @@ def reference_table():
     table = {}
     for bits, (e, in_training) in ref.items():
         n_au = sum(bits)
-        table[fingerprint(bits, REPEAT)] = {
+        table[canonical(bits, REPEAT)] = {
             "ordering": "".join(map(str, bits)),
             "x_au": n_au / N_SITES,
             "ref_formation": formation_energy_per_atom(e, N_SITES - n_au, n_au, e_cu, e_au),
@@ -93,47 +93,58 @@ def main():
     oracle = Oracle(mace_calculator(MODELS / f"{MODEL_NAME}.model", dev))
     ref = reference_table()
 
-    t0 = time.time()
-    champion, history = genetic_search(oracle, lambda bits: ref[fingerprint(bits, REPEAT)]["ordering"])
-    ga_calls, ga_time = oracle.calls, time.time() - t0
+    def name_of(bits):
+        key = canonical(bits, REPEAT)
+        return ref[key]["ordering"] if key in ref else key
 
     t0 = time.time()
+    champion, history = genetic_search(oracle, name_of)
+    ga_calls, ga_time = oracle.calls, time.time() - t0
+
+    # MACE evaluates every distinct ordering; the reference covers those with a DFT label
+    t0 = time.time()
     rows = []
-    for r in ref.values():
-        bits = tuple(int(c) for c in r["ordering"])
-        rows.append(r | {"mace_formation": oracle.formation(bits)})
+    for rep in distinct_orderings(REPEAT):
+        key = canonical(rep, REPEAT)
+        r = ref.get(key, {"ordering": key, "x_au": sum(rep) / N_SITES, "ref_formation": None, "in_training": False})
+        rows.append(r | {"mace_formation": oracle.formation(rep)})
     brute_time = time.time() - t0
+    labelled = [r for r in rows if r["ref_formation"] is not None]
+    unlabelled = [r for r in rows if r["ref_formation"] is None]
 
     xs = [r["x_au"] for r in rows]
     mace_hull = {rows[k]["ordering"] for k in lower_hull(xs, [r["mace_formation"] for r in rows])}
-    ref_hull = {rows[k]["ordering"] for k in lower_hull(xs, [r["ref_formation"] for r in rows])}
+    ref_hull = {labelled[k]["ordering"] for k in lower_hull([r["x_au"] for r in labelled], [r["ref_formation"] for r in labelled])}
     for r in rows:
         r["on_mace_hull"] = r["ordering"] in mace_hull
         r["on_ref_hull"] = r["ordering"] in ref_hull
 
-    champ = ref[fingerprint(champion, REPEAT)]
-    champ_mace = oracle.formation(champion)
-    ref_best = min(rows, key=lambda r: r["ref_formation"])
-    mixed_err = np.mean([abs(r["mace_formation"] - r["ref_formation"]) for r in rows if 0 < r["x_au"] < 1]) * 1000
-    heldout_err = np.mean([abs(r["mace_formation"] - r["ref_formation"]) for r in rows if not r["in_training"]]) * 1000
+    champ = next(r for r in rows if r["ordering"] == name_of(champion))
+    champ_mace = champ["mace_formation"]
+    ref_best = min(labelled, key=lambda r: r["ref_formation"])
+    heldout = [r for r in labelled if not r["in_training"] and 0 < r["x_au"] < 1]
+    heldout_err = np.mean([abs(r["mace_formation"] - r["ref_formation"]) for r in heldout]) * 1000
 
     seen = "was in the training set" if champ["in_training"] else "was NEVER in the training set"
     print(f"\nGA champion: {champ['ordering']}  (x_Au = {champ['x_au']:.3f}) -- this ordering {seen}")
     print(f"  MACE      E_form = {champ_mace * 1000:7.2f} meV/atom")
-    print(f"  reference E_form = {champ['ref_formation'] * 1000:7.2f} meV/atom   "
-          f"(error {abs(champ_mace - champ['ref_formation']) * 1000:.2f} meV/atom)")
-    gap = (champ["ref_formation"] - ref_best["ref_formation"]) * 1000
-    if ref_best["ordering"] == champ["ordering"]:
-        verdict = "MATCH: the GA found the reference ground state"
-    elif gap < 1.0:
-        verdict = f"effectively a MATCH: reference puts the champion only {gap:.2f} meV/atom above its ground state"
+    if champ["ref_formation"] is None:
+        print("  reference E_form = (no DFT label for this ordering yet) -> the agent would request one now")
     else:
-        verdict = f"MISS: champion sits {gap:.1f} meV/atom above the reference ground state"
-    print(f"  reference global minimum: {ref_best['ordering']} at {ref_best['ref_formation'] * 1000:.2f} meV/atom")
-    print(f"  -> {verdict}")
+        print(f"  reference E_form = {champ['ref_formation'] * 1000:7.2f} meV/atom   "
+              f"(error {abs(champ_mace - champ['ref_formation']) * 1000:.2f} meV/atom)")
+        gap = (champ["ref_formation"] - ref_best["ref_formation"]) * 1000
+        if ref_best["ordering"] == champ["ordering"]:
+            verdict = "MATCH: the GA found the reference ground state"
+        elif gap < 1.0:
+            verdict = f"effectively a MATCH: reference puts the champion only {gap:.2f} meV/atom above its ground state"
+        else:
+            verdict = f"MISS: champion sits {gap:.1f} meV/atom above the reference ground state"
+        print(f"  reference global minimum: {ref_best['ordering']} at {ref_best['ref_formation'] * 1000:.2f} meV/atom")
+        print(f"  -> {verdict}")
 
     ref_gs_at = {}
-    for r in rows:
+    for r in labelled:
         if r["x_au"] not in ref_gs_at or r["ref_formation"] < ref_gs_at[r["x_au"]]["ref_formation"]:
             ref_gs_at[r["x_au"]] = r
     shortlist = sorted([r for r in rows if r["on_mace_hull"] and 0 < r["x_au"] < 1], key=lambda r: r["x_au"])
@@ -141,6 +152,9 @@ def main():
     print(f"  {'ordering':9s} {'x_Au':>5s} {'MACE':>8s} {'reference':>10s} {'error':>7s}  (meV/atom)")
     hits = 0
     for r in shortlist:
+        if r["ref_formation"] is None:
+            print(f"  {r['ordering']:9s} {r['x_au']:5.3f} {r['mace_formation'] * 1000:8.2f} {'--':>10s} {'--':>7s}  no DFT label yet: request it")
+            continue
         is_gs = ref_gs_at[r["x_au"]]["ordering"] == r["ordering"]
         hits += is_gs
         flag = "  confirmed: reference ground state at this composition" if is_gs else \
@@ -149,10 +163,11 @@ def main():
               f"{abs(r['mace_formation'] - r['ref_formation']) * 1000:7.2f}{flag}")
     print(f"  -> {hits}/{len(shortlist)} predicted ground states confirmed with {len(shortlist)} DFT calls instead of {len(rows)}; "
           f"rejected ones go back into training (the 'refine' step)")
+    if unlabelled:
+        print(f"  ({len(unlabelled)} of {len(rows)} orderings have no DFT label yet: {', '.join(r['ordering'] for r in unlabelled)})")
     print(f"\nconvex hull: MACE puts {len(mace_hull)} orderings on the hull, reference {len(ref_hull)}; "
           f"agreement on {len(mace_hull & ref_hull)}/{len(ref_hull)} reference ground states")
-    print(f"mean |MACE - reference| over the {sum(1 for r in rows if not r['in_training'])} never-trained orderings: "
-          f"{heldout_err:.1f} meV/atom (all mixed: {mixed_err:.1f})")
+    print(f"mean |MACE - reference| over the {len(heldout)} never-trained mixed orderings with labels: {heldout_err:.1f} meV/atom")
     print(f"GA: {ga_calls} unique MACE evaluations in {ga_time:.1f} s; "
           f"brute force over all {len(rows)} distinct orderings took {brute_time:.1f} s more")
 
@@ -170,10 +185,10 @@ def main():
 
     fig, ax = plt.subplots(figsize=(6.5, 4.5))
     xs_arr = np.array(xs)
-    ref_arr = np.array([r["ref_formation"] for r in rows]) * 1000
+    ref_arr = np.array([np.nan if r["ref_formation"] is None else r["ref_formation"] for r in rows]) * 1000
     mace_arr = np.array([r["mace_formation"] for r in rows]) * 1000
     trained = np.array([r["in_training"] for r in rows])
-    ax.scatter(xs_arr, ref_arr, s=40, facecolors="none", edgecolors="k", label="reference")
+    ax.scatter(xs_arr, ref_arr, s=40, facecolors="none", edgecolors="k", label="reference (DFT)")
     ax.scatter(xs_arr[trained], mace_arr[trained], s=18, color="#7b1fa2", label="MACE (ordering in training)")
     ax.scatter(xs_arr[~trained], mace_arr[~trained], s=18, color="#c2185b", label="MACE (never seen)")
     for hull, arr, color, ls, lab in ((ref_hull, ref_arr, "k", "--", "reference hull"), (mace_hull, mace_arr, "#c2185b", "-", "MACE hull")):

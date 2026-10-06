@@ -7,13 +7,11 @@ import warnings
 
 warnings.filterwarnings("ignore")
 os.environ.setdefault("PYTHONWARNINGS", "ignore")
-from collections import Counter
+from functools import lru_cache
 from pathlib import Path
 
 import numpy as np
-from ase import Atoms
 from ase.build import bulk
-from ase.neighborlist import neighbor_list
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
@@ -23,7 +21,6 @@ FIGURES = ROOT / "figures"
 
 A_CU = 3.63  # PBE lattice constants
 A_AU = 4.16
-FINGERPRINT_A = 4.0
 MODEL_NAME = "cuau_ft"
 
 
@@ -56,26 +53,64 @@ def build(bits, a=None, repeat=(1, 1, 1)):
     return atoms
 
 
-def fingerprint(bits, repeat):
-    """Symmetry-invariant key: pair-type/distance histogram on a fixed lattice."""
-    atoms = build(bits, a=FINGERPRINT_A, repeat=repeat)
-    i, j, d = neighbor_list("ijd", atoms, cutoff=1.3 * FINGERPRINT_A)
-    z = atoms.numbers
-    pairs = Counter(
-        (min(z[a], z[b]), max(z[a], z[b]), round(float(dist), 2))
-        for a, b, dist in zip(i, j, d)
-    )
-    return str(sorted(pairs.items()))
+def _cubic_point_ops():
+    ops = []
+    for perm in itertools.permutations(range(3)):
+        for signs in itertools.product((1, -1), repeat=3):
+            m = np.zeros((3, 3), dtype=int)
+            for row, (col, s) in enumerate(zip(perm, signs)):
+                m[row, col] = s
+            ops.append(m)
+    return ops
+
+
+@lru_cache(maxsize=None)
+def _equivalence_maps(repeat):
+    """For every symmetry op of the empty FCC crystal (48 point ops x FCC
+    translations mod the supercell): the site maps needed to (a) test whether
+    a decoration is periodic under the rotated supercell lattice and (b) pull
+    the rotated decoration back onto the supercell sites. Positions in units
+    of the lattice constant."""
+    lat = bulk("Cu", "fcc", a=1.0, cubic=True).repeat(repeat)
+    pos = lat.positions
+    box = np.array(repeat, dtype=float)
+
+    def site(p):
+        frac = np.round((p / box) % 1.0, 6) % 1.0
+        return index[tuple(frac)]
+
+    index = {tuple(np.round((p / box) % 1.0, 6) % 1.0): i for i, p in enumerate(pos)}
+    basis = [np.array(v, dtype=float) for v in np.diag(repeat)]
+    maps = set()
+    for g in _cubic_point_ops():
+        ginv = g.T
+        periodicity = tuple(tuple(site(p + ginv @ l) for p in pos) for l in basis)
+        for t in pos:
+            pull = tuple(site(ginv @ (p - t)) for p in pos)
+            maps.add((periodicity, pull))
+    return tuple(maps)
+
+
+def canonical(bits, repeat):
+    """Canonical label of a decoration: the lexicographically smallest decoration
+    of the same supercell that describes the same crystal (any orientation)."""
+    bits = tuple(bits)
+    best = None
+    for periodicity, pull in _equivalence_maps(tuple(repeat)):
+        if any(bits[m[i]] != bits[i] for m in periodicity for i in range(len(bits))):
+            continue
+        img = tuple(bits[pull[j]] for j in range(len(bits)))
+        if best is None or img < best:
+            best = img
+    return "".join(map(str, best))
 
 
 def distinct_orderings(repeat):
-    """All symmetry-distinct 0/1 decorations of the repeated 4-site cell."""
+    """One representative per symmetry-distinct 0/1 decoration of the repeated 4-site cell."""
     n_sites = 4 * int(np.prod(repeat))
     seen = {}
     for bits in itertools.product((0, 1), repeat=n_sites):
-        fp = fingerprint(bits, repeat)
-        if fp not in seen:
-            seen[fp] = bits
+        seen.setdefault(canonical(bits, repeat), bits)
     return list(seen.values())
 
 

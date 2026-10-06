@@ -11,4 +11,5 @@ potpaw*/
 **/POTCAR
 /vasp/
 run_aimd.sh
+from_grace/
 *.tar.gz

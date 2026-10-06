@@ -16,14 +16,15 @@ the MACE-MP-0 foundation model on a small set of DFT labels for Cu–Au alloys,
 validate on held-out structures, then run a genetic algorithm over Cu/Au
 orderings using MACE as the energy oracle and check its answer against DFT.
 
-The demo currently ships with **stand-in labels** (from the EMT potential in
-ASE). Your job is to produce the **real PBE labels** for the exact same 180
-structures so they can replace the stand-in before the class. Nothing about
-the structures may change; only their energies and forces are being computed.
+Your job is to produce the **real PBE labels** for exactly these 186
+structures so they can replace the stand-in labels before the class. Nothing
+about the structures may change; only their energies and forces are being
+computed. (If 180 of them are already done from an earlier bundle, see
+TOPUP.md: only directories `180_…`–`185_…` are new.)
 
 ## 2. What the jobs are
 
-180 **static single-point VASP calculations** (IBRION=-1, NSW=0): fixed
+186 **static single-point VASP calculations** (IBRION=-1, NSW=0): fixed
 geometry in, total energy and per-atom forces out. No relaxation, no MD, no
 cell optimisation. DFT is not searching for anything — it produces the labels
 the ML model trains on and is graded against.
@@ -33,19 +34,19 @@ the ML model trains on and is graded against.
 | 4-atom FCC cells, 7-point volume scan (±5 %) for each of 5 orderings | `*_eos4_*` | 35 | energy–volume curve per composition |
 | 4-atom cells, randomly rattled (σ 0.05 / 0.10 Å) at 3 volumes | `*_rattle4_*` | 60 | non-zero forces |
 | 8-atom (2×1×1) cells, 10 orderings, ideal + 3 rattled | `*_train8_*` | 40 | ordering patterns a 4-atom cell cannot hold |
-| 8-atom cells, the other 15 orderings, ideal + 2 rattled | `*_holdout8_*` | 45 | never trained on: validation + answer key |
+| 8-atom cells, the other 17 orderings, ideal + 2 rattled | `*_holdout8_*` | 51 | never trained on: validation + answer key |
 
 The scientific question the labels answer: which arrangement of Cu and Au on
 the FCC lattice is most stable at each composition (ordering ground states,
 convex hull — textbook: Cu₃Au L1₂, CuAu L1₀). The demo shows MACE fine-tuned
-on 135 labels ranks the other 45 well enough to find those ground states.
+on 135 labels ranks the other 51 well enough to find those ground states.
 
 ## 3. What is in the bundle
 
 ```
 vasp/
   submit_array.sh            SLURM array, one calc per task, 12 ranks each
-  calcs/list.txt             180 directory names, one per line (array index = line number)
+  calcs/list.txt             186 directory names, one per line (array index = line number)
   calcs/<name>/              POSCAR  KPOINTS  INCAR  POTCAR  meta.json
   tools/collect.py           turns finished OUTCARs into train.xyz / holdout.xyz
   tools/common.py            helper imported by collect.py
@@ -87,7 +88,7 @@ Only if a specific calc will not converge with the shared settings: try
 
 ## 5. First thing to check: why only 4 jobs ran
 
-The user submitted `submit_array.sh` (array `1-180%30`) and saw only 4 tasks
+The user submitted `submit_array.sh` (array `1-186%30`) and saw only 4 tasks
 running, then "something wrong". Diagnose before resubmitting:
 
 ```
@@ -127,8 +128,8 @@ resubmitting after fixes is safe.
 If the array is throttled or shared nodes are not allowed, use this instead
 (one 48-core node per job, 4 calcs at a time, 12 ranks each; `KPAR 4 × NCORE 3`
 in the INCARs stays valid). Save as `vasp/submit_packed.sh`, then
-`sbatch submit_packed.sh 1 45`, `sbatch submit_packed.sh 46 90`,
-`sbatch submit_packed.sh 91 135`, `sbatch submit_packed.sh 136 180`.
+`sbatch submit_packed.sh 1 47`, `sbatch submit_packed.sh 48 94`,
+`sbatch submit_packed.sh 95 140`, `sbatch submit_packed.sh 141 186`.
 
 ```bash
 #!/bin/bash
@@ -172,7 +173,7 @@ Cu-first; `meta.json` holds the permutation), and writes
 
 ```
 data/train.xyz     135 frames expected
-data/holdout.xyz    45 frames expected
+data/holdout.xyz    51 frames expected
 ```
 
 and lists every run that is missing or unconverged. Rerun the missing ones

@@ -1,6 +1,7 @@
 #!/bin/bash
-# Cu-Au reference set: 180 static single points (energy + forces), one per
-# array task, 12 cores each so several calcs share a node.
+# Cu-Au reference set: static single points (energy + forces), one per array
+# task, 12 cores each so several calcs share a node. make_inputs.py sets the
+# array range to the number of lines in calcs/list.txt.
 #
 #   cd vasp && mkdir -p logs && sbatch submit_array.sh
 #

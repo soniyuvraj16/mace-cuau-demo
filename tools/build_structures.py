@@ -5,9 +5,14 @@ file, so the demo's train/holdout split is fixed here and nowhere else.
 
   train    4-atom cells: 5 distinct orderings x (7-point volume scan at the
            Vegard lattice constant + 12 rattled snapshots at 3 volumes)
-           8-atom cells: pure Cu8, Au8 and 8 random mixed orderings, each
-           ideal + 3 rattled
-  holdout  the other 15 mixed 8-atom orderings, each ideal + 2 rattled
+           8-atom cells: pure Cu8, Au8 and 8 mixed orderings, each ideal + 3 rattled
+  holdout  the other 17 mixed 8-atom orderings, each ideal + 2 rattled
+
+The 8-atom lists are written out explicitly. The first 25 orderings and the
+8 training picks are the ones the DFT labels were computed for; the last two
+orderings (00010101, 01010111) were found later, after a bug in the symmetry
+reduction that had merged each of them with a look-alike, and are appended so
+the first 180 structures keep their names and geometries.
 """
 
 import sys
@@ -17,10 +22,20 @@ import numpy as np
 from ase.io import write
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
-from common import DATA, build, distinct_orderings, vegard_a  # noqa: E402
+from common import DATA, build, canonical, distinct_orderings, vegard_a  # noqa: E402
+
+TRAIN8 = ["00000000", "11111111", "00000001", "00000011", "00010001",
+          "00010010", "00010111", "00011101", "00110011", "01111111"]
+HOLDOUT8 = ["00000101", "00000111", "00001111", "00010011", "00010110",
+            "00011110", "00011111", "00110111", "00111111", "01010110",
+            "01011010", "01011011", "01011111", "01110111", "01111011",
+            "00010101", "01010111"]
 
 rng = np.random.default_rng(0)
-N_TRAIN_MIXED_8ATOM = 8
+# The training picks above came from this draw in the first version of the
+# script; it is kept so the rattle seeds that follow reproduce the labelled
+# structures exactly.
+rng.choice(23, size=8, replace=False)
 
 
 def tag(atoms, split, config_type, kind, in_training):
@@ -49,7 +64,8 @@ def four_atom():
 
 def eight_atom(orderings, n_rattle, split, config_type, in_training):
     frames = []
-    for bits in orderings:
+    for s in orderings:
+        bits = tuple(int(c) for c in s)
         frames.append(tag(build(bits, repeat=(2, 1, 1)), split, config_type, "ideal", in_training))
         for _ in range(n_rattle):
             frames.append(tag(rattled(bits, (2, 1, 1), vegard_a(bits), 0.08), split, config_type, "rattled", in_training))
@@ -57,14 +73,11 @@ def eight_atom(orderings, n_rattle, split, config_type, in_training):
 
 
 def main():
-    all8 = distinct_orderings((2, 1, 1))
-    pure = [b for b in all8 if sum(b) in (0, 8)]
-    mixed = [b for b in all8 if 0 < sum(b) < 8]
-    pick = set(rng.choice(len(mixed), size=N_TRAIN_MIXED_8ATOM, replace=False).tolist())
-    train8 = pure + [b for i, b in enumerate(mixed) if i in pick]
-    hold8 = [b for i, b in enumerate(mixed) if i not in pick]
+    keys = {canonical(tuple(int(c) for c in s), (2, 1, 1)) for s in TRAIN8 + HOLDOUT8}
+    all_keys = {canonical(b, (2, 1, 1)) for b in distinct_orderings((2, 1, 1))}
+    assert keys == all_keys and len(keys) == len(TRAIN8) + len(HOLDOUT8), "8-atom lists must cover every distinct ordering exactly once"
 
-    frames = four_atom() + eight_atom(train8, 3, "train", "train8", True) + eight_atom(hold8, 2, "holdout", "holdout8", False)
+    frames = four_atom() + eight_atom(TRAIN8, 3, "train", "train8", True) + eight_atom(HOLDOUT8, 2, "holdout", "holdout8", False)
     for i, fr in enumerate(frames):
         fr.info["name"] = f"{i:03d}_{fr.info['config_type']}_{fr.info['ordering']}_{fr.info['kind']}"
 
@@ -72,7 +85,7 @@ def main():
     write(DATA / "structures.xyz", frames, format="extxyz")
     n_train = sum(fr.info["split"] == "train" for fr in frames)
     print(f"wrote {len(frames)} structures -> data/structures.xyz ({n_train} train, {len(frames) - n_train} holdout)")
-    print(f"8-atom orderings: {len(train8)} in training, {len(hold8)} held out, {len(all8)} distinct in total")
+    print(f"8-atom orderings: {len(TRAIN8)} in training, {len(HOLDOUT8)} held out, {len(all_keys)} distinct in total")
 
 
 if __name__ == "__main__":

@@ -83,30 +83,30 @@ expensive runs live.
 
 - `data/train.xyz` — 135 structures. The 4-atom conventional FCC cell in its 5
   symmetry-distinct Cu/Au decorations (Cu₄, Cu₃Au, L1₀-CuAu, CuAu₃, Au₄), each
-  with a 7-point volume scan and 12 rattled snapshots; plus 10 of the 25
+  with a 7-point volume scan and 12 rattled snapshots; plus 10 of the 27
   distinct orderings of an 8-atom (2×1×1) supercell (pure Cu₈ and Au₈, and 8
   mixed ones chosen at random), each ideal plus three rattled copies. Labels are
   total energy (`REF_energy`) and per-atom forces (`REF_forces`).
-- `data/holdout.xyz` — 45 structures: the other 15 mixed 8-atom orderings,
-  each ideal plus two rattled copies. Never used in training.
+- `data/holdout.xyz` — the other 17 mixed 8-atom orderings, each ideal plus
+  two rattled copies (51 structures). Never used in training.
 
-That is 180 reference single-point calculations in total. Think of it as an
-active-learning snapshot: we paid for DFT on 40% of the ordering space, and ask
-the model to rank the other 60%.
+That is 186 reference single-point calculations in total. Think of it as an
+active-learning snapshot: we paid for DFT on under 40% of the ordering space,
+and ask the model to rank the rest.
 
-All 25 orderings together are the answer key for step 3: the GA searches the
+All 27 orderings together are the answer key for step 3: the GA searches the
 same 8-site space, so whichever ordering it lands on, its reference energy is
-known, and the script says whether that ordering was in the training set.
+known, and the script says whether that ordering was in the training set (or
+flags it if no label exists yet — which is what an agent would then request).
 
-> **Stand-in data.** The labels currently in `data/` were generated with ASE's
-> EMT potential (`tools/make_reference_data.py`), not DFT, so the pipeline could
-> be timed before the DFT runs finished. The file format and keys are what the
-> DFT run will produce; swapping in real labels changes nothing downstream.
-> Two consequences worth knowing: the foundation model was trained on DFT, so
-> judging it against EMT makes its "before fine-tuning" error look worse than
-> it will with real DFT labels; and EMT barely favours ordering (Cu₃Au is only
-> ~11 meV/atom below the elements, where PBE gives ~40-50), so the real hull
-> will be deeper and the story clearer.
+> **Labels are real DFT**: VASP, PBE, computed on TAMU HPRC Grace (see below).
+> `tools/make_reference_data.py` can regenerate stand-in labels from ASE's EMT
+> potential for timing the pipeline without DFT; it refuses to overwrite DFT
+> files unless forced. Two orderings (`00010101`, `01010111`) were found after
+> the first 180 calculations, through a bug in the symmetry reduction that had
+> merged each with a look-alike; their 6 structures are labelled in a top-up
+> run. Until that lands, `data/holdout.xyz` has 45 frames and step 3 reports
+> those two orderings as "no DFT label yet".
 
 ## Why Cu–Au
 
@@ -127,7 +127,7 @@ python tools/make_reference_data.py       # EMT stand-in -> data/train.xyz, data
 
 ### What the DFT jobs are
 
-180 **static single-point calculations** — no relaxation, no MD. Each one
+186 **static single-point calculations** — no relaxation, no MD. Each one
 takes a fixed geometry and returns its total energy and the force on every
 atom. DFT is not searching for anything here; it is producing the *labels* the
 machine-learned potential is trained on and judged against. Four groups:
@@ -137,13 +137,13 @@ machine-learned potential is trained on and judged against. Four groups:
 | 4-atom cells, 7-point volume scan (±5 %) for each of the 5 orderings | 35 | energy-vs-volume curve per composition — how stiff each alloy is and where its lattice constant sits |
 | 4-atom cells, rattled (σ = 0.05 / 0.10 Å) at three volumes | 60 | non-zero forces: the local shape of the energy surface around each ordering |
 | 8-atom cells, 10 orderings (Cu₈, Au₈ + 8 random mixed), ideal + 3 rattled | 40 | ordering patterns that do not exist in a 4-atom cell; teaches the composition dependence |
-| 8-atom cells, the other 15 mixed orderings, ideal + 2 rattled | 45 | **never trained on** — validation in step 2, and the answer key for step 3 |
+| 8-atom cells, the other 17 mixed orderings, ideal + 2 rattled | 51 | **never trained on** — validation in step 2, and the answer key for step 3 |
 
 The scientific question the demo answers with these labels: *which arrangement
 of Cu and Au on the FCC lattice is most stable at each composition?* — the
 ordering ground states and the convex hull. The textbook answer is Cu₃Au (L1₂)
 and CuAu (L1₀). The point is that MACE, fine-tuned on the 135 training
-labels, predicts the other 15 orderings well enough for a genetic algorithm to
+labels, predicts the other 17 orderings well enough for a genetic algorithm to
 find those ground states using MACE instead of DFT, and the held-out labels
 prove it.
 
@@ -167,7 +167,7 @@ prove it.
    hull in step 3 compares MACE and DFT on the same fixed geometries.
 
 2. On the cluster (written for TAMU HPRC Grace: `intel/2022a`, `vasp/6.3.2`,
-   `srun vasp_std`; SLURM array of 180 twelve-core tasks, 30 at a time, 2 h
+   `srun vasp_std`; SLURM array of 186 twelve-core tasks, 30 at a time, 2 h
    limit each — expect well under an hour per task):
 
    ```

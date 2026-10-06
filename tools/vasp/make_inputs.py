@@ -67,8 +67,10 @@ def main():
 
     (out / "list.txt").write_text("\n".join(names) + "\n")
     bundle = out.parent
-    shutil.copy(ROOT / "tools" / "vasp" / "submit_array.sh", bundle / "submit_array.sh")
+    template = (ROOT / "tools" / "vasp" / "submit_array.sh").read_text()
+    (bundle / "submit_array.sh").write_text(template.replace("--array=1-180%30", f"--array=1-{len(names)}%30"), newline="\n")
     shutil.copy(ROOT / "HANDOFF_GRACE.md", bundle / "HANDOFF_GRACE.md")
+    shutil.copy(ROOT / "tools" / "vasp" / "TOPUP.md", bundle / "TOPUP.md")
     (bundle / "tools").mkdir(exist_ok=True)
     shutil.copy(ROOT / "tools" / "vasp" / "collect.py", bundle / "tools" / "collect.py")
     shutil.copy(ROOT / "scripts" / "common.py", bundle / "tools" / "common.py")
