@@ -70,7 +70,9 @@ Do these in order. Each step prints what it did; you don't need to edit anything
    .venv/bin/python   run_demo.py          # macOS / Linux
    ```
 
-   This runs three scripts and prints a timing table at the end:
+   This opens a live dashboard in the browser (keep it visible — that is what
+   the audience watches), runs three scripts and prints a timing table and a
+   plain-language summary at the end:
 
    | Step | Script | What it does | Output |
    | --- | --- | --- | --- |
@@ -104,6 +106,21 @@ three mixed-composition vertices (Cu₃Au, CuAu L1₀, CuAu₃) with 3 DFT calls
 instead of 27. The foundation model is already decent on energies here because
 it was itself trained on PBE; fine-tuning's big wins are the forces and the
 few-meV ranking that the hull needs.
+
+## The live dashboard
+
+`run_demo.py` opens a page in your browser and streams the run into it: the
+network's error falling epoch by epoch, the genetic algorithm's population
+drawn as little copper/gold lattices evolving generation by generation, the
+stability chart filling in as the network scores arrangements, and the
+simulator's check marks landing in the verify step. **Put that browser window
+on the projector**; the terminal is for the agent.
+
+If no browser opens, the URL is printed (`live dashboard: http://127.0.0.1:…`).
+After the run, opening `dashboard/index.html` as a file replays the whole
+animation from the saved results — handy for showing it again, or if you have
+to present without running. `--no-dashboard` turns it off; `--hold` keeps the
+page served until you press Enter.
 
 ## How long it takes
 

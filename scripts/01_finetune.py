@@ -2,12 +2,15 @@
 
 import argparse
 import os
+import re
 import shutil
 import subprocess
 import sys
 import time
 
-from common import DATA, MODELS, MODEL_NAME, banner, device
+from common import DATA, MODELS, MODEL_NAME, banner, device, progress
+
+EPOCH_LINE = re.compile(r"(Initial|Epoch (\d+)):.*MAE_E_per_atom=\s*([\d.]+) meV, MAE_F=\s*([\d.]+) meV")
 
 
 def main():
@@ -29,9 +32,10 @@ def main():
     if MODELS.exists():
         shutil.rmtree(MODELS)
     MODELS.mkdir()
+    progress(type="start", step="finetune", epochs=args.epochs, device=args.device)
 
     cmd = [
-        sys.executable, "-m", "mace.cli.run_train",
+        sys.executable, "-u", "-m", "mace.cli.run_train",
         "--name", MODEL_NAME,
         "--foundation_model", "small",
         "--multiheads_finetuning", "False",
@@ -62,10 +66,21 @@ def main():
         "--results_dir", str(MODELS / "results"),
     ]
     t0 = time.time()
-    subprocess.run(cmd, check=True, env={**os.environ, "PYTHONWARNINGS": "ignore"})
+    proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, bufsize=1,
+                            env={**os.environ, "PYTHONWARNINGS": "ignore", "PYTHONUNBUFFERED": "1"})
+    for line in proc.stdout:
+        print(line, end="")
+        m = EPOCH_LINE.search(line)
+        if m:
+            epoch = -1 if m.group(1) == "Initial" else int(m.group(2))
+            progress(type="epoch", epoch=epoch, mae_e=float(m.group(3)), mae_f=float(m.group(4)),
+                     elapsed=round(time.time() - t0, 1))
+    if proc.wait() != 0:
+        sys.exit(f"mace_run_train failed with exit code {proc.returncode}")
     model = MODELS / f"{MODEL_NAME}.model"
     if not model.exists():
         sys.exit(f"expected {model} after training")
+    progress(type="done", step="finetune", seconds=round(time.time() - t0, 1))
     print(f"\nfine-tuned model: {model}  ({time.time() - t0:.0f} s)")
 
 

@@ -170,3 +170,17 @@ def banner(text):
     print("\n" + "=" * 72, file=sys.stderr)
     print(text, file=sys.stderr)
     print("=" * 72, file=sys.stderr)
+
+
+PROGRESS = RESULTS / "progress.jsonl"
+
+
+def progress(**event):
+    """Append one event for the live dashboard (results/progress.jsonl)."""
+    import json
+    import time
+
+    RESULTS.mkdir(exist_ok=True)
+    event.setdefault("t", round(time.time(), 3))
+    with open(PROGRESS, "a", encoding="utf-8") as f:
+        f.write(json.dumps(event) + "\n")

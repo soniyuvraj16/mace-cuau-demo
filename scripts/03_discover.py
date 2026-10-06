@@ -16,7 +16,7 @@ import numpy as np
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 
-from common import FIGURES, MODELS, MODEL_NAME, RESULTS, banner, build, canonical, device, distinct_orderings, formation_energy_per_atom, lower_hull, mace_calculator, pure_per_atom, reference_ideals_8atom  # noqa: E402
+from common import FIGURES, MODELS, MODEL_NAME, RESULTS, banner, build, canonical, device, distinct_orderings, formation_energy_per_atom, lower_hull, mace_calculator, progress, pure_per_atom, reference_ideals_8atom  # noqa: E402
 
 REPEAT = (2, 1, 1)
 N_SITES = 8
@@ -39,6 +39,10 @@ class Oracle:
             at.calc = self.calc
             self.cache[key] = float(at.get_potential_energy())
             self.calls += 1
+            if hasattr(self, "e_cu"):
+                n_au = sum(bits)
+                ef = formation_energy_per_atom(self.cache[key], N_SITES - n_au, n_au, self.e_cu, self.e_au)
+                progress(type="eval", ordering=key, x_au=n_au / N_SITES, ef=round(ef * 1000, 2), calls=self.calls)
         return self.cache[key]
 
     def formation(self, bits):
@@ -55,6 +59,9 @@ def genetic_search(oracle, name_of, pop_size=12, generations=8, p_mut=0.15):
         history.append({"generation": gen, "best_ordering": name_of(best),
                         "best_formation_meV": round(oracle.formation(best) * 1000, 2),
                         "unique_evaluations_so_far": oracle.calls})
+        progress(type="generation", gen=gen, calls=oracle.calls,
+                 population=[{"bits": "".join(map(str, b)), "ordering": canonical(b, REPEAT),
+                              "ef": round(oracle.formation(b) * 1000, 2), "x_au": sum(b) / N_SITES} for b in scored])
         print(f"  gen {gen:2d}: best {name_of(best)}  "
               f"E_form = {oracle.formation(best) * 1000:7.2f} meV/atom  "
               f"(unique MACE calls: {oracle.calls})")
@@ -106,6 +113,7 @@ def main():
            "genetic algorithm evolves a population of strings; the fitness function is\n"
            "the fine-tuned network's energy, not the simulator's. At the end the network's\n"
            "best guesses are checked against the simulator - the 'verify' step.")
+    progress(type="start", step="discover", n_sites=N_SITES, n_distinct=len(distinct_orderings(REPEAT)))
     oracle = Oracle(mace_calculator(MODELS / f"{MODEL_NAME}.model", dev))
     ref = reference_table()
 
@@ -134,6 +142,11 @@ def main():
     for r in rows:
         r["on_mace_hull"] = r["ordering"] in mace_hull
         r["on_ref_hull"] = r["ordering"] in ref_hull
+    progress(type="hull",
+             network=sorted([{"x_au": r["x_au"], "ef": round(r["mace_formation"] * 1000, 2)} for r in rows if r["on_mace_hull"]], key=lambda d: d["x_au"]),
+             reference=sorted([{"x_au": r["x_au"], "ef": round(r["ref_formation"] * 1000, 2)} for r in labelled if r["on_ref_hull"]], key=lambda d: d["x_au"]),
+             reference_points=[{"ordering": canonical(tuple(int(c) for c in r["ordering"]), REPEAT), "x_au": r["x_au"],
+                                "ef": round(r["ref_formation"] * 1000, 2), "in_training": r["in_training"]} for r in labelled])
 
     champ = next(r for r in rows if r["ordering"] == name_of(champion))
     champ_mace = champ["mace_formation"]
@@ -170,9 +183,13 @@ def main():
     for r in shortlist:
         if r["ref_formation"] is None:
             print(f"  {r['ordering']:9s} {r['x_au']:5.3f} {r['mace_formation'] * 1000:8.2f} {'--':>10s} {'--':>7s}  no DFT label yet: request it")
+            progress(type="verify", ordering=canonical(tuple(int(c) for c in r["ordering"]), REPEAT), x_au=r["x_au"],
+                     mace_ef=round(r["mace_formation"] * 1000, 2), ref_ef=None, confirmed=None)
             continue
         is_gs = ref_gs_at[r["x_au"]]["ordering"] == r["ordering"]
         hits += is_gs
+        progress(type="verify", ordering=canonical(tuple(int(c) for c in r["ordering"]), REPEAT), x_au=r["x_au"],
+                 mace_ef=round(r["mace_formation"] * 1000, 2), ref_ef=round(r["ref_formation"] * 1000, 2), confirmed=bool(is_gs))
         flag = "  confirmed: reference ground state at this composition" if is_gs else \
             f"  rejected: reference prefers {ref_gs_at[r['x_au']]['ordering']} ({ref_gs_at[r['x_au']]['ref_formation'] * 1000:.2f})"
         print(f"  {r['ordering']:9s} {r['x_au']:5.3f} {r['mace_formation'] * 1000:8.2f} {r['ref_formation'] * 1000:10.2f} "
@@ -190,6 +207,10 @@ def main():
              if champion_is_gs else "The simulator ranks a different arrangement first - the network's guess was close but wrong, which is exactly why we check. ")
           + f"Of the network's best pick at each mixing ratio, {hits} of {len(shortlist)} were confirmed by the simulator, "
           f"using {len(shortlist)} slow calculations instead of {len(rows)}.")
+    progress(type="champion", ordering=canonical(champion, REPEAT), formula=formula(champ["x_au"]), x_au=champ["x_au"],
+             mace_ef=round(champ_mace * 1000, 2), ref_ef=None if champ["ref_formation"] is None else round(champ["ref_formation"] * 1000, 2),
+             is_ground_state=champion_is_gs, in_training=champ["in_training"], hits=hits, checked=len(shortlist),
+             calls=ga_calls, ms_per_call=round(ga_time / max(ga_calls, 1) * 1000))
     summary = {
         "n_orderings": len(rows),
         "ga_unique_evaluations": ga_calls,
@@ -242,6 +263,7 @@ def main():
     ax.legend(fontsize=8)
     fig.tight_layout()
     fig.savefig(FIGURES / "hull.png", dpi=140)
+    progress(type="done", step="discover")
     print(f"\nwrote {FIGURES / 'hull.png'} and {RESULTS / 'discovery.json'}")
 
 

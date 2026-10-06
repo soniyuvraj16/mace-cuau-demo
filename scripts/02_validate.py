@@ -15,7 +15,7 @@ from ase.io import read
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 
-from common import DATA, FIGURES, MODELS, MODEL_NAME, RESULTS, banner, bits_of, build, device, formation_energy_per_atom, mace_calculator, pure_per_atom, reference_ideals_8atom  # noqa: E402
+from common import DATA, FIGURES, MODELS, MODEL_NAME, RESULTS, banner, bits_of, build, device, formation_energy_per_atom, mace_calculator, progress, pure_per_atom, reference_ideals_8atom  # noqa: E402
 
 
 def formation(frames, energies, e_cu, e_au):
@@ -26,13 +26,17 @@ def formation(frames, energies, e_cu, e_au):
     return np.array(out)
 
 
-def evaluate(calc, frames):
+def evaluate(calc, frames, tag, e_cu, e_au, ref_ef):
     energies, forces = [], []
-    for fr in frames:
+    for i, fr in enumerate(frames):
         at = fr.copy()
         at.calc = calc
         energies.append(at.get_potential_energy())
         forces.append(at.get_forces())
+        bits = bits_of(fr)
+        ef = formation_energy_per_atom(energies[-1], len(bits) - sum(bits), sum(bits), e_cu, e_au)
+        progress(type="parity", model=tag, i=i, ref=round(float(ref_ef[i]) * 1000, 2), pred=round(float(ef) * 1000, 2),
+                 kind=fr.info.get("kind", ""))
     return np.array(energies), np.concatenate(forces)
 
 
@@ -69,16 +73,19 @@ def main():
     ref_f = np.concatenate([fr.arrays["REF_forces"] for fr in frames])
     ref_ef = formation(frames, ref_e, ref_cu, ref_au)
     n_orderings = len({bits_of(fr) for fr in frames})
+    progress(type="start", step="validate", n_frames=len(frames), n_orderings=n_orderings)
 
     results, preds = {}, {}
-    for label, path in (("foundation (MACE-MP-0 small)", None), ("fine-tuned", MODELS / f"{MODEL_NAME}.model")):
+    for label, tag, path in (("foundation (MACE-MP-0 small)", "foundation", None), ("fine-tuned", "finetuned", MODELS / f"{MODEL_NAME}.model")):
         t0 = time.time()
         calc = mace_calculator(path, dev)
         e_cu, e_au = model_pure_per_atom(calc)
-        e, f = evaluate(calc, frames)
+        e, f = evaluate(calc, frames, tag, e_cu, e_au, ref_ef)
         ef = formation(frames, e, e_cu, e_au)
         results[label] = metrics(ef, ref_ef, f, ref_f) | {"seconds": round(time.time() - t0, 1)}
         preds[label] = (ef, f)
+        progress(type="validate_result", model=tag, mae_e=round(results[label]["formation_energy_mae_meV_per_atom"], 1),
+                 rmse_f=round(results[label]["force_rmse_meV_per_A"], 1), ms_per_structure=round(results[label]["seconds"] / len(frames) * 1000))
 
     print(f"\n{'model':32s} {'E_form MAE (meV/atom)':>22s} {'F RMSE (meV/A)':>16s} {'time (s)':>9s}")
     for label, m in results.items():
@@ -113,6 +120,7 @@ def main():
     fig.suptitle("Neural network vs physics simulator on 51 structures the network never saw")
     fig.tight_layout()
     fig.savefig(FIGURES / "parity.png", dpi=140)
+    progress(type="done", step="validate")
     print(f"\nwrote {FIGURES / 'parity.png'} and {RESULTS / 'validation.json'}")
 
 

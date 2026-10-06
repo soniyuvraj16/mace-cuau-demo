@@ -4,6 +4,7 @@ models/
 results/
 figures/*.png
 *.log
+*.err
 *_valid_indices_*.txt
 
 # VASP: licensed potentials and generated calculation directories never go in git
