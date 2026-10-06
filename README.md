@@ -122,10 +122,9 @@ animation from the saved results — handy for showing it again, or if you have
 to present without running. `--no-dashboard` turns it off; `--hold` keeps the
 page served until you press Enter.
 
-There is also a 🪵 **tung mode** button (or `?tung` in the URL): a wooden
-log mascot beats a drum for every training epoch, and the run ends on "tung
-tung tung sahur". Sound needs one click on the page first (browsers block
-autoplay). The setting is remembered per browser; click again to turn it off.
+The drummer in the corner beats a wooden *tung* for every training epoch and
+closes the run with "tung tung tung sahur". Sound needs one click anywhere on
+the page first (browsers block autoplay) — do that before the run starts.
 
 ## How long it takes
 

@@ -48,57 +48,25 @@
   .final p { margin: 6px 0; font-size: 16px; }
   footer { padding: 0 22px 16px; color: var(--muted); font-size: 12px; }
 
-  /* ---------- tung mode (optional, 🪵 button or ?tung): a wooden drum beat per epoch ---------- */
-  #brToggle { margin-left: 14px; background: var(--panel); border: 1px solid var(--line); color: var(--muted); border-radius: 20px; padding: 4px 12px; cursor: pointer; font: 13px system-ui; }
-  body.brainrot #brToggle { border-color: var(--au); color: var(--au); }
-  .mascot { position: fixed; right: 26px; bottom: 18px; width: 120px; height: 190px; display: none; z-index: 20; filter: drop-shadow(0 6px 10px rgba(0,0,0,.6)); }
-  body.brainrot .mascot { display: block; }
-  .mascot .bat { transform-origin: 84px 112px; transition: transform .07s ease-in; }
-  .mascot.bonk .bat { transform: rotate(55deg); }
-  .mascot.bonk .body { transform: translateY(3px); }
-  .say { position: absolute; right: 108px; bottom: 120px; background: #fff; color: #111; border-radius: 14px; padding: 7px 11px; font: 700 13px system-ui; white-space: nowrap; display: none; }
+  /* ---------- the drummer: one wooden tung per training epoch ---------- */
+  .mascot { position: fixed; right: 22px; bottom: 18px; width: 150px; z-index: 20; }
+  .mascot img { display: block; width: 150px; border-radius: 12px; border: 2px solid #3a3020; box-shadow: 0 8px 22px rgba(0,0,0,.65); transform-origin: 50% 100%; transition: transform .08s ease-in; }
+  .mascot.bonk img { transform: rotate(-5deg) translateY(4px) scale(1.03); }
+  .say { position: absolute; right: 158px; bottom: 60px; background: #fff; color: #111; border-radius: 14px; padding: 7px 11px; font: 700 13px system-ui; white-space: nowrap; display: none; }
   .say::after { content: ""; position: absolute; right: -8px; bottom: 10px; border: 6px solid transparent; border-left-color: #fff; }
   .tung { position: fixed; font: 900 40px Impact, "Arial Black", system-ui; color: #f2c14e; -webkit-text-stroke: 1.5px #000; text-shadow: 3px 3px 0 #000; pointer-events: none; z-index: 30; animation: tungfly .9s ease-out forwards; }
   @keyframes tungfly { from { opacity: 1; transform: translateY(0) scale(.7); } to { opacity: 0; transform: translateY(-120px) scale(1.3); } }
-  body.brainrot.shake main, body.brainrot.shake .steps { animation: shake .22s; }
+  body.shake main, body.shake .steps { animation: shake .22s; }
   @keyframes shake { 0%, 100% { transform: none; } 25% { transform: translate(3px, -2px); } 75% { transform: translate(-3px, 2px); } }
 </style>
 </head>
 <body>
 <header>
   <h1 id="title">Discovery loop, live: learn → test → search → verify</h1>
-  <button id="brToggle" title="tung mode: a wooden drum beat for every training epoch">🪵 tung mode</button>
   <div class="elapsed" id="elapsed">0:00</div>
 </header>
 <div class="mascot" id="mascot">
-  <svg viewBox="0 0 120 190" width="120" height="190">
-    <g class="body">
-      <!-- tall wooden log -->
-      <rect x="34" y="22" width="44" height="150" rx="14" fill="#6b4423" stroke="#2e1a0b" stroke-width="2.5"/>
-      <path d="M44 40 v110 M56 32 v128 M68 40 v110" stroke="#4e2f15" stroke-width="2" stroke-linecap="round"/>
-      <path d="M38 70 q6 4 12 0 M64 120 q6 4 12 0" stroke="#4e2f15" stroke-width="1.6" fill="none"/>
-      <!-- cut top with rings -->
-      <ellipse cx="56" cy="22" rx="22" ry="8" fill="#c79a66" stroke="#2e1a0b" stroke-width="2"/>
-      <ellipse cx="56" cy="22" rx="14" ry="5" fill="none" stroke="#9a6b3c" stroke-width="1.4"/>
-      <ellipse cx="56" cy="22" rx="7" ry="2.5" fill="none" stroke="#9a6b3c" stroke-width="1.2"/>
-      <!-- face -->
-      <ellipse cx="47" cy="66" rx="8" ry="9" fill="#fff"/><ellipse cx="66" cy="66" rx="8" ry="9" fill="#fff"/>
-      <circle cx="48" cy="68" r="4.2" fill="#111"/><circle cx="67" cy="68" r="4.2" fill="#111"/>
-      <circle cx="49.5" cy="66" r="1.4" fill="#fff"/><circle cx="68.5" cy="66" r="1.4" fill="#fff"/>
-      <path d="M46 88 q10 9 20 0" stroke="#111" stroke-width="2.8" fill="none" stroke-linecap="round"/>
-      <!-- arms -->
-      <path d="M36 100 q-12 10 -6 26" stroke="#4e2f15" stroke-width="5" fill="none" stroke-linecap="round"/>
-      <path d="M76 100 q12 4 10 14" stroke="#4e2f15" stroke-width="5" fill="none" stroke-linecap="round"/>
-      <!-- legs -->
-      <rect x="40" y="168" width="12" height="14" rx="4" fill="#4e2f15"/><rect x="60" y="168" width="12" height="14" rx="4" fill="#4e2f15"/>
-    </g>
-    <!-- baseball bat resting on the shoulder -->
-    <g class="bat">
-      <rect x="80" y="30" width="12" height="86" rx="6" fill="#dcb98a" stroke="#4a2e14" stroke-width="2.2"/>
-      <rect x="78" y="108" width="16" height="10" rx="4" fill="#4a2e14"/>
-      <rect x="82" y="34" width="3" height="40" rx="1.5" fill="#f1dcbf" opacity=".7"/>
-    </g>
-  </svg>
+  <img src="tung.webp" alt="Tung Tung Tung Sahur">
   <div class="say" id="mascotSay"></div>
 </div>
 <div class="steps">
@@ -159,8 +127,7 @@
   const upTo = params.has("at") ? Number(params.get("at")) * 1000 : null;  // render the replay state at this many seconds (debug/preview)
   const delays = { epoch: 120, parity: 12, validate_result: 400, eval: 90, generation: 900, hull: 600, verify: 900, champion: 600, finished: 300, start: 300, done: 300 };
 
-  // ---------- brainrot mode ----------
-  const BR = { on: false };
+  // ---------- the drummer ----------
   let actx = null;
   function initAudio() { try { actx = actx || new (window.AudioContext || window.webkitAudioContext)(); actx.resume(); } catch (e) {} }
   function tungSound(pitch) {
@@ -175,26 +142,18 @@
     const src = actx.createBufferSource(); src.buffer = buf; const g2 = actx.createGain(); g2.gain.value = 0.2;
     src.connect(g2).connect(actx.destination); src.start(t);
   }
-  function tung(text = "TUNG", pitch = 1) {
-    if (!BR.on) return;
+  function tung(text = "tung", pitch = 1) {
     const m = $("mascot"); m.classList.add("bonk"); setTimeout(() => m.classList.remove("bonk"), 120);
     const e = document.createElement("div"); e.className = "tung"; e.textContent = text;
-    e.style.right = `${120 + Math.random() * 90}px`; e.style.bottom = `${130 + Math.random() * 50}px`;
+    e.style.right = `${60 + Math.random() * 90}px`; e.style.bottom = `${190 + Math.random() * 50}px`;
     document.body.appendChild(e); setTimeout(() => e.remove(), 1000);
     document.body.classList.add("shake"); setTimeout(() => document.body.classList.remove("shake"), 260);
     tungSound(pitch * (0.92 + Math.random() * 0.16));
   }
-  function say(text, ms = 2600) { if (!BR.on) return; const s = $("mascotSay"); s.textContent = text; s.style.display = "block"; clearTimeout(say.t); say.t = setTimeout(() => { s.style.display = "none"; }, ms); }
-  function setBrainrot(on) {
-    BR.on = on; document.body.classList.toggle("brainrot", on);
-    try { localStorage.setItem("tungmode", on ? "1" : "0"); } catch (e) {}
-    $("brToggle").textContent = on ? "🪵 tung mode: on" : "🪵 tung mode";
-    if (on) initAudio();
-  }
-  $("brToggle").addEventListener("click", () => setBrainrot(!BR.on));
-  document.addEventListener("pointerdown", () => { if (BR.on) initAudio(); }, { passive: true });
-  let savedBR = false; try { savedBR = localStorage.getItem("tungmode") === "1"; } catch (e) {}
-  if (params.has("tung") || savedBR) setBrainrot(true);
+  function say(text, ms = 2600) { const s = $("mascotSay"); s.textContent = text; s.style.display = "block"; clearTimeout(say.t); say.t = setTimeout(() => { s.style.display = "none"; }, ms); }
+  // browsers only allow sound after a user gesture; the first click or key press anywhere unlocks it
+  document.addEventListener("pointerdown", initAudio, { passive: true });
+  document.addEventListener("keydown", initAudio);
 
   // ---------- ingest ----------
   async function poll() {
@@ -278,7 +237,8 @@
         break;
       case "finished":
         S.finished = ev; drawFinal();
-        if (BR.on) { ["tung", "tung", "tung", "sahur"].forEach((w, i) => setTimeout(() => tung(w, i === 3 ? 0.55 : 1), i * 380)); say("tung tung tung sahur", 5000); }
+        ["tung", "tung", "tung", "sahur"].forEach((w, i) => setTimeout(() => tung(w, i === 3 ? 0.55 : 1), i * 380));
+        say("tung tung tung sahur", 5000);
         break;
     }
   }
