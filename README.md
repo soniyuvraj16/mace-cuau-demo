@@ -42,6 +42,24 @@ Do these in order. Each step prints what it did; you don't need to edit anything
    reference ground state, and by how many meV/atom did MACE miss its energy).
    Open `figures/parity.png` and `figures/hull.png`.
 
+## What you should see
+
+On the DFT labels, held out = 45 structures of 15 orderings the model never
+saw (CPU and GPU give the same numbers; training is seeded):
+
+| | foundation MACE-MP-0 | fine-tuned, 20 epochs | fine-tuned, 30 epochs |
+| --- | --- | --- | --- |
+| formation-energy MAE (meV/atom) | 11.4 | 7.9 | 4.0 |
+| force RMSE (meV/Å) | 115 | 26 | 23 |
+
+Step 3, in every configuration: the GA's champion is `00010001` — Cu₃Au in
+the L1₂ ordering — and DFT confirms it is the ground state. MACE's predicted
+hull has the same 5 vertices as the DFT hull, and the verify step confirms all
+three mixed-composition vertices (Cu₃Au, CuAu L1₀, CuAu₃) with 3 DFT calls
+instead of 27. The foundation model is already decent on energies here because
+it was itself trained on PBE; fine-tuning's big wins are the forces and the
+few-meV ranking that the hull needs.
+
 ## How long it takes
 
 Measured on a Windows laptop (CPU-only torch, no GPU used):
@@ -55,14 +73,14 @@ Measured on a Windows laptop (CPU-only torch, no GPU used):
 | **pipeline total** | **~3.5 min** |
 
 So: install *before* the session if you can, and the live part is about three
-and a half minutes. On a laptop GPU (GTX 1650) the pipeline takes about two
-minutes.
+and a half minutes. On a laptop GPU (GTX 1650) the pipeline takes about
+80 seconds.
 
 Knobs, all on `run_demo.py`: `--epochs N` (20 by default, chosen so install
 plus run fits in 8 minutes; **if the environment is already installed, use
-`--epochs 30`** — held-out error drops from ~6 to ~3.5 meV/atom for another
-~90 s on CPU; 15 is too few), `--skip-finetune` to reuse `models/cuau_ft.model`
-from a previous run.
+`--epochs 30`** — held-out energy error drops from 7.9 to 4.0 meV/atom for
+another ~90 s on CPU; 15 is too few), `--skip-finetune` to reuse
+`models/cuau_ft.model` from a previous run.
 
 The first run downloads the MACE-MP-0 small foundation model (a few MB) into
 `~/.cache/mace`; after that everything is offline.
