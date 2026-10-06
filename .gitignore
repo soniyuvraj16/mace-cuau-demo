@@ -1,0 +1,7 @@
+.venv*/
+__pycache__/
+models/
+results/
+figures/*.png
+*.log
+*_valid_indices_*.txt
