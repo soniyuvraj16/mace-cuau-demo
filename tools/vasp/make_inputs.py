@@ -66,9 +66,16 @@ def main():
         names.append(name)
 
     (out / "list.txt").write_text("\n".join(names) + "\n")
-    shutil.copy(ROOT / "tools" / "vasp" / "submit_array.sh", out.parent / "submit_array.sh")
+    bundle = out.parent
+    shutil.copy(ROOT / "tools" / "vasp" / "submit_array.sh", bundle / "submit_array.sh")
+    shutil.copy(ROOT / "HANDOFF_GRACE.md", bundle / "HANDOFF_GRACE.md")
+    (bundle / "tools").mkdir(exist_ok=True)
+    shutil.copy(ROOT / "tools" / "vasp" / "collect.py", bundle / "tools" / "collect.py")
+    shutil.copy(ROOT / "scripts" / "common.py", bundle / "tools" / "common.py")
+    (bundle / "data").mkdir(exist_ok=True)
+    shutil.copy(DATA / "structures.xyz", bundle / "data" / "structures.xyz")
     print(f"wrote {len(names)} calculation directories under {out}")
-    print(f"submit script: {out.parent / 'submit_array.sh'}")
+    print(f"bundle {bundle} is self-contained: submit_array.sh, HANDOFF_GRACE.md, tools/collect.py, data/structures.xyz")
     print(f"POTCAR {'included' if potcar_dir else 'NOT included (pass --potcar-dir or add on the cluster)'}")
 
 

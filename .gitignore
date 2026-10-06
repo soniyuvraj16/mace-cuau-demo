@@ -9,7 +9,6 @@ figures/*.png
 # VASP: licensed potentials and generated calculation directories never go in git
 potpaw*/
 **/POTCAR
-vasp/calcs/
-vasp/submit_array.sh
+/vasp/
 run_aimd.sh
 *.tar.gz
