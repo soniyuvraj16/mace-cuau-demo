@@ -122,11 +122,10 @@ animation from the saved results — handy for showing it again, or if you have
 to present without running. `--no-dashboard` turns it off; `--hold` keeps the
 page served until you press Enter.
 
-There is also a 🪵 **brainrot** button (or `?brainrot` in the URL) for the
-brave: a log mascot drums a wooden *TUNG* for every training epoch, the
-captions pick up Italian-brainrot interjections, and the run ends on
-"SAHUR!!". Sound needs one click on the page first (browsers block autoplay).
-The setting is remembered per browser; click again to turn it off.
+There is also a 🪵 **tung mode** button (or `?tung` in the URL): a wooden
+log mascot beats a drum for every training epoch, and the run ends on "tung
+tung tung sahur". Sound needs one click on the page first (browsers block
+autoplay). The setting is remembered per browser; click again to turn it off.
 
 ## How long it takes
 

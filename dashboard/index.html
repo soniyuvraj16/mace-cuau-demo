@@ -48,47 +48,55 @@
   .final p { margin: 6px 0; font-size: 16px; }
   footer { padding: 0 22px 16px; color: var(--muted); font-size: 12px; }
 
-  /* ---------- brainrot mode (optional, 🪵 button or ?brainrot) ---------- */
+  /* ---------- tung mode (optional, 🪵 button or ?tung): a wooden drum beat per epoch ---------- */
   #brToggle { margin-left: 14px; background: var(--panel); border: 1px solid var(--line); color: var(--muted); border-radius: 20px; padding: 4px 12px; cursor: pointer; font: 13px system-ui; }
   body.brainrot #brToggle { border-color: var(--au); color: var(--au); }
-  body.brainrot { --net: #ff2d95; --au: #ffd400; }
-  body.brainrot .caption b { color: #ffd400; }
-  .mascot { position: fixed; right: 26px; bottom: 22px; width: 132px; height: 150px; display: none; z-index: 20; filter: drop-shadow(0 6px 10px rgba(0,0,0,.6)); }
+  .mascot { position: fixed; right: 26px; bottom: 18px; width: 120px; height: 190px; display: none; z-index: 20; filter: drop-shadow(0 6px 10px rgba(0,0,0,.6)); }
   body.brainrot .mascot { display: block; }
-  .mascot .bat { transform-origin: 22px 96px; transition: transform .07s ease-in; }
-  .mascot.bonk .bat { transform: rotate(-75deg); }
-  .mascot.bonk .body { transform: translateY(3px) scaleY(.96); transform-origin: 60px 130px; }
-  .say { position: absolute; right: 118px; bottom: 96px; background: #fff; color: #111; border-radius: 14px; padding: 7px 11px; font: 700 13px system-ui; white-space: nowrap; display: none; }
+  .mascot .bat { transform-origin: 84px 112px; transition: transform .07s ease-in; }
+  .mascot.bonk .bat { transform: rotate(55deg); }
+  .mascot.bonk .body { transform: translateY(3px); }
+  .say { position: absolute; right: 108px; bottom: 120px; background: #fff; color: #111; border-radius: 14px; padding: 7px 11px; font: 700 13px system-ui; white-space: nowrap; display: none; }
   .say::after { content: ""; position: absolute; right: -8px; bottom: 10px; border: 6px solid transparent; border-left-color: #fff; }
-  .tung { position: fixed; font: 900 46px Impact, "Arial Black", system-ui; color: #ffd400; -webkit-text-stroke: 2px #000; text-shadow: 4px 4px 0 #000; pointer-events: none; z-index: 30; animation: tungfly .95s ease-out forwards; }
-  @keyframes tungfly { from { opacity: 1; transform: translateY(0) scale(.6) rotate(-10deg); } to { opacity: 0; transform: translateY(-150px) scale(1.5) rotate(8deg); } }
-  body.brainrot.shake main, body.brainrot.shake .steps { animation: shake .25s; }
-  @keyframes shake { 0%, 100% { transform: none; } 25% { transform: translate(4px, -3px); } 75% { transform: translate(-4px, 3px); } }
-  body.brainrot .ind.best { animation: pulse 1.2s infinite; }
-  @keyframes pulse { 0%, 100% { box-shadow: 0 0 0 1px var(--au) inset; } 50% { box-shadow: 0 0 0 3px var(--au) inset, 0 0 18px var(--au); } }
-  body.brainrot .final { background: linear-gradient(135deg, #2a1a3a, #1a2a1a); }
+  .tung { position: fixed; font: 900 40px Impact, "Arial Black", system-ui; color: #f2c14e; -webkit-text-stroke: 1.5px #000; text-shadow: 3px 3px 0 #000; pointer-events: none; z-index: 30; animation: tungfly .9s ease-out forwards; }
+  @keyframes tungfly { from { opacity: 1; transform: translateY(0) scale(.7); } to { opacity: 0; transform: translateY(-120px) scale(1.3); } }
+  body.brainrot.shake main, body.brainrot.shake .steps { animation: shake .22s; }
+  @keyframes shake { 0%, 100% { transform: none; } 25% { transform: translate(3px, -2px); } 75% { transform: translate(-3px, 2px); } }
 </style>
 </head>
 <body>
 <header>
   <h1 id="title">Discovery loop, live: learn → test → search → verify</h1>
-  <button id="brToggle" title="Italian brainrot mode: tung tung tung sahur">🪵 brainrot</button>
+  <button id="brToggle" title="tung mode: a wooden drum beat for every training epoch">🪵 tung mode</button>
   <div class="elapsed" id="elapsed">0:00</div>
 </header>
 <div class="mascot" id="mascot">
-  <svg viewBox="0 0 132 150" width="132" height="150">
-    <g class="bat"><rect x="16" y="26" width="13" height="72" rx="6.5" fill="#dcb98a" stroke="#4a2e14" stroke-width="2.5"/><rect x="13" y="92" width="19" height="16" rx="5" fill="#4a2e14"/></g>
+  <svg viewBox="0 0 120 190" width="120" height="190">
     <g class="body">
-      <rect x="40" y="18" width="62" height="118" rx="28" fill="#7b4a22" stroke="#33200e" stroke-width="3"/>
-      <path d="M48 60 q8 -6 16 0 M78 100 q8 -6 16 0 M50 118 q10 -6 20 0" stroke="#5a3417" stroke-width="2" fill="none"/>
-      <ellipse cx="71" cy="26" rx="27" ry="9" fill="#c99462" stroke="#33200e" stroke-width="2"/>
-      <ellipse cx="71" cy="26" rx="14" ry="4.2" fill="none" stroke="#8a5a2c" stroke-width="1.6"/>
-      <ellipse cx="71" cy="26" rx="5" ry="1.6" fill="#8a5a2c"/>
-      <circle cx="59" cy="66" r="8.5" fill="#fff"/><circle cx="84" cy="66" r="8.5" fill="#fff"/>
-      <circle cx="60.5" cy="67" r="4" fill="#111"/><circle cx="85.5" cy="67" r="4" fill="#111"/>
-      <circle cx="62" cy="65" r="1.3" fill="#fff"/><circle cx="87" cy="65" r="1.3" fill="#fff"/>
-      <path d="M58 92 Q71 106 86 92" stroke="#111" stroke-width="3.2" fill="none" stroke-linecap="round"/>
-      <ellipse cx="56" cy="139" rx="12" ry="5.5" fill="#33200e"/><ellipse cx="88" cy="139" rx="12" ry="5.5" fill="#33200e"/>
+      <!-- tall wooden log -->
+      <rect x="34" y="22" width="44" height="150" rx="14" fill="#6b4423" stroke="#2e1a0b" stroke-width="2.5"/>
+      <path d="M44 40 v110 M56 32 v128 M68 40 v110" stroke="#4e2f15" stroke-width="2" stroke-linecap="round"/>
+      <path d="M38 70 q6 4 12 0 M64 120 q6 4 12 0" stroke="#4e2f15" stroke-width="1.6" fill="none"/>
+      <!-- cut top with rings -->
+      <ellipse cx="56" cy="22" rx="22" ry="8" fill="#c79a66" stroke="#2e1a0b" stroke-width="2"/>
+      <ellipse cx="56" cy="22" rx="14" ry="5" fill="none" stroke="#9a6b3c" stroke-width="1.4"/>
+      <ellipse cx="56" cy="22" rx="7" ry="2.5" fill="none" stroke="#9a6b3c" stroke-width="1.2"/>
+      <!-- face -->
+      <ellipse cx="47" cy="66" rx="8" ry="9" fill="#fff"/><ellipse cx="66" cy="66" rx="8" ry="9" fill="#fff"/>
+      <circle cx="48" cy="68" r="4.2" fill="#111"/><circle cx="67" cy="68" r="4.2" fill="#111"/>
+      <circle cx="49.5" cy="66" r="1.4" fill="#fff"/><circle cx="68.5" cy="66" r="1.4" fill="#fff"/>
+      <path d="M46 88 q10 9 20 0" stroke="#111" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+      <!-- arms -->
+      <path d="M36 100 q-12 10 -6 26" stroke="#4e2f15" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <path d="M76 100 q12 4 10 14" stroke="#4e2f15" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <!-- legs -->
+      <rect x="40" y="168" width="12" height="14" rx="4" fill="#4e2f15"/><rect x="60" y="168" width="12" height="14" rx="4" fill="#4e2f15"/>
+    </g>
+    <!-- baseball bat resting on the shoulder -->
+    <g class="bat">
+      <rect x="80" y="30" width="12" height="86" rx="6" fill="#dcb98a" stroke="#4a2e14" stroke-width="2.2"/>
+      <rect x="78" y="108" width="16" height="10" rx="4" fill="#4a2e14"/>
+      <rect x="82" y="34" width="3" height="40" rx="1.5" fill="#f1dcbf" opacity=".7"/>
     </g>
   </svg>
   <div class="say" id="mascotSay"></div>
@@ -177,18 +185,16 @@
     tungSound(pitch * (0.92 + Math.random() * 0.16));
   }
   function say(text, ms = 2600) { if (!BR.on) return; const s = $("mascotSay"); s.textContent = text; s.style.display = "block"; clearTimeout(say.t); say.t = setTimeout(() => { s.style.display = "none"; }, ms); }
-  const INTERJECT = ["Mamma mia!", "Tralalero!", "Bellissimo!", "Capisce?", "Tung tung tung!", "Perfetto!", "Sahur!"];
   function setBrainrot(on) {
     BR.on = on; document.body.classList.toggle("brainrot", on);
-    try { localStorage.setItem("brainrot", on ? "1" : "0"); } catch (e) {}
-    $("brToggle").textContent = on ? "🪵 brainrot: ON" : "🪵 brainrot";
-    $("title").textContent = on ? "Tung Tung Tung Sahur presents: il Discovery Loop 🪵🏏" : "Discovery loop, live: learn → test → search → verify";
-    if (on) { initAudio(); say("Sahur time. Wake up, network!", 3000); }
+    try { localStorage.setItem("tungmode", on ? "1" : "0"); } catch (e) {}
+    $("brToggle").textContent = on ? "🪵 tung mode: on" : "🪵 tung mode";
+    if (on) initAudio();
   }
   $("brToggle").addEventListener("click", () => setBrainrot(!BR.on));
   document.addEventListener("pointerdown", () => { if (BR.on) initAudio(); }, { passive: true });
-  let savedBR = false; try { savedBR = localStorage.getItem("brainrot") === "1"; } catch (e) {}
-  if (params.has("brainrot") || savedBR) setBrainrot(true);
+  let savedBR = false; try { savedBR = localStorage.getItem("tungmode") === "1"; } catch (e) {}
+  if (params.has("tung") || savedBR) setBrainrot(true);
 
   // ---------- ingest ----------
   async function poll() {
@@ -241,8 +247,7 @@
         break;
       case "epoch":
         S.epochs.push(ev); drawLearn();
-        tung(ev.epoch < 0 ? "TUNG?" : "TUNG", ev.epoch < 0 ? 0.7 : 1);
-        if (ev.epoch >= 0 && ev.epoch % 3 === 2) say(["tung tung tung sahur!!", "the error, she drops!", "wake up network!!", "mamma mia, 6 meV/atom?!"][Math.floor(ev.epoch / 3) % 4]);
+        tung("tung", ev.epoch < 0 ? 0.7 : 1);
         $("ss-finetune").textContent = ev.epoch < 0 ? `initial error ${fmt(ev.mae_e, 0)} meV/atom` : `epoch ${ev.epoch + 1}/${S.epochsPlanned} · ${fmt(ev.mae_e)} meV/atom · ${fmt(ev.mae_f)} meV/Å`;
         $("bar-finetune").style.width = `${Math.max(2, (ev.epoch + 1) / S.epochsPlanned * 100)}%`;
         break;
@@ -256,7 +261,6 @@
         if (ev.model === "finetuned" && S.valres.foundation) {
           const f = S.valres.foundation;
           caption(`<b>Tested.</b> Energy error ${fmt(f.mae_e, 0)} → <b>${fmt(ev.mae_e, 0)} meV/atom</b>, force error ${fmt(f.rmse_f, 0)} → <b>${fmt(ev.rmse_f, 0)} meV/Å</b>, on structures it never saw — at ~${ev.ms_per_structure} ms per answer. The simulator takes minutes.`);
-          tung("MAMMA MIA", 0.8); say(`errore ${fmt(f.mae_e, 0)} → ${fmt(ev.mae_e, 0)}. Bellissimo.`);
         }
         break;
       case "eval": S.evals.push(ev); drawHull(); $("ss-discover").textContent = `network evaluations: ${ev.calls}`; break;
@@ -264,24 +268,23 @@
         S.generation = ev; drawPop();
         $("bar-discover").style.width = `${Math.min(80, (ev.gen + 1) / 8 * 80)}%`;
         caption(`<b>Generation ${ev.gen + 1}.</b> Best so far: <b>${ev.population[0].ordering}</b> at ${fmt(ev.population[0].ef)} meV/atom, after only ${ev.calls} network evaluations. Elites survive, the rest are crossed and mutated.`);
-        tung(["TUNG", "MUTAZIONE", "CROSSOVERINO", "TUNG"][ev.gen % 4], 1.15); say(`Generazione ${ev.gen + 1}! The strong survive, capisce?`);
         break;
       case "hull": S.hull = ev; drawHull(); caption(`<b>Verify.</b> The network has scored every arrangement. Its best pick at each mixing ratio now goes to the slow simulator — 3 expensive calls instead of 27.`); break;
-      case "verify": S.verify.push(ev); drawVerify(); drawHull(); tung(ev.confirmed == null ? "CHIEDI DFT" : ev.confirmed ? "SÌ SÌ SÌ" : "NO NO NO", ev.confirmed ? 1.3 : 0.6); break;
-      case "champion": S.champion = ev; drawHull(); drawVerify(); say(`${ev.formula}-ino, il campione 👑`, 4000); break;
+      case "verify": S.verify.push(ev); drawVerify(); drawHull(); break;
+      case "champion": S.champion = ev; drawHull(); drawVerify(); break;
       case "done":
         setStep(ev.step, "done", `done${ev.seconds ? ` in ${clock(ev.seconds)}` : ""}`);
         if (ev.step === "discover") $("bar-discover").style.width = "100%";
         break;
       case "finished":
         S.finished = ev; drawFinal();
-        if (BR.on) { ["TUNG", "TUNG", "TUNG", "SAHUR!!"].forEach((w, i) => setTimeout(() => tung(w, i === 3 ? 0.5 : 1), i * 350)); say("tung tung tung... SAHUR. 🪵🏏", 6000); }
+        if (BR.on) { ["tung", "tung", "tung", "sahur"].forEach((w, i) => setTimeout(() => tung(w, i === 3 ? 0.55 : 1), i * 380)); say("tung tung tung sahur", 5000); }
         break;
     }
   }
 
   function setStep(step, cls, text) { const n = $("st-" + step); n.classList.remove("active"); n.classList.add(cls); $("ss-" + step).textContent = text; }
-  function caption(html) { $("caption").innerHTML = BR.on ? `${html} <b>${INTERJECT[Math.floor(Math.random() * INTERJECT.length)]}</b>` : html; }
+  function caption(html) { $("caption").innerHTML = html; }
 
   // ---------- drawing helpers ----------
   function frame(svg, W, H, pad) { svg.innerHTML = ""; const g = el("g", {}, svg); return { g, x0: pad.l, x1: W - pad.r, y0: H - pad.b, y1: pad.t }; }
@@ -398,7 +401,7 @@
       <p><span class="big">${clock(t.total || 0)}</span> &nbsp; for the whole loop on this machine${t.finetune ? ` (fine-tuning ${clock(t.finetune)})` : ""}.</p>
       <p>Network error on unseen structures: energy <b>${fmt(f.mae_e, 0)} → ${fmt(n.mae_e, 0)} meV/atom</b>, forces <b>${fmt(f.rmse_f, 0)} → ${fmt(n.rmse_f, 0)} meV/Å</b>, answering in ~${n.ms_per_structure || "–"} ms where the simulator needs minutes.</p>
       <p>The evolutionary search found <b>${c.formula || "–"}</b> (${c.ordering || "–"}) with ${c.calls || "–"} network calls; ${c.is_ground_state ? "the simulator confirms it is the most stable arrangement of all" : "the simulator ranks a different arrangement first"}. ${c.hits}/${c.checked} per-ratio picks confirmed with ${c.checked} slow calculations instead of 27.</p>
-      <p style="color:var(--muted)">Expensive oracle, cheap learned surrogate, verify before you trust — that is the role a learned potential plays inside an agent's discovery loop.${BR.on ? " Tung tung tung sahur. 🪵" : ""}</p>`;
+      <p style="color:var(--muted)">Expensive oracle, cheap learned surrogate, verify before you trust — that is the role a learned potential plays inside an agent's discovery loop.</p>`;
   }
 
   drawLearn(); drawParity(); drawHull();
