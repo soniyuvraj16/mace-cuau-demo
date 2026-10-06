@@ -55,7 +55,13 @@ def metrics(ef_pred, ef_ref, f_pred, f_ref):
 
 def main():
     dev = device()
-    banner(f"Step 2 - validating on {DATA / 'holdout.xyz'} ({dev})")
+    banner(f"Step 2 - test the network on structures it never saw ({dev})\n"
+           "51 held-out arrangements, scored by the simulator but kept out of training.\n"
+           "We compare two models against the simulator's answers: the pretrained\n"
+           "network as downloaded, and our fine-tuned one. Energies are compared as\n"
+           "'formation energy': how much more stable a Cu-Au mixture is than keeping the\n"
+           "pure metals apart (lower = more stable). That number is what decides which\n"
+           "arrangement wins, and the gaps between rivals are only tens of meV/atom.")
     frames = read(DATA / "holdout.xyz", ":")
     ref = reference_ideals_8atom()
     ref_cu, ref_au = pure_per_atom(lambda b: ref[b][0], 8)
@@ -82,6 +88,11 @@ def main():
           f"{bm['formation_energy_mae_meV_per_atom'] / max(fm['formation_energy_mae_meV_per_atom'], 1e-9):.1f}x "
           f"and the force error by {bm['force_rmse_meV_per_A'] / max(fm['force_rmse_meV_per_A'], 1e-9):.1f}x "
           f"on {len(frames)} held-out structures ({n_orderings} orderings the model never saw).")
+    print(f"In plain terms: on structures it was never shown, the fine-tuned network's energy is off by "
+          f"{fm['formation_energy_mae_meV_per_atom']:.0f} meV/atom on average (the pretrained one: "
+          f"{bm['formation_energy_mae_meV_per_atom']:.0f}), and its forces by {fm['force_rmse_meV_per_A']:.0f} meV/A "
+          f"(pretrained: {bm['force_rmse_meV_per_A']:.0f}). Each answer took it about "
+          f"{fm['seconds'] / len(frames) * 1000:.0f} ms; the simulator takes minutes.")
 
     RESULTS.mkdir(exist_ok=True)
     FIGURES.mkdir(exist_ok=True)
@@ -92,14 +103,14 @@ def main():
     for label, (ef, f) in preds.items():
         axes[0].scatter(ref_ef * 1000, ef * 1000, s=22, alpha=0.8, label=label, color=colors[label])
         axes[1].scatter(ref_f.ravel(), f.ravel(), s=6, alpha=0.5, label=label, color=colors[label])
-    for ax, title, unit in ((axes[0], "Formation energy", "meV/atom"), (axes[1], "Forces", "eV/Å")):
+    for ax, title, unit in ((axes[0], "Stability score (formation energy, lower = more stable)", "meV/atom"), (axes[1], "Force on each atom", "eV/Å")):
         lo, hi = ax.get_xlim()
-        ax.plot([lo, hi], [lo, hi], "k--", lw=1)
-        ax.set_xlabel(f"reference ({unit})")
-        ax.set_ylabel(f"MACE ({unit})")
-        ax.set_title(title)
+        ax.plot([lo, hi], [lo, hi], "k--", lw=1, label="perfect agreement")
+        ax.set_xlabel(f"physics simulator, DFT ({unit})")
+        ax.set_ylabel(f"neural network, MACE ({unit})")
+        ax.set_title(title, fontsize=10)
         ax.legend(fontsize=8)
-    fig.suptitle("Held-out 8-atom Cu-Au cells: before vs after fine-tuning")
+    fig.suptitle("Neural network vs physics simulator on 51 structures the network never saw")
     fig.tight_layout()
     fig.savefig(FIGURES / "parity.png", dpi=140)
     print(f"\nwrote {FIGURES / 'parity.png'} and {RESULTS / 'validation.json'}")

@@ -9,6 +9,47 @@ The point: DFT is too slow to sit inside a discovery loop. A fine-tuned MLIP is
 fast enough to be called thousands of times, and accurate enough to be trusted
 — and we verify that trust against DFT it was never trained on.
 
+## If you are not from materials science (most of the room)
+
+You don't need any chemistry. Here is the whole demo in CS terms:
+
+- There is a **slow, trusted simulator** (DFT — quantum mechanics solved
+  numerically). Give it an arrangement of atoms, it returns a score (energy:
+  lower = more stable) and a gradient (the force on every atom). Each call
+  takes minutes to hours of cluster time.
+- There is a **neural network** (MACE) pretrained to imitate that simulator
+  on a huge general dataset. We **fine-tune** it on 135 simulator outputs for
+  our specific problem — exactly like fine-tuning a pretrained language model
+  on a small domain dataset. Afterwards it answers in ~100 ms.
+- The **problem** is a search: 8 lattice sites, each copper or gold, so every
+  candidate is an **8-bit string** (`0` = Cu, `1` = Au). 2⁸ = 256 strings, 27
+  of them genuinely different after symmetry. Which one is most stable?
+- A **genetic algorithm** evolves a population of bit strings. Its **fitness
+  function is the neural network**, not the simulator — that is what makes
+  the search affordable.
+- Then the **verify step**: the network's best guess at each mixing ratio is
+  sent to the slow simulator. If the simulator agrees, trust is earned; if
+  not, that structure goes into the training set and the loop repeats
+  (**propose → evaluate → decide → refine**). The agent spends 3 slow calls
+  instead of 27.
+
+The answer is a real material: Cu₃Au in the "L1₂" arrangement is a known
+ordered alloy you can look up. Every script prints an "in plain terms"
+paragraph after its numbers, and `run_demo.py` ends with a summary written
+for this audience.
+
+| term you will see | what it means here |
+| --- | --- |
+| DFT, "reference", "simulator" | the slow ground-truth physics calculation |
+| MACE, "the network", MLIP | the neural network that imitates it |
+| foundation model / MACE-MP-0 | the pretrained network before fine-tuning |
+| ordering, arrangement, bit string | which of the 8 sites are Cu and which Au |
+| formation energy | stability score: energy of the mixture minus the pure metals, per atom; lower = more stable, 0 = no better than keeping the metals apart |
+| meV/atom | the unit of that score; rival arrangements differ by tens of meV/atom |
+| ground state | the most stable arrangement (at a given mixing ratio) |
+| convex hull / "hull vertices" | the most stable arrangement at each mixing ratio, joined up — the set a search is really trying to find |
+| held out | structures the network never saw in training |
+
 ## For an agent (or a human) running this
 
 Do these in order. Each step prints what it did; you don't need to edit anything.
@@ -37,10 +78,14 @@ Do these in order. Each step prints what it did; you don't need to edit anything
    | 2 | `scripts/02_validate.py` | foundation vs fine-tuned model on `data/holdout.xyz` | `figures/parity.png`, `results/validation.json` |
    | 3 | `scripts/03_discover.py` | genetic algorithm over Cu–Au orderings, scored by MACE, graded against held-out reference | `figures/hull.png`, `results/discovery.json` |
 
-3. Report back: the timing table, the validation table from step 2 (error before
-   vs after fine-tuning), and the step-3 verdict (did the GA champion match the
-   reference ground state, and by how many meV/atom did MACE miss its energy).
-   Open `figures/parity.png` and `figures/hull.png`.
+3. Report back **for an audience of CS and EE students, not chemists**: the
+   timing table, the step-2 table (error before vs after fine-tuning), the
+   step-3 verdict (did the search's pick match the simulator's ground state,
+   how many of the network's per-ratio picks were confirmed), and the "WHAT
+   JUST HAPPENED, IN PLAIN TERMS" block at the end. Explain each number the
+   way that block does — slow simulator vs fast network, bit strings, fitness
+   function, verify step — and open `figures/parity.png` and
+   `figures/hull.png`.
 
 ## What you should see
 
@@ -89,10 +134,11 @@ The first run downloads the MACE-MP-0 small foundation model (a few MB) into
 
 > Clone this repo, read README.md, and run the demo exactly as it describes:
 > create the venv, install the requirements, run `run_demo.py` (with
-> `--epochs 30` if the environment was already installed). Then report the
-> timing table, the before/after validation table, the step-3 champion verdict
-> and the verify-step shortlist, and open the two figures. Don't change any
-> code.
+> `--epochs 30` if the environment was already installed). Then explain what
+> happened to a room of CS and EE students who know machine learning but no
+> chemistry: the timing table, the before/after validation table, the step-3
+> verdict and verify-step table, and the plain-terms summary at the end. Open
+> the two figures. Don't change any code.
 
 ## What is in the data
 

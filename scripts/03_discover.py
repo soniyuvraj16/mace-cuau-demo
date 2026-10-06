@@ -72,6 +72,16 @@ def genetic_search(oracle, name_of, pop_size=12, generations=8, p_mut=0.15):
     return min(pop, key=oracle.formation), history
 
 
+def formula(x_au):
+    from math import gcd
+
+    n_au = round(x_au * N_SITES)
+    n_cu = N_SITES - n_au
+    g = gcd(n_cu, n_au) or 1
+    cu, au = n_cu // g, n_au // g
+    return "".join(f"{el}{n if n > 1 else ''}" for el, n in (("Cu", cu), ("Au", au)) if n)
+
+
 def reference_table():
     ref = reference_ideals_8atom()
     e_cu, e_au = pure_per_atom(lambda b: ref[b][0], N_SITES)
@@ -89,7 +99,13 @@ def reference_table():
 
 def main():
     dev = device()
-    banner(f"Step 3 - evolutionary search over 8-site Cu-Au orderings with fine-tuned MACE ({dev})")
+    banner(f"Step 3 - discovery: evolutionary search with the network as the judge ({dev})\n"
+           "The question: which way of placing copper and gold atoms on 8 lattice sites\n"
+           "is the most stable? Each arrangement is an 8-bit string (0 = Cu, 1 = Au), so\n"
+           "the search space is 2^8 = 256 strings, 27 of them genuinely different. A\n"
+           "genetic algorithm evolves a population of strings; the fitness function is\n"
+           "the fine-tuned network's energy, not the simulator's. At the end the network's\n"
+           "best guesses are checked against the simulator - the 'verify' step.")
     oracle = Oracle(mace_calculator(MODELS / f"{MODEL_NAME}.model", dev))
     ref = reference_table()
 
@@ -126,7 +142,7 @@ def main():
     heldout_err = np.mean([abs(r["mace_formation"] - r["ref_formation"]) for r in heldout]) * 1000
 
     seen = "was in the training set" if champ["in_training"] else "was NEVER in the training set"
-    print(f"\nGA champion: {champ['ordering']}  (x_Au = {champ['x_au']:.3f}) -- this ordering {seen}")
+    print(f"\nGA champion: {champ['ordering']}  = {formula(champ['x_au'])}  (x_Au = {champ['x_au']:.3f}) -- this ordering {seen}")
     print(f"  MACE      E_form = {champ_mace * 1000:7.2f} meV/atom")
     if champ["ref_formation"] is None:
         print("  reference E_form = (no DFT label for this ordering yet) -> the agent would request one now")
@@ -165,6 +181,29 @@ def main():
           f"rejected ones go back into training (the 'refine' step)")
     if unlabelled:
         print(f"  ({len(unlabelled)} of {len(rows)} orderings have no DFT label yet: {', '.join(r['ordering'] for r in unlabelled)})")
+
+    champion_is_gs = champ["ref_formation"] is not None and ref_best["ordering"] == champ["ordering"]
+    print("\nIn plain terms: the search asked the neural network about "
+          f"{ga_calls} arrangements (about {ga_time / max(ga_calls, 1) * 1000:.0f} ms each) and picked "
+          f"{formula(champ['x_au'])} in arrangement {champ['ordering']}. "
+          + ("The simulator agrees that this is the most stable arrangement of all. "
+             if champion_is_gs else "The simulator ranks a different arrangement first - the network's guess was close but wrong, which is exactly why we check. ")
+          + f"Of the network's best pick at each mixing ratio, {hits} of {len(shortlist)} were confirmed by the simulator, "
+          f"using {len(shortlist)} slow calculations instead of {len(rows)}.")
+    summary = {
+        "n_orderings": len(rows),
+        "ga_unique_evaluations": ga_calls,
+        "ga_ms_per_evaluation": round(ga_time / max(ga_calls, 1) * 1000, 1),
+        "champion_ordering": champ["ordering"],
+        "champion_formula": formula(champ["x_au"]),
+        "champion_in_training": champ["in_training"],
+        "champion_is_reference_ground_state": champion_is_gs,
+        "champion_error_meV": None if champ["ref_formation"] is None else round(abs(champ_mace - champ["ref_formation"]) * 1000, 2),
+        "hull_vertices_checked": len(shortlist),
+        "hull_vertices_confirmed": hits,
+        "hull_agreement": f"{len(mace_hull & ref_hull)}/{len(ref_hull)}",
+        "heldout_mean_error_meV": round(float(heldout_err), 1),
+    }
     print(f"\nconvex hull: MACE puts {len(mace_hull)} orderings on the hull, reference {len(ref_hull)}; "
           f"agreement on {len(mace_hull & ref_hull)}/{len(ref_hull)} reference ground states")
     print(f"mean |MACE - reference| over the {len(heldout)} never-trained mixed orderings with labels: {heldout_err:.1f} meV/atom")
@@ -174,6 +213,7 @@ def main():
     RESULTS.mkdir(exist_ok=True)
     FIGURES.mkdir(exist_ok=True)
     (RESULTS / "discovery.json").write_text(json.dumps({
+        "summary": summary,
         "champion": champ | {"mace_formation": champ_mace},
         "reference_global_minimum": ref_best,
         "shortlist": shortlist,
@@ -188,17 +228,17 @@ def main():
     ref_arr = np.array([np.nan if r["ref_formation"] is None else r["ref_formation"] for r in rows]) * 1000
     mace_arr = np.array([r["mace_formation"] for r in rows]) * 1000
     trained = np.array([r["in_training"] for r in rows])
-    ax.scatter(xs_arr, ref_arr, s=40, facecolors="none", edgecolors="k", label="reference (DFT)")
-    ax.scatter(xs_arr[trained], mace_arr[trained], s=18, color="#7b1fa2", label="MACE (ordering in training)")
-    ax.scatter(xs_arr[~trained], mace_arr[~trained], s=18, color="#c2185b", label="MACE (never seen)")
-    for hull, arr, color, ls, lab in ((ref_hull, ref_arr, "k", "--", "reference hull"), (mace_hull, mace_arr, "#c2185b", "-", "MACE hull")):
+    ax.scatter(xs_arr, ref_arr, s=40, facecolors="none", edgecolors="k", label="physics simulator (DFT)")
+    ax.scatter(xs_arr[trained], mace_arr[trained], s=18, color="#7b1fa2", label="network (arrangement was in training)")
+    ax.scatter(xs_arr[~trained], mace_arr[~trained], s=18, color="#c2185b", label="network (never seen)")
+    for hull, arr, color, ls, lab in ((ref_hull, ref_arr, "k", "--", "most stable per ratio: simulator"), (mace_hull, mace_arr, "#c2185b", "-", "most stable per ratio: network")):
         idx = sorted([k for k, r in enumerate(rows) if r["ordering"] in hull], key=lambda k: xs[k])
         ax.plot(xs_arr[idx], arr[idx], color=color, ls=ls, lw=1.2, label=lab)
-    ax.scatter([champ["x_au"]], [champ_mace * 1000], marker="*", s=220, color="#ffb300", edgecolors="k", zorder=5, label="GA champion")
+    ax.scatter([champ["x_au"]], [champ_mace * 1000], marker="*", s=220, color="#ffb300", edgecolors="k", zorder=5, label="search result")
     ax.axhline(0, color="gray", lw=0.6)
-    ax.set_xlabel("Au fraction")
-    ax.set_ylabel("formation energy (meV/atom)")
-    ax.set_title("Cu-Au ordering search: MACE vs reference")
+    ax.set_xlabel("fraction of gold atoms (0 = pure copper, 1 = pure gold)")
+    ax.set_ylabel("stability score: formation energy (meV/atom)\nlower = more stable than the pure metals")
+    ax.set_title("Which Cu/Au arrangement is most stable? Network vs simulator, all 27 arrangements", fontsize=10)
     ax.legend(fontsize=8)
     fig.tight_layout()
     fig.savefig(FIGURES / "hull.png", dpi=140)

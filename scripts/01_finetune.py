@@ -20,7 +20,12 @@ def main():
     p.add_argument("--device", default=device())
     args = p.parse_args()
 
-    banner(f"Step 1 - fine-tuning MACE-MP-0 small on {DATA / 'train.xyz'} ({args.device})")
+    banner(f"Step 1 - fine-tune the neural network ({args.device})\n"
+           "A slow physics simulator (DFT, minutes per structure) scored 135 Cu-Au\n"
+           "arrangements for us: an energy per structure and a force on every atom.\n"
+           "We now adapt a pretrained neural network (MACE) to reproduce those numbers,\n"
+           "the same way you would fine-tune a pretrained language model on a small\n"
+           "domain dataset. Afterwards it answers in milliseconds instead of minutes.")
     if MODELS.exists():
         shutil.rmtree(MODELS)
     MODELS.mkdir()
