@@ -66,20 +66,32 @@ Do these in order. Each step prints what it did; you don't need to edit anything
    .venv/bin/python   -m pip install -r requirements.txt       # macOS / Linux
    ```
 
-2. Run the whole pipeline:
+2. Ask which mode, then run the pipeline. **Quick is recommended when time is
+   short** (a class demo); full is for anyone who wants to watch the training
+   happen and can wait a few minutes.
 
    ```
-   .venv/Scripts/python run_demo.py        # Windows
-   .venv/bin/python   run_demo.py          # macOS / Linux
+   .venv/Scripts/python run_demo.py                 # quick (default): shipped model, ~30 s
+   .venv/Scripts/python run_demo.py --mode full     # fine-tune live first, ~3 min on a laptop CPU
    ```
+   (`.venv/bin/python` on macOS / Linux.)
 
-   This opens a live dashboard in the browser (keep it visible — that is what
-   the audience watches), runs three scripts and prints a timing table and a
-   plain-language summary at the end:
+   - **quick** loads the fine-tuned model shipped in `models/cuau_ft.model`
+     and replays its recorded training curve on the dashboard — clearly
+     labelled "recorded" — then runs the test and the search live. The shipped
+     model was produced by `scripts/01_finetune.py` on this repository's data
+     with the pinned versions; its curve and settings are in
+     `models/training_log.json`.
+   - **full** trains that model in front of you (overwriting the shipped one
+     and its log), then runs the same test and search.
+
+   Either way a live dashboard opens in the browser (keep it visible — that is
+   what the audience watches), and a timing table and a plain-language summary
+   are printed at the end:
 
    | Step | Script | What it does | Output |
    | --- | --- | --- | --- |
-   | 1 | `scripts/01_finetune.py` | fine-tunes MACE-MP-0 (small) on `data/train.xyz` | `models/cuau_ft.model` |
+   | 1 | `scripts/01_finetune.py` (full mode only) | fine-tunes MACE-MP-0 (small) on `data/train.xyz` | `models/cuau_ft.model`, `models/training_log.json` |
    | 2 | `scripts/02_validate.py` | foundation vs fine-tuned model on `data/holdout.xyz` | `figures/parity.png`, `results/validation.json` |
    | 3 | `scripts/03_discover.py` | genetic algorithm over Cu–Au orderings, scored by MACE, graded against held-out reference | `figures/hull.png`, `results/discovery.json` |
 
@@ -90,7 +102,11 @@ Do these in order. Each step prints what it did; you don't need to edit anything
    JUST HAPPENED, IN PLAIN TERMS" block at the end. Explain each number the
    way that block does — slow simulator vs fast network, bit strings, fitness
    function, verify step — and open `figures/parity.png` and
-   `figures/hull.png`.
+   `figures/hull.png`. In quick mode, say plainly that the model was trained
+   earlier and loaded.
+
+Full-mode knobs: `--epochs N` (20 by default; 30 gets the held-out energy error
+from 7.9 to ~4 meV/atom for another ~90 s on CPU) and `--lr`.
 
 ## What you should see
 
@@ -119,62 +135,43 @@ stability chart filling in as the network scores arrangements, and the
 simulator's check marks landing in the verify step. **Put that browser window
 on the projector**; the terminal is for the agent.
 
-There is a second page for whoever is talking: **`dashboard/tracker.html`**
-(linked from the dashboard header as "presenter view"). It shows the pipeline
-as a block map — DFT labels → learn → test → search → verify → result — lights
-up the block that is running, and fills in numbered checkpoints as they are
-reached, each with "what just happened" in plain words and two or three
-"say this" talking points. Put the audience dashboard on the projector and the
-presenter view on the laptop screen.
-
 If no browser opens, the URL is printed (`live dashboard: http://127.0.0.1:…`).
 After the run, opening `dashboard/index.html` as a file replays the whole
 animation from the saved results — handy for showing it again, or if you have
 to present without running. `--no-dashboard` turns it off; `--hold` keeps the
 page served until you press Enter.
 
-### Slides
-
-`MACE_Agentic_Discovery_v2.pptx` is the talk: the 3-minute deck, the demo
-slide, a scaling-up example, and nine backup slides (what DFT hands to MACE,
-DFT, learned potentials, MACE as a graph, equivariance, the math, results, the
-Cu–Au system, the data). `tools/revise_deck.py` builds it from the original
-`MACE_Agentic_Discovery.pptx` and the numbers in `results/` after a run.
 
 ## How long it takes
 
-Measured on a Windows laptop (CPU-only torch, no GPU used):
+Measured from a fresh clone on a Windows laptop with nothing installed
+(CPU-only torch, download cache disabled):
 
 | | time |
 | --- | --- |
-| `pip install -r requirements.txt` (torch is the bulk of it) | ~4 min |
-| step 1 fine-tune, 20 epochs | ~3 min |
-| step 2 validate | ~15 s |
-| step 3 discover | ~10 s |
-| **pipeline total** | **~3.5 min** |
+| `git clone` + `python -m venv` | ~10 s |
+| `pip install -r requirements.txt` (torch is the bulk of it) | ~3 min |
+| **quick mode:** load shipped model + test + search | **~30 s** |
+| full mode: fine-tune 20 epochs + test + search | ~3.5 min |
 
-So: install *before* the session if you can, and the live part is about three
-and a half minutes. On a laptop GPU (GTX 1650) the pipeline takes about
-80 seconds.
-
-Knobs, all on `run_demo.py`: `--epochs N` (20 by default, chosen so install
-plus run fits in 8 minutes; **if the environment is already installed, use
-`--epochs 30`** — held-out energy error drops from 7.9 to 4.0 meV/atom for
-another ~90 s on CPU; 15 is too few), `--skip-finetune` to reuse
-`models/cuau_ft.model` from a previous run.
+So a cold machine reaches the result in about four minutes in quick mode;
+slower CPUs or networks stretch the install and the full-mode training, not
+the quick run. Install *before* the session if you can.
 
 The first run downloads the MACE-MP-0 small foundation model (a few MB) into
 `~/.cache/mace`; after that everything is offline.
 
 ## Prompt to give the agent
 
-> Clone this repo, read README.md, and run the demo exactly as it describes:
-> create the venv, install the requirements, run `run_demo.py` (with
-> `--epochs 30` if the environment was already installed). Then explain what
-> happened to a room of CS and EE students who know machine learning but no
-> chemistry: the timing table, the before/after validation table, the step-3
-> verdict and verify-step table, and the plain-terms summary at the end. Open
-> the two figures. Don't change any code.
+> Clone this repo and read README.md. Ask me one question: quick mode
+> (recommended — uses the fine-tuned model shipped in the repo, about 30 s
+> after install) or full mode (fine-tunes live first, a few minutes more)? If I
+> don't answer, use quick. Then do exactly what the README says: create the
+> venv, install the requirements, run `run_demo.py` with that mode. Explain
+> what happened to a room of CS and EE students who know machine learning but
+> no chemistry: the timing table, the before/after validation table, the
+> step-3 verdict and verify-step table, and the plain-terms summary at the
+> end. Open the two figures. Don't change any code.
 
 ## What is in the data
 

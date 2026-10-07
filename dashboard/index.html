@@ -48,15 +48,11 @@
   .final p { margin: 6px 0; font-size: 16px; }
   footer { padding: 0 22px 16px; color: var(--muted); font-size: 12px; }
 
-  .nav { margin-left: 14px; font-size: 13px; color: var(--muted); }
-  .nav a { color: var(--muted); text-decoration: none; border: 1px solid var(--line); border-radius: 20px; padding: 4px 12px; }
-  .nav a:hover { color: var(--text); border-color: var(--text); }
 </style>
 </head>
 <body>
 <header>
   <h1 id="title">Discovery loop, live: learn → test → search → verify</h1>
-  <span class="nav"><a href="tracker.html" id="navlink">presenter view →</a></span>
   <div class="elapsed" id="elapsed">0:00</div>
 </header>
 <div class="steps">
@@ -159,7 +155,15 @@
       case "start":
         S.stepStart[ev.step] = ev.t;
         setStep(ev.step, "active", "running…");
-        if (ev.step === "finetune") { S.epochsPlanned = ev.epochs; caption(`<b>Learn.</b> A slow physics simulator scored 135 copper–gold arrangements. We fine-tune a pretrained network to reproduce those scores — ${ev.epochs} passes over the data on <b>${ev.device}</b>.`); }
+        if (ev.step === "finetune") {
+          S.epochsPlanned = ev.epochs; S.recorded = !!ev.recorded; S.recordedSeconds = ev.recorded_seconds;
+          if (ev.recorded) {
+            caption(`<b>Learn (recorded).</b> A slow physics simulator scored 135 copper–gold arrangements. The network was fine-tuned on them earlier — ${clock(ev.recorded_seconds)} on a laptop CPU — and the saved model is loaded now; this is its recorded training curve. Run with <code>--mode full</code> to train live.`);
+            $("learn-sub").textContent = `Recorded training curve of the shipped model (${clock(ev.recorded_seconds)} on a laptop CPU, ${ev.recorded_date || ""}). Not live — --mode full trains in front of you.`;
+          } else {
+            caption(`<b>Learn.</b> A slow physics simulator scored 135 copper–gold arrangements. We fine-tune a pretrained network to reproduce those scores — ${ev.epochs} passes over the data on <b>${ev.device}</b>.`);
+          }
+        }
         if (ev.step === "validate") {
           caption(`<b>Test.</b> ${ev.n_frames} structures the network never saw. Pretrained network first, then the fine-tuned one — both against the simulator's answers.`);
           if (!S.epochs.length) { setStep("finetune", "done", "skipped — reusing an earlier fine-tuned model"); $("learn-sub").textContent = "Fine-tuning was skipped in this run (the saved model was reused), so there is no learning curve to show."; }
@@ -168,7 +172,7 @@
         break;
       case "epoch":
         S.epochs.push(ev); drawLearn();
-        $("ss-finetune").textContent = ev.epoch < 0 ? `initial error ${fmt(ev.mae_e, 0)} meV/atom` : `epoch ${ev.epoch + 1}/${S.epochsPlanned} · ${fmt(ev.mae_e)} meV/atom · ${fmt(ev.mae_f)} meV/Å`;
+        $("ss-finetune").textContent = (S.recorded ? "recorded · " : "") + (ev.epoch < 0 ? `initial error ${fmt(ev.mae_e, 0)} meV/atom` : `epoch ${ev.epoch + 1}/${S.epochsPlanned} · ${fmt(ev.mae_e)} meV/atom · ${fmt(ev.mae_f)} meV/Å`);
         $("bar-finetune").style.width = `${Math.max(2, (ev.epoch + 1) / S.epochsPlanned * 100)}%`;
         break;
       case "parity":
@@ -193,7 +197,7 @@
       case "verify": S.verify.push(ev); drawVerify(); drawHull(); break;
       case "champion": S.champion = ev; drawHull(); drawVerify(); break;
       case "done":
-        setStep(ev.step, "done", `done${ev.seconds ? ` in ${clock(ev.seconds)}` : ""}`);
+        setStep(ev.step, "done", ev.recorded ? `shipped model · trained earlier in ${clock(ev.seconds)}` : `done${ev.seconds ? ` in ${clock(ev.seconds)}` : ""}`);
         if (ev.step === "discover") $("bar-discover").style.width = "100%";
         break;
       case "finished":
@@ -317,13 +321,12 @@
     const fin = $("final"); fin.classList.add("show");
     const f = S.valres.foundation || {}, n = S.valres.finetuned || {}, c = S.champion || {}, t = S.finished.timings || {};
     $("final-body").innerHTML = `
-      <p><span class="big">${clock(t.total || 0)}</span> &nbsp; for the whole loop on this machine${t.finetune ? ` (fine-tuning ${clock(t.finetune)})` : ""}.</p>
+      <p><span class="big">${clock(t.total || 0)}</span> &nbsp; ${S.finished.mode === "quick" ? `for test, search and verify on this machine, using the shipped model${S.finished.recorded_finetune_seconds ? ` (fine-tuned earlier in ${clock(S.finished.recorded_finetune_seconds)} on a laptop CPU)` : ""}` : `for the whole loop on this machine${t.finetune ? ` (fine-tuning ${clock(t.finetune)})` : ""}`}.</p>
       <p>Network error on unseen structures: energy <b>${fmt(f.mae_e, 0)} → ${fmt(n.mae_e, 0)} meV/atom</b>, forces <b>${fmt(f.rmse_f, 0)} → ${fmt(n.rmse_f, 0)} meV/Å</b>, answering in ~${n.ms_per_structure || "–"} ms where the simulator needs minutes.</p>
       <p>The evolutionary search found <b>${c.formula || "–"}</b> (${c.ordering || "–"}) with ${c.calls || "–"} network calls; ${c.is_ground_state ? "the simulator confirms it is the most stable arrangement of all" : "the simulator ranks a different arrangement first"}. ${c.hits}/${c.checked} per-ratio picks confirmed with ${c.checked} slow calculations instead of 27.</p>
       <p style="color:var(--muted)">Expensive oracle, cheap learned surrogate, verify before you trust — that is the role a learned potential plays inside an agent's discovery loop.</p>`;
   }
 
-  $("navlink").href = "tracker.html" + location.search;
   drawLearn(); drawParity(); drawHull();
   poll(); requestAnimationFrame(tick);
 })();

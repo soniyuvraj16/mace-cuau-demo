@@ -1,8 +1,11 @@
 .venv*/
 __pycache__/
-models/
+models/*
+!models/cuau_ft.model
+!models/training_log.json
 results/
 figures/*.png
+*.pptx
 *.log
 *.err
 *_valid_indices_*.txt
@@ -16,4 +19,6 @@ from_grace*/
 /tungtung.*
 /docs/
 ~$*
+# presenter-only page: lives on the presenting laptop, not in the public repo
+dashboard/tracker.html
 *.tar.gz

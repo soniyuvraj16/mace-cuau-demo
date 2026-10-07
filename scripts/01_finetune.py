@@ -1,7 +1,9 @@
 """Step 1: fine-tune the MACE-MP-0 (small) foundation model on data/train.xyz."""
 
 import argparse
+import json
 import os
+import platform
 import re
 import shutil
 import subprocess
@@ -29,10 +31,13 @@ def main():
            "We now adapt a pretrained neural network (MACE) to reproduce those numbers,\n"
            "the same way you would fine-tune a pretrained language model on a small\n"
            "domain dataset. Afterwards it answers in milliseconds instead of minutes.")
-    if MODELS.exists():
-        shutil.rmtree(MODELS)
-    MODELS.mkdir()
+    MODELS.mkdir(exist_ok=True)
+    for sub in ("checkpoints", "logs", "results"):
+        shutil.rmtree(MODELS / sub, ignore_errors=True)
+    for old in MODELS.glob(f"{MODEL_NAME}*.model"):
+        old.unlink()
     progress(type="start", step="finetune", epochs=args.epochs, device=args.device)
+    epochs_seen = []
 
     cmd = [
         sys.executable, "-u", "-m", "mace.cli.run_train",
@@ -73,15 +78,23 @@ def main():
         m = EPOCH_LINE.search(line)
         if m:
             epoch = -1 if m.group(1) == "Initial" else int(m.group(2))
-            progress(type="epoch", epoch=epoch, mae_e=float(m.group(3)), mae_f=float(m.group(4)),
-                     elapsed=round(time.time() - t0, 1))
+            rec = dict(epoch=epoch, mae_e=float(m.group(3)), mae_f=float(m.group(4)), elapsed=round(time.time() - t0, 1))
+            epochs_seen.append(rec)
+            progress(type="epoch", **rec)
     if proc.wait() != 0:
         sys.exit(f"mace_run_train failed with exit code {proc.returncode}")
     model = MODELS / f"{MODEL_NAME}.model"
     if not model.exists():
         sys.exit(f"expected {model} after training")
-    progress(type="done", step="finetune", seconds=round(time.time() - t0, 1))
-    print(f"\nfine-tuned model: {model}  ({time.time() - t0:.0f} s)")
+    seconds = round(time.time() - t0, 1)
+    progress(type="done", step="finetune", seconds=seconds)
+    (MODELS / "training_log.json").write_text(json.dumps({
+        "recorded": True, "date": time.strftime("%Y-%m-%d"), "machine": f"{platform.system()} {platform.machine()}, {args.device}",
+        "device": args.device, "epochs_planned": args.epochs, "seconds": seconds,
+        "settings": {"foundation_model": "MACE-MP-0 small", "lr": args.lr, "batch_size": args.batch_size,
+                     "energy_weight": args.energy_weight, "forces_weight": args.forces_weight, "train_structures": 135},
+        "epochs": epochs_seen}, indent=1) + "\n", encoding="utf-8", newline="\n")
+    print(f"\nfine-tuned model: {model}  ({seconds:.0f} s); training curve saved to models/training_log.json")
 
 
 if __name__ == "__main__":

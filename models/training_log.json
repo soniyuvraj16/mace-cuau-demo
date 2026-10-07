@@ -1,0 +1,144 @@
+{
+ "recorded": true,
+ "date": "2026-10-07",
+ "machine": "Windows 11 laptop, CPU-only torch 2.14.1, mace-torch 0.3.16",
+ "device": "cpu",
+ "epochs_planned": 20,
+ "seconds": 166.1,
+ "settings": {
+  "foundation_model": "MACE-MP-0 small",
+  "lr": 0.01,
+  "batch_size": 16,
+  "energy_weight": 100,
+  "forces_weight": 10,
+  "train_structures": 135
+ },
+ "epochs": [
+  {
+   "epoch": -1,
+   "mae_e": 804.76,
+   "mae_f": 39.99,
+   "elapsed": 11.0
+  },
+  {
+   "epoch": 0,
+   "mae_e": 114.56,
+   "mae_f": 140.3,
+   "elapsed": 19.1
+  },
+  {
+   "epoch": 1,
+   "mae_e": 37.0,
+   "mae_f": 56.83,
+   "elapsed": 26.2
+  },
+  {
+   "epoch": 2,
+   "mae_e": 22.92,
+   "mae_f": 64.11,
+   "elapsed": 34.0
+  },
+  {
+   "epoch": 3,
+   "mae_e": 23.96,
+   "mae_f": 39.71,
+   "elapsed": 41.4
+  },
+  {
+   "epoch": 4,
+   "mae_e": 21.02,
+   "mae_f": 29.3,
+   "elapsed": 48.7
+  },
+  {
+   "epoch": 5,
+   "mae_e": 21.21,
+   "mae_f": 23.68,
+   "elapsed": 56.0
+  },
+  {
+   "epoch": 6,
+   "mae_e": 16.91,
+   "mae_f": 20.74,
+   "elapsed": 63.3
+  },
+  {
+   "epoch": 7,
+   "mae_e": 16.1,
+   "mae_f": 21.51,
+   "elapsed": 71.1
+  },
+  {
+   "epoch": 8,
+   "mae_e": 16.08,
+   "mae_f": 19.15,
+   "elapsed": 78.3
+  },
+  {
+   "epoch": 9,
+   "mae_e": 12.26,
+   "mae_f": 16.39,
+   "elapsed": 85.3
+  },
+  {
+   "epoch": 10,
+   "mae_e": 11.24,
+   "mae_f": 18.43,
+   "elapsed": 92.1
+  },
+  {
+   "epoch": 11,
+   "mae_e": 10.05,
+   "mae_f": 16.95,
+   "elapsed": 98.7
+  },
+  {
+   "epoch": 12,
+   "mae_e": 7.88,
+   "mae_f": 14.99,
+   "elapsed": 105.6
+  },
+  {
+   "epoch": 13,
+   "mae_e": 7.07,
+   "mae_f": 13.04,
+   "elapsed": 112.6
+  },
+  {
+   "epoch": 14,
+   "mae_e": 8.69,
+   "mae_f": 11.76,
+   "elapsed": 119.7
+  },
+  {
+   "epoch": 15,
+   "mae_e": 10.08,
+   "mae_f": 12.05,
+   "elapsed": 126.5
+  },
+  {
+   "epoch": 16,
+   "mae_e": 8.18,
+   "mae_f": 11.06,
+   "elapsed": 133.2
+  },
+  {
+   "epoch": 17,
+   "mae_e": 6.59,
+   "mae_f": 10.19,
+   "elapsed": 140.2
+  },
+  {
+   "epoch": 18,
+   "mae_e": 5.65,
+   "mae_f": 11.05,
+   "elapsed": 147.2
+  },
+  {
+   "epoch": 19,
+   "mae_e": 6.07,
+   "mae_f": 10.55,
+   "elapsed": 155.3
+  }
+ ]
+}
