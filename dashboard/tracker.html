@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Presenter view</title>
+<style>
+  :root { --bg: #0f1117; --panel: #181b24; --line: #2a2f3d; --text: #e8eaf0; --muted: #9aa3b5; --net: #ff4f8b; --au: #f2c14e; --ok: #4cd97b; --bad: #ff6b6b; --cu: #c8742f; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.45 system-ui, Segoe UI, Roboto, sans-serif; }
+  header { display: flex; align-items: baseline; gap: 18px; padding: 14px 24px 4px; }
+  header h1 { margin: 0; font-size: 20px; font-weight: 650; }
+  header .nav a { color: var(--muted); text-decoration: none; border: 1px solid var(--line); border-radius: 20px; padding: 4px 12px; font-size: 13px; }
+  header .elapsed { margin-left: auto; font-variant-numeric: tabular-nums; color: var(--muted); font-size: 18px; }
+
+  .now { margin: 8px 24px 10px; background: linear-gradient(135deg, #1d1420, #171a24); border: 1px solid var(--net); border-radius: 14px; padding: 16px 20px; display: grid; grid-template-columns: 1fr 1.1fr; gap: 20px; }
+  .now .k { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--net); }
+  .now .h { font-size: 26px; font-weight: 700; margin: 4px 0 6px; line-height: 1.2; }
+  .now .w { font-size: 16px; color: var(--text); }
+  .now .say .k { color: var(--au); }
+  .now .say ul { margin: 6px 0 0 18px; padding: 0; font-size: 16.5px; }
+  .now .say li { margin: 4px 0; }
+
+  .map { display: grid; grid-template-columns: 1.1fr 40px 1fr 40px 1fr 40px 1fr 40px 1fr 40px 1fr; gap: 0; align-items: stretch; margin: 0 24px 12px; }
+  .blk { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; position: relative; min-height: 150px; transition: border-color .3s, box-shadow .3s; }
+  .blk .n { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+  .blk .t { font-size: 16px; font-weight: 650; margin: 3px 0 4px; }
+  .blk .d { font-size: 13px; color: var(--muted); }
+  .blk .s { position: absolute; top: 10px; right: 12px; font-size: 12px; padding: 2px 8px; border-radius: 10px; background: #262a36; color: var(--muted); }
+  .blk .stat { margin-top: 8px; font-size: 14px; font-variant-numeric: tabular-nums; min-height: 20px; }
+  .blk .bar { position: absolute; left: 0; bottom: 0; height: 4px; width: 0; background: var(--net); border-radius: 0 0 12px 12px; transition: width .4s; }
+  .blk.active { border-color: var(--net); box-shadow: 0 0 0 1px var(--net) inset, 0 0 24px rgba(255,79,139,.25); }
+  .blk.active .s { background: var(--net); color: #fff; }
+  .blk.done { border-color: #2f7a4b; }
+  .blk.done .s { background: var(--ok); color: #0f1117; }
+  .blk.done .bar { background: var(--ok); width: 100% !important; }
+  .blk.pre { opacity: .85; }
+  .arrow { display: flex; align-items: center; justify-content: center; color: #4b5263; font-size: 22px; }
+
+  .cps { margin: 0 24px 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .cp { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; display: grid; grid-template-columns: 110px 1fr; gap: 12px; opacity: .55; }
+  .cp.reached { opacity: 1; }
+  .cp.current { border-color: var(--au); }
+  .cp .time { font-variant-numeric: tabular-nums; color: var(--muted); font-size: 13px; }
+  .cp .time b { display: block; color: var(--text); font-size: 15px; }
+  .cp .title { font-weight: 650; font-size: 16px; }
+  .cp .title .badge { display: inline-block; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; background: #262a36; color: var(--muted); border-radius: 8px; padding: 1px 7px; margin-right: 8px; vertical-align: 2px; }
+  .cp.reached .title .badge { background: var(--ok); color: #0f1117; }
+  .cp.current .title .badge { background: var(--au); color: #0f1117; }
+  .cp .what { color: var(--text); font-size: 14.5px; margin: 3px 0 4px; }
+  .cp .say { color: var(--muted); font-size: 14px; }
+  .cp .say b { color: var(--au); font-weight: 600; }
+  footer { padding: 0 24px 16px; color: var(--muted); font-size: 12px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Presenter view — where are we, and what to say</h1>
+  <span class="nav"><a href="index.html" id="navlink">← audience dashboard</a></span>
+  <div class="elapsed" id="elapsed">0:00</div>
+</header>
+
+<div class="now">
+  <div>
+    <div class="k" id="now-k">Waiting for the agent</div>
+    <div class="h" id="now-h">The agent is reading the README…</div>
+    <div class="w" id="now-w">Nothing has started yet. While the audience waits: this whole demo is three scripts an AI agent runs from a README. We only watch.</div>
+  </div>
+  <div class="say">
+    <div class="k">Say this</div>
+    <ul id="now-say"><li>Everything you'll see is one function: the energy of atoms as a function of where they are.</li><li>A slow, trusted simulator (DFT) already scored 135 copper–gold arrangements for us overnight on a cluster.</li><li>We're about to teach a neural network to imitate it — then use the network to search.</li></ul>
+  </div>
+</div>
+
+<div class="map">
+  <div class="blk pre done" id="b-dft"><span class="s">precomputed</span><div class="n">block 0</div><div class="t">DFT labels</div><div class="d">186 quantum-mechanics calculations on the cluster: energy + forces for fixed Cu/Au arrangements. Slow, trusted. Done before class.</div><div class="stat">135 train · 51 held out</div><div class="bar"></div></div>
+  <div class="arrow">→</div>
+  <div class="blk" id="b-finetune"><span class="s">waiting</span><div class="n">block 1 · learn</div><div class="t">Fine-tune MACE</div><div class="d">Pretrained network (MACE-MP-0) adapted to Cu–Au on the 135 labels. Like fine-tuning an LLM on a small domain dataset.</div><div class="stat" id="st-finetune"></div><div class="bar" id="bar-finetune"></div></div>
+  <div class="arrow">→</div>
+  <div class="blk" id="b-validate"><span class="s">waiting</span><div class="n">block 2 · test</div><div class="t">Unseen structures</div><div class="d">51 arrangements the network never saw, scored by DFT. How close is the network — before and after fine-tuning?</div><div class="stat" id="st-validate"></div><div class="bar" id="bar-validate"></div></div>
+  <div class="arrow">→</div>
+  <div class="blk" id="b-search"><span class="s">waiting</span><div class="n">block 3 · search</div><div class="t">Evolutionary search</div><div class="d">8 sites × {Cu, Au} = 256 bit strings, 27 distinct. A genetic algorithm with the network as fitness function.</div><div class="stat" id="st-search"></div><div class="bar" id="bar-search"></div></div>
+  <div class="arrow">→</div>
+  <div class="blk" id="b-verify"><span class="s">waiting</span><div class="n">block 4 · verify</div><div class="t">Check with DFT</div><div class="d">The network's best pick at each mixing ratio goes back to the slow simulator. Trust is earned, not assumed.</div><div class="stat" id="st-verify"></div><div class="bar" id="bar-verify"></div></div>
+  <div class="arrow">→</div>
+  <div class="blk" id="b-result"><span class="s">waiting</span><div class="n">result</div><div class="t">Discovery</div><div class="d">Which Cu/Au arrangement is most stable — and did the surrogate get it right?</div><div class="stat" id="st-result"></div><div class="bar" id="bar-result"></div></div>
+</div>
+
+<div class="cps" id="cps"></div>
+<footer>Checkpoints fill in as the agent's scripts report progress (results/progress.jsonl). Open this file later to replay.</footer>
+
+<script src="../results/progress.js" onerror="void 0"></script>
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const fmt = (v, d = 1) => (v == null ? "–" : Number(v).toFixed(d));
+  const clock = s => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, "0")}`;
+  const params = new URLSearchParams(location.search);
+  $("navlink").href = "index.html" + location.search;
+
+  // ---------- checkpoints: id, title, what happened (filled at runtime), say-this bullets ----------
+  const CPS = [
+    { id: "start", title: "Agent started the pipeline", what: "The agent read the README and launched step 1. From here on it drives; we narrate.",
+      say: ["This is an AI agent running three scripts from a README — nobody is typing.", "Everything we show is one question: how stable is this arrangement of atoms?"] },
+    { id: "ft_start", title: "Fine-tuning began", what: "Downloaded the pretrained MACE-MP-0 network and started adapting it to the 135 Cu–Au labels.",
+      say: ["The pretrained network already knows general chemistry from 1.5 million structures — 89 elements.", "We're giving it 135 examples of our specific problem, like fine-tuning a language model on a small dataset.", "Watch the error on held-back structures fall on the audience screen."] },
+    { id: "ft_mid", title: "Half-way through training", what: "Validation error has dropped by roughly two orders of magnitude from the first pass.",
+      say: ["Energy error is already around 10 meV/atom — room-temperature thermal energy is 25.", "Forces (the gradients) improve too; that's what makes dynamics and relaxations possible later."] },
+    { id: "ft_done", title: "Fine-tuned model saved", what: "20 passes over the data finished; the adapted network is on disk.",
+      say: ["That was the entire 'learn' step: about three minutes on a laptop CPU.", "The expensive part — the quantum calculations — happened overnight on the cluster. The learning is cheap."] },
+    { id: "val_pre", title: "Pretrained network tested on 51 unseen structures", what: "The zero-shot network's energies and forces compared against DFT on structures no model has trained on.",
+      say: ["Grey dots on the dashboard: the network as downloaded. Decent on energies because it was trained on the same kind of physics (PBE).", "But forces are off by ~110 meV/Å — too rough to trust for dynamics."] },
+    { id: "val_ft", title: "Fine-tuned network tested", what: "Same 51 structures, our fine-tuned network.",
+      say: ["Pink dots hug the line: energy error 11 → 8 meV/atom, forces 112 → 26 meV/Å.", "Each answer took ~40 ms. The simulator needs minutes for the same structure.", "This is the 'test' step: we check the surrogate on data it never saw before we let it make decisions."] },
+    { id: "ga_start", title: "Evolutionary search started", what: "Population of 12 random 8-bit strings; the network scores each; elites survive, the rest are crossed and mutated.",
+      say: ["Each candidate is just 8 bits: which lattice sites get copper, which get gold.", "2⁸ = 256 strings, 27 genuinely different after symmetry.", "The fitness function is the network, not the simulator — that's what makes the search affordable."] },
+    { id: "ga_mid", title: "Generation 4 of 8", what: "The best candidate has stabilised; the population is converging on it.",
+      say: ["The gold-framed card is the current best: Cu₃Au in the L1₂ arrangement, ~−52 meV/atom by the network.", "Notice how few evaluations this took — the counter on screen."] },
+    { id: "hull", title: "All 27 arrangements scored; verify step begins", what: "The network has scored every distinct ordering. Its best pick at each mixing ratio is sent to DFT.",
+      say: ["3 slow calculations instead of 27 — that's the budget the surrogate buys us.", "If the simulator agrees, trust is earned. If not, that structure goes back into training."] },
+    { id: "verify", title: "DFT verdicts are in", what: "Each predicted ground state compared with the simulator's answer at that composition.",
+      say: ["Green checks: Cu₃Au, CuAu and CuAu₃ — all three confirmed as the most stable at their ratio.", "The network's absolute numbers sit ~9 meV/atom low, but the ranking — what matters — is right."] },
+    { id: "champion", title: "Result: Cu₃Au (L1₂) — confirmed by DFT", what: "The GA's champion is the simulator's ground state too. This compound really exists; it's in every metallurgy textbook.",
+      say: ["The surrogate found a real material and the oracle confirmed it.", "Expensive oracle, cheap learned surrogate, verify before you trust."] },
+    { id: "finished", title: "Loop complete", what: "Learn → test → search → verify, end to end.",
+      say: ["Whole loop in a few minutes. With the simulator alone, scoring the search would have taken a day; at research scale it would be impossible.", "That is the role a learned potential plays inside an agent's discovery loop. Questions?"] },
+  ];
+  const cpIndex = Object.fromEntries(CPS.map((c, i) => [c.id, i]));
+  const reached = {}; let current = null;
+
+  function renderCps() {
+    const box = $("cps"); box.innerHTML = "";
+    CPS.forEach((c, i) => {
+      const d = document.createElement("div");
+      d.className = "cp" + (reached[c.id] ? " reached" : "") + (current === c.id ? " current" : "");
+      const t = reached[c.id] ? clock(reached[c.id].at) : "";
+      d.innerHTML = `<div class="time"><b>${t || "—"}</b>${reached[c.id] ? "reached" : "upcoming"}</div>
+        <div><div class="title"><span class="badge">cp ${i}</span>${c.title}</div>
+        <div class="what">${reached[c.id] && reached[c.id].what ? reached[c.id].what : c.what}</div>
+        <div class="say"><b>say:</b> ${c.say.join(" · ")}</div></div>`;
+      box.appendChild(d);
+    });
+  }
+  function reach(id, what) {
+    if (reached[id]) return;
+    const c = CPS[cpIndex[id]];
+    reached[id] = { at: S.started ? S.lastT - S.started : 0, what };
+    current = id;
+    $("now-k").textContent = `checkpoint ${cpIndex[id]} · ${clock(reached[id].at)}`;
+    $("now-h").textContent = c.title;
+    $("now-w").textContent = what || c.what;
+    $("now-say").innerHTML = c.say.map(s => `<li>${s}</li>`).join("");
+    renderCps();
+  }
+
+  // ---------- blocks ----------
+  function block(id, state, status) { const b = $("b-" + id); b.classList.remove("active", "done"); if (state) b.classList.add(state); b.querySelector(".s").textContent = status; }
+  function stat(id, text) { $("st-" + id).textContent = text; }
+  function bar(id, pct) { $("bar-" + id).style.width = `${Math.max(0, Math.min(100, pct))}%`; }
+
+  // ---------- state + ingest (same protocol as index.html) ----------
+  const S = { started: null, lastT: null, epochsPlanned: 20, finished: null, valres: {} };
+  const queue = []; let consumed = 0, nextAt = 0, live = true;
+  const instant = params.has("instant");
+  const upTo = params.has("at") ? Number(params.get("at")) * 1000 : null;
+  const delays = { epoch: 120, parity: 12, validate_result: 400, eval: 90, generation: 900, hull: 600, verify: 900, champion: 600, finished: 300, start: 300, done: 300 };
+
+  async function poll() {
+    try {
+      const r = await fetch("../results/progress.jsonl", { cache: "no-store" });
+      if (!r.ok) throw 0;
+      const lines = (await r.text()).split("\n").filter(Boolean);
+      for (let i = queue.length; i < lines.length; i++) queue.push(JSON.parse(lines[i]));
+    } catch (e) {
+      if (window.PROGRESS && queue.length === 0) { live = false; window.PROGRESS.forEach(ev => queue.push(ev)); }
+    }
+    if (live) setTimeout(poll, 500);
+  }
+  let replayClock = 0;
+  function tick() {
+    const now = performance.now();
+    while (consumed < queue.length && (instant || upTo != null || now >= nextAt)) {
+      const ev = queue[consumed]; const d = delays[ev.type] || 100;
+      if (upTo != null && replayClock + d > upTo) break;
+      consumed++; apply(ev); replayClock += d; nextAt = now + d;
+    }
+    if (S.started) {
+      const secs = S.finished ? S.finished.t - S.started : (live ? Date.now() / 1000 - S.started : S.lastT - S.started);
+      $("elapsed").textContent = clock(secs);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  function apply(ev) {
+    S.lastT = ev.t; if (!S.started && ev.t) S.started = ev.t;
+    switch (ev.type) {
+      case "start":
+        reach("start");
+        if (ev.step === "finetune") { S.epochsPlanned = ev.epochs; block("finetune", "active", "running"); stat("finetune", `0/${ev.epochs} epochs · ${ev.device}`); reach("ft_start", `Pretrained MACE-MP-0 loaded; adapting it to the 135 Cu–Au labels for ${ev.epochs} epochs on ${ev.device}.`); }
+        if (ev.step === "validate") { block("validate", "active", "running"); if (!reached.ft_done) { block("finetune", "done", "reused"); stat("finetune", "saved model reused"); } }
+        if (ev.step === "discover") { block("search", "active", "running"); stat("search", `0 evaluations · ${ev.n_distinct} distinct orderings`); reach("ga_start"); }
+        break;
+      case "epoch":
+        if (ev.epoch >= 0) { stat("finetune", `epoch ${ev.epoch + 1}/${S.epochsPlanned} · energy ±${fmt(ev.mae_e)} meV/atom · forces ±${fmt(ev.mae_f, 0)} meV/Å`); bar("finetune", (ev.epoch + 1) / S.epochsPlanned * 100); }
+        if (ev.epoch + 1 >= Math.floor(S.epochsPlanned / 2) && !reached.ft_mid) reach("ft_mid", `After ${ev.epoch + 1} passes the held-back energy error is ${fmt(ev.mae_e)} meV/atom and the force error ${fmt(ev.mae_f, 0)} meV/Å.`);
+        break;
+      case "done":
+        if (ev.step === "finetune") { block("finetune", "done", "done"); stat("finetune", `done in ${clock(ev.seconds || 0)}`); reach("ft_done", `20 passes over 135 structures finished in ${clock(ev.seconds || 0)}; the adapted network is saved.`); }
+        if (ev.step === "validate") block("validate", "done", "done");
+        if (ev.step === "discover") { block("verify", "done", "done"); block("result", "done", "done"); }
+        break;
+      case "parity":
+        stat("validate", `${ev.model === "foundation" ? "pretrained" : "fine-tuned"} network · structure ${ev.i + 1}/51`);
+        bar("validate", (ev.model === "foundation" ? 0 : 50) + (ev.i + 1) / 51 * 50);
+        break;
+      case "validate_result":
+        S.valres[ev.model] = ev;
+        if (ev.model === "foundation") reach("val_pre", `Pretrained network on 51 unseen structures: energy error ${fmt(ev.mae_e)} meV/atom, force error ${fmt(ev.rmse_f, 0)} meV/Å, ~${ev.ms_per_structure} ms each.`);
+        else { const f = S.valres.foundation || {}; stat("validate", `energy ${fmt(f.mae_e)} → ${fmt(ev.mae_e)} meV/atom · forces ${fmt(f.rmse_f, 0)} → ${fmt(ev.rmse_f, 0)} meV/Å`); reach("val_ft", `Fine-tuned network on the same 51: energy ${fmt(f.mae_e)} → ${fmt(ev.mae_e)} meV/atom, forces ${fmt(f.rmse_f, 0)} → ${fmt(ev.rmse_f, 0)} meV/Å, ~${ev.ms_per_structure} ms per structure.`); }
+        break;
+      case "eval": stat("search", `${ev.calls} network evaluations`); break;
+      case "generation":
+        stat("search", `generation ${ev.gen + 1}/8 · best ${ev.population[0].ordering} at ${fmt(ev.population[0].ef)} meV/atom · ${ev.calls} evaluations`); bar("search", (ev.gen + 1) / 8 * 100);
+        if (ev.gen + 1 >= 4) reach("ga_mid", `Generation ${ev.gen + 1}: best so far ${ev.population[0].ordering} at ${fmt(ev.population[0].ef)} meV/atom after ${ev.calls} network evaluations.`);
+        break;
+      case "hull": block("search", "done", "done"); block("verify", "active", "running"); stat("verify", "sending hull vertices to DFT…"); reach("hull"); break;
+      case "verify": {
+        S.nv = (S.nv || 0) + 1; S.nok = (S.nok || 0) + (ev.confirmed ? 1 : 0);
+        stat("verify", `${S.nok}/${S.nv} confirmed so far`); bar("verify", S.nv / 3 * 100);
+        if (S.nv >= 3) reach("verify", `${S.nok} of ${S.nv} predicted ground states confirmed by DFT with ${S.nv} slow calculations instead of 27.`);
+        break; }
+      case "champion":
+        block("result", "active", "result"); stat("result", `${ev.formula} · ${ev.ordering} · ${ev.is_ground_state ? "confirmed by DFT" : "DFT prefers another"}`);
+        reach("champion", `${ev.formula} (${ev.ordering}) after ${ev.calls} network evaluations at ~${ev.ms_per_call} ms each. ${ev.is_ground_state ? "DFT confirms it is the most stable arrangement of all." : "DFT ranks a different arrangement first — a near miss the verify step caught."} ${ev.hits}/${ev.checked} per-ratio picks confirmed.`);
+        break;
+      case "finished":
+        S.finished = ev; block("result", "done", "done"); stat("result", `whole loop in ${clock(ev.timings.total)}`);
+        reach("finished", `Learn → test → search → verify in ${clock(ev.timings.total)} on this machine${ev.timings.finetune ? ` (fine-tuning ${clock(ev.timings.finetune)})` : ""}.`);
+        break;
+    }
+  }
+
+  renderCps(); poll(); requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>

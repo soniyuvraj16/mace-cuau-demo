@@ -116,15 +116,30 @@ stability chart filling in as the network scores arrangements, and the
 simulator's check marks landing in the verify step. **Put that browser window
 on the projector**; the terminal is for the agent.
 
+There is a second page for whoever is talking: **`dashboard/tracker.html`**
+(linked from the dashboard header as "presenter view"). It shows the pipeline
+as a block map — DFT labels → learn → test → search → verify → result — lights
+up the block that is running, and fills in numbered checkpoints as they are
+reached, each with "what just happened" in plain words and two or three
+"say this" talking points. Put the audience dashboard on the projector and the
+presenter view on the laptop screen.
+
 If no browser opens, the URL is printed (`live dashboard: http://127.0.0.1:…`).
 After the run, opening `dashboard/index.html` as a file replays the whole
 animation from the saved results — handy for showing it again, or if you have
 to present without running. `--no-dashboard` turns it off; `--hold` keeps the
 page served until you press Enter.
 
-The drummer in the corner beats a wooden *tung* for every training epoch and
-closes the run with "tung tung tung sahur". Sound needs one click anywhere on
-the page first (browsers block autoplay) — do that before the run starts.
+### Slides and background reading
+
+- `MACE_Agentic_Discovery_v2.pptx` — the talk (3 min) plus a demo slide and
+  eight backup slides (DFT, learned potentials, MACE as a graph, equivariance,
+  the math, results, the Cu–Au system, the data). `tools/revise_deck.py`
+  builds it from the original `MACE_Agentic_Discovery.pptx` and the numbers in
+  `results/`.
+- `docs/mace_primer.pdf` — a 12-page presenter's primer: DFT, MLIPs, MACE,
+  fine-tuning vs raw, Cu–Au, how the demo maps to discovery, and a question
+  bank.
 
 ## How long it takes
 

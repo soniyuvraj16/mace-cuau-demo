@@ -48,7 +48,8 @@ def start_dashboard():
     threading.Thread(target=server.serve_forever, daemon=True).start()
     url = f"http://127.0.0.1:{port}/dashboard/"
     opened = webbrowser.open(url)
-    print(f"live dashboard: {url}" + ("" if opened else "  (open this in a browser)"))
+    print(f"live dashboard (audience): {url}" + ("" if opened else "  (open this in a browser)"))
+    print(f"presenter view (checkpoints + talking points): {url}tracker.html")
     return server, url
 
 
