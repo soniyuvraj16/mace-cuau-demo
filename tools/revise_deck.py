@@ -256,8 +256,60 @@ def main():
     set_lines(shape_by_text(s7, "Evolve with MACE"), ["Fine-tune on DFT, evolve with MACE, verify winners with DFT — then the lab."])
     set_lines(shape_by_text(s7, "MACE turns an LLM"), ["A 40 ms answer instead of a 10-minute one lets an agent search instead of guess."])
 
-    # ---------------- backup slides
+    # ---------------- new main-flow slide: where the agent adds value (inserted after slide 5)
     blank = prs.slide_layouts[6]
+    s = prs.slides.add_slide(blank)
+    header(s, "PART 2 · THE AGENT", "Where the agent earns its keep",
+           "The surrogate will sometimes be wrong. Verify is a decision point, not a checkbox — the LLM decides what the slow simulator is spent on", 8)
+    # decision flow (left)
+    box(s, 0.6, 1.95, 5.6, 4.7, CARD)
+    flow = [(0.9, 2.15, 5.0, 0.7, WHITE, "MACE proposes", "best arrangement at each mixing ratio · milliseconds", DARK),
+            (0.9, 3.1, 5.0, 0.7, WHITE, "DFT verifies the shortlist", "3 slow calls instead of 27", DARK)]
+    for x, y, w, h, fill, t, b, col in flow:
+        box(s, x, y, w, h, fill, line="E5E7EB")
+        text(s, x + 0.2, y + 0.07, w - 0.4, 0.3, t, 13.5, True, col)
+        text(s, x + 0.2, y + 0.36, w - 0.4, 0.3, b, 10.5, False, GREY)
+    line(s, 3.4, 2.85, 3.4, 3.1, LIGHT, 1.5, arrow=True)
+    line(s, 3.4, 3.8, 3.4, 4.05, LIGHT, 1.5, arrow=True)
+    outcomes = [(0.9, 4.05, 1.55, 1.3, "2E7D4F", "confirmed", "report it as a discovery; the hull is trusted here"),
+                (2.63, 4.05, 1.55, 1.3, MAROON, "rejected", "add DFT's answer to training, retrain, search again"),
+                (4.35, 4.05, 1.55, 1.3, "8A6D1F", "unknown", "no label yet or the model is unsure: request DFT before deciding")]
+    for x, y, w, h, fill, t, b in outcomes:
+        box(s, x, y, w, h, fill)
+        text(s, x + 0.12, y + 0.1, w - 0.24, 0.3, t, 12.5, True, WHITE)
+        text(s, x + 0.12, y + 0.45, w - 0.24, 0.85, b, 10, False, PINK if fill == MAROON else "F3F4F6")
+    text(s, 0.9, 5.5, 5.0, 1.0, ["Two of these happened in building this demo: the script flagged two arrangements with no DFT label (six calculations went to the cluster), "
+                               "and on stand-in data DFT rejected a 50:50 pick the network had over-stabilised by 9 meV/atom."], 10.5, False, GREY, italic=True)
+    # what the LLM decides (right)
+    text(s, 6.5, 1.95, 6.2, 0.3, "WHAT THE LLM DECIDES", 11, True, ROSE)
+    cards_ = [("1", "Which structures deserve a slow call",
+               "Novel environments, committee disagreement, hull vertices with thin margins. The budget is the scarce resource; spending it well is the job."),
+              ("2", "What to propose next",
+               "Chemically sensible moves — swap a layer, respect the lattice — instead of random bit flips. The mutation operator becomes a reasoning step."),
+              ("3", "When to stop, and what to report",
+               "The hull is stable across two rounds; rejected picks have been retrained; the answer is explained in plain words with the evidence attached.")]
+    y = 2.3
+    for num, t, b in cards_:
+        box(s, 6.5, y, 6.2, 1.25, WHITE, line="E5E7EB")
+        circle(s, 6.68, y + 0.32, 0.6, MAROON, num, 15)
+        text(s, 7.45, y + 0.1, 5.1, 0.35, t, 14, True, DARK)
+        text(s, 7.45, y + 0.46, 5.1, 0.75, b, 11, False, GREY)
+        y += 1.4
+    box(s, 6.5, 6.5, 6.2, 0.45, MAROON)
+    text(s, 6.65, 6.53, 5.9, 0.4, "In today's demo these decisions are scripted; the agent runs and explains them. Making them adaptively is the frontier.",
+         10.5, False, WHITE, anchor=MSO_ANCHOR.MIDDLE)
+    set_notes(s, "[2:40-3:00] The surrogate will sometimes be wrong, and that is where an agent matters. After the search, the network's best pick at "
+                 "each composition goes to DFT. Confirmed: report it. Rejected: that DFT result becomes training data, retrain, search again. "
+                 "Unknown or uncertain: ask DFT first. Two of these happened while we built the demo. The LLM's job is to spend the expensive "
+                 "budget well, to propose chemically sensible moves instead of random ones, and to know when to stop. In the demo these decisions "
+                 "are scripted; the agent runs and explains them.")
+    # move it to position 6 (after the evolution slide)
+    sld_ids = prs.slides._sldIdLst
+    new_el = list(sld_ids)[-1]
+    sld_ids.remove(new_el)
+    sld_ids.insert(5, new_el)
+
+    # ---------------- backup slides
     n = 12
 
     # B1 DFT
@@ -467,8 +519,9 @@ def main():
     footer(s, "Geometries are fixed (no relaxation) so the network and DFT are compared on identical structures; all 27 orderings have DFT labels")
     set_notes(s, "Backup: what was computed and why each group exists.")
 
-    prs.save(OUT)
-    print(f"wrote {OUT} with {len(prs.slides)} slides")
+    out = Path(sys.argv[1]) if len(sys.argv) > 1 else OUT
+    prs.save(out)
+    print(f"wrote {out} with {len(prs.slides)} slides")
 
 
 if __name__ == "__main__":
