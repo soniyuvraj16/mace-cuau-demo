@@ -3,7 +3,8 @@ __pycache__/
 models/*
 !models/cuau_ft.model
 !models/training_log.json
-results/
+results/*
+!results/progress.js
 figures/*.png
 *.pptx
 *.log

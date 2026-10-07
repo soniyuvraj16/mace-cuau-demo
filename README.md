@@ -135,6 +135,11 @@ stability chart filling in as the network scores arrangements, and the
 simulator's check marks landing in the verify step. **Put that browser window
 on the projector**; the terminal is for the agent.
 
+**No Python at all?** A recorded run ships with the repo: open
+`dashboard/index.html` straight from the clone and it replays that run with
+the same pacing — the learning curve, the test, the search, the verify step.
+Nothing to install. Any `run_demo.py` run overwrites the recording with yours.
+
 If no browser opens, the URL is printed (`live dashboard: http://127.0.0.1:…`).
 After the run, opening `dashboard/index.html` as a file replays the whole
 animation from the saved results — handy for showing it again, or if you have
