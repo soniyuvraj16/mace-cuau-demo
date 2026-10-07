@@ -15,4 +15,5 @@ run_aimd.sh
 from_grace*/
 /tungtung.*
 /docs/
+~$*
 *.tar.gz

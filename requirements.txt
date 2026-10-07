@@ -1,5 +1,12 @@
---extra-index-url https://download.pytorch.org/whl/cpu
-torch
-mace-torch
-ase
-matplotlib
+# Exact versions the demo was built and timed with (Python 3.13; 3.10-3.13 should work).
+# The PyTorch CPU index comes first so Linux machines get the small CPU wheel
+# instead of the 2.5 GB CUDA bundle; everything else falls through to PyPI.
+--index-url https://download.pytorch.org/whl/cpu
+--extra-index-url https://pypi.org/simple
+torch==2.14.1
+mace-torch==0.3.16
+e3nn==0.4.4
+ase==3.29.0
+numpy==2.5.3
+scipy==1.18.1
+matplotlib==3.11.2

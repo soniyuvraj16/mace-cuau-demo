@@ -392,6 +392,45 @@ def main():
     # ---------------- backup slides
     n = 12
 
+    # B0 what DFT hands to MACE (the data flow, in blocks)
+    from ase.io import read
+    frames = read(ROOT / "data" / "train.xyz", ":")
+    rec = next(f for f in frames if f.info["config_type"] == "rattle4" and f.info["name"].split("_")[2] == "0001")
+    n_e = len(frames)
+    n_f = sum(3 * len(f) for f in frames)
+    s = prs.slides.add_slide(blank)
+    header(s, "BACKUP · THE DATA FLOW", "What DFT hands to MACE", "One structure in, two kinds of numbers out — 135 such records are the training set", n); n += 1
+    flow = [("structure", "4 or 8 atoms: positions, elements, cell. Fixed geometry — nothing relaxed.", CARD),
+            ("DFT (VASP)", "Solves for the electrons. Minutes on 12 cores per structure.", MAROON),
+            ("labels", "1 energy + 3 force components per atom: 13 numbers for a 4-atom cell, 25 for 8.", CARD),
+            ("train.xyz", f"135 records = {n_e} energies + {n_f:,} force components. 51 more records held out.", CARD),
+            ("fine-tune", "Minimise 100·(ΔE/atom)² + 10·(ΔF)² over the 135, starting from MACE-MP-0's weights.", MAROON)]
+    x = 0.6
+    for i, (t, b, fill) in enumerate(flow):
+        box(s, x, 1.95, 2.26, 1.45, fill)
+        text(s, x + 0.15, 2.02, 2.0, 0.3, t, 13, True, WHITE if fill == MAROON else DARK)
+        text(s, x + 0.15, 2.34, 2.0, 1.05, b, 10.5, False, PINK if fill == MAROON else GREY)
+        if i < len(flow) - 1:
+            line(s, x + 2.26, 2.68, x + 2.46, 2.68, LIGHT, 1.5, arrow=True)
+        x += 2.46
+    # one record, as stored
+    box(s, 0.6, 3.7, 7.6, 3.0, WHITE, line="E5E7EB")
+    text(s, 0.85, 3.78, 7.2, 0.3, f"One record, as stored  ·  {rec.info['name']}  ·  a rattled Cu₃Au cell", 12, True, MAROON)
+    mono = [f"REF_energy = {rec.info['REF_energy']:.4f} eV        cell = {rec.cell.lengths()[0]:.3f} Å cube        4 atoms",
+            "elem      x        y        z     |     Fx       Fy       Fz    (eV/Å)"]
+    for sym, p, f in zip(rec.get_chemical_symbols(), rec.positions, rec.arrays["REF_forces"]):
+        mono.append(f"{sym:<4} {p[0]:8.3f} {p[1]:8.3f} {p[2]:8.3f}  | {f[0]:8.3f} {f[1]:8.3f} {f[2]:8.3f}")
+    text(s, 0.85, 4.12, 7.2, 1.9, mono, 10.5, False, DARK, font="Consolas")
+    text(s, 0.85, 6.1, 7.2, 0.5, "The network is shown the left half and must reproduce the right half plus the energy. Ideal cells have zero forces by symmetry — that is why the rattled copies exist.",
+         10.5, False, GREY, italic=True)
+    # why both
+    card(s, 8.45, 3.7, 4.25, 3.0, "Why both numbers",
+         ["Energies set the ranking — the convex hull is built from them. Error target: a few meV/atom.",
+          "Forces give 3N labels per structure instead of 1 — most of the training signal — and they are what make relaxations and dynamics possible.",
+          "Volume scans teach stiffness; rattles teach forces; 8-atom cells teach ordering patterns a 4-atom cell cannot hold."], body_size=11)
+    footer(s, "REF_energy and REF_forces are the keys in data/train.xyz; collect.py writes them from each VASP OUTCAR (energy(sigma→0) and the final forces)")
+    set_notes(s, "Backup: what a label is. Show this during the fine-tune block if someone asks what the network is learning from.")
+
     # B1 DFT
     s = prs.slides.add_slide(blank)
     header(s, "BACKUP · THE SIMULATOR", "DFT in one slide", "The slow, trusted physics calculation that produced our labels", n); n += 1
@@ -598,6 +637,12 @@ def main():
     s.shapes.add_picture(str(ROOT / "figures" / "structures_preview.png"), Inches((13.333 - pic_w) / 2), Inches(4.5), height=Inches(pic_h))
     footer(s, "Geometries are fixed (no relaxation) so the network and DFT are compared on identical structures; all 27 orderings have DFT labels")
     set_notes(s, "Backup: what was computed and why each group exists.")
+
+    # page numbers = actual positions, so "type the number, Enter" in slideshow mode lands on the right slide
+    for idx, slide in enumerate(prs.slides, start=1):
+        for sh in slide.shapes:
+            if sh.has_text_frame and abs(sh.left / 914400 - 12.2) < 0.05 and abs(sh.top / 914400 - 7.0) < 0.05:
+                set_lines(sh, [f"{idx:02d}"])
 
     out = Path(sys.argv[1]) if len(sys.argv) > 1 else OUT
     prs.save(out)

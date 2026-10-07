@@ -54,8 +54,11 @@ for this audience.
 
 Do these in order. Each step prints what it did; you don't need to edit anything.
 
-1. Create a virtual environment and install the dependencies (CPU-only torch is
-   fine; a CUDA GPU is used automatically if torch finds one):
+1. Create a virtual environment and install the dependencies. Nothing else is
+   assumed on the machine beyond Python 3.10–3.13; `requirements.txt` pins the
+   exact versions the demo was timed with and pulls CPU-only torch (a CUDA GPU
+   is used automatically if a CUDA torch happens to be installed instead). The
+   MACE-MP-0 foundation model (a few MB) is downloaded on first run.
 
    ```
    python -m venv .venv
@@ -133,9 +136,9 @@ page served until you press Enter.
 ### Slides
 
 `MACE_Agentic_Discovery_v2.pptx` is the talk: the 3-minute deck, the demo
-slide, a scaling-up example, and eight backup slides (DFT, learned potentials,
-MACE as a graph, equivariance, the math, results, the Cu–Au system, the
-data). `tools/revise_deck.py` builds it from the original
+slide, a scaling-up example, and nine backup slides (what DFT hands to MACE,
+DFT, learned potentials, MACE as a graph, equivariance, the math, results, the
+Cu–Au system, the data). `tools/revise_deck.py` builds it from the original
 `MACE_Agentic_Discovery.pptx` and the numbers in `results/` after a run.
 
 ## How long it takes
