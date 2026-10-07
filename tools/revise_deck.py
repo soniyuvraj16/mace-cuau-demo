@@ -1,7 +1,8 @@
 """Revise the partner's deck around the actual demo and add backup slides.
 
-Input  MACE_Agentic_Discovery.pptx   (kept untouched)
-Output MACE_Agentic_Discovery_v2.pptx
+Input  MACE_Agentic_Discovery.pptx   (kept untouched), results/*.json and
+       results/progress.jsonl from a demo run, figures/*.png, tungtung.webp
+Output MACE_Agentic_Discovery_v2.pptx  (or the path given as the first argument)
 """
 
 import json
@@ -94,6 +95,23 @@ def text(slide, x, y, w, h, s, size=14, bold=False, color=DARK, align=PP_ALIGN.L
         r.font.size = Pt(size)
         r.font.bold = bold
         r.font.italic = italic
+        r.font.color.rgb = rgb(color)
+    return tb
+
+
+def rich_text(slide, x, y, w, h, runs, size=34, bold=True, font="Arial"):
+    """One paragraph made of (text, color) runs."""
+    tb = slide.shapes.add_textbox(Inches(x), Inches(y), Inches(w), Inches(h))
+    tf = tb.text_frame
+    tf.word_wrap = True
+    tf.margin_left = tf.margin_right = Inches(0.05)
+    p = tf.paragraphs[0]
+    for s, color in runs:
+        r = p.add_run()
+        r.text = s
+        r.font.name = font
+        r.font.size = Pt(size)
+        r.font.bold = bold
         r.font.color.rgb = rgb(color)
     return tb
 
@@ -309,6 +327,68 @@ def main():
     sld_ids.remove(new_el)
     sld_ids.insert(5, new_el)
 
+    # ---------------- scaling-up slide: tungsten (after the demo slide, before takeaways)
+    set_lines(shape_by_text(s6, "10"), ["09"])
+    s = prs.slides.add_slide(blank)
+    text(s, 0.6, 0.38, 9.0, 0.3, "PART 3 · SCALING UP", 11, True, ROSE)
+    rich_text(s, 0.6, 0.62, 10.6, 0.7, [("Scaling up: the same loop for ", MAROON), ("Tung", AU), ("sten", MAROON)])
+    text(s, 0.6, 1.32, 10.3, 0.4, "Fusion-reactor wall material. Radiation damage needs a million atoms for nanoseconds — DFT cannot go there; a fine-tuned MACE can",
+         15, False, GREY, italic=True)
+    text(s, 12.2, 7.0, 0.6, 0.25, "10", 10, True, MAROON, PP_ALIGN.RIGHT)
+    # the mascot, with an arrow from the highlighted syllable
+    tung_png = ROOT / "tungtung.png"
+    if not tung_png.exists():
+        from PIL import Image
+        Image.open(ROOT / "tungtung.webp").convert("RGB").save(tung_png)
+    pic = s.shapes.add_picture(str(tung_png), Inches(11.35), Inches(0.2), height=Inches(1.6))
+    pic.line.color.rgb = rgb("3A3020"); pic.line.width = Pt(1)
+    line(s, 9.45, 0.9, 11.3, 1.0, AU, 2.5, arrow=True)
+    # why tungsten
+    card(s, 0.6, 1.95, 4.1, 3.0, "Why tungsten",
+         ["The armour facing the plasma in a fusion reactor (ITER's divertor).",
+          "Neutrons knock atoms off their sites — collision cascades — and helium collects into bubbles; dislocations and grain boundaries decide whether the wall cracks.",
+          "That physics lives at 10⁵–10⁶ atoms over picoseconds to microseconds."], body_size=11.5, icon="W")
+    # cost table
+    tbl = s.shapes.add_table(5, 3, Inches(4.9), Inches(1.95), Inches(7.8), Inches(3.0)).table
+    rows = [["system", "DFT  (∝ N³)", "fine-tuned MACE  (∝ N)"],
+            ["8 atoms — today's demo cell", "minutes", "40 ms"],
+            ["128 atoms — one vacancy or interstitial", "hours", "~0.5 s"],
+            ["10⁴ atoms — a dislocation line", "years", "seconds per step"],
+            ["10⁶ atoms, 10 ps — a collision cascade", "never", "hours on one GPU"]]
+    for r_, row in enumerate(rows):
+        for c, v in enumerate(row):
+            cell = tbl.cell(r_, c); cell.text = v
+            cell.fill.solid(); cell.fill.fore_color.rgb = rgb(MAROON if r_ == 0 else (CARD if r_ % 2 else WHITE))
+            for p in cell.text_frame.paragraphs:
+                for run in p.runs:
+                    run.font.size = Pt(12.5); run.font.name = "Arial"
+                    run.font.bold = (r_ == 0 or c > 0)
+                    run.font.color.rgb = rgb(WHITE if r_ == 0 else (MAROON if c == 1 and r_ > 0 else DARK))
+    tbl.columns[0].width = Inches(3.9); tbl.columns[1].width = Inches(1.6); tbl.columns[2].width = Inches(2.3)
+    # same four blocks
+    text(s, 0.6, 5.2, 12.1, 0.3, "THE SAME FOUR BLOCKS, NEW MATERIAL", 11, True, ROSE)
+    blocks = [("learn", "A few hundred DFT cells: bulk, vacancies, interstitials, surfaces, cascade snapshots. Same scripts."),
+              ("test", "Held-out defect energies and forces. Same parity plot."),
+              ("search", "Evolve defect and grain-boundary configurations; run the million-atom cascade with MACE."),
+              ("verify", "DFT on the handful of structures the model is unsure about — then retrain.")]
+    x = 0.6
+    for i, (t, b) in enumerate(blocks):
+        fill = MAROON if i == 2 else CARD
+        box(s, x, 5.5, 2.9, 1.3, fill)
+        text(s, x + 0.15, 5.56, 2.6, 0.3, t, 12.5, True, WHITE if fill == MAROON else DARK)
+        text(s, x + 0.15, 5.86, 2.6, 0.95, b, 10.5, False, PINK if fill == MAROON else GREY)
+        if i < 3:
+            line(s, x + 2.9, 6.15, x + 3.07, 6.15, LIGHT, 1.5, arrow=True)
+        x += 3.07
+    footer(s, "Orders of magnitude, illustrative; constants depend on code and hardware. Tungsten ML potentials are an active field (GAP 2014, tabGAP 2019); MACE-MP-0 covers W.")
+    set_notes(s, "[8:00-8:40] Everything you just saw transfers. Tungsten is the wall material of a fusion reactor; what decides whether it survives is "
+                 "radiation damage — a million atoms, nanoseconds. DFT scales as N cubed: minutes for our 8-atom cell, hours for a hundred atoms, "
+                 "never for a cascade. The learned potential scales linearly: a cascade is hours on a GPU. Same four blocks: fine-tune on a few hundred "
+                 "DFT cells, test on held-out defects, search and simulate with MACE, verify the uncertain cases with DFT.")
+    new_el = list(sld_ids)[-1]
+    sld_ids.remove(new_el)
+    sld_ids.insert(7, new_el)
+
     # ---------------- backup slides
     n = 12
 
@@ -490,7 +570,7 @@ def main():
           f"Our PBE formation energies: Cu₃Au −46.7, CuAu −48.6, CuAu₃ −28.2 meV/atom (experiment is more negative — PBE underbinds).",
           "",
           "Formation energy = E(mixture) − x·E(Au) − (1−x)·E(Cu), per atom. Negative = favourable. The convex hull = the stable compounds."], body_size=12)
-    s.shapes.add_picture(str(ROOT / "docs" / "img" / "hull.png"), Inches(6.1), Inches(1.95), width=Inches(6.6))
+    s.shapes.add_picture(str(ROOT / "figures" / "hull.png"), Inches(6.1), Inches(1.95), width=Inches(6.6))
     text(s, 6.1, 6.55, 6.6, 0.4, "Every distinct ordering: network (pink) vs DFT (circles). Hull vertices agree; the star is Cu₃Au L1₂.", 10.5, False, GREY, italic=True)
     set_notes(s, "Backup: the system is real and the answer is known, which is why the audience can judge the result.")
 
@@ -515,7 +595,7 @@ def main():
     tbl.columns[0].width = Inches(6.6); tbl.columns[1].width = Inches(1.0); tbl.columns[2].width = Inches(4.5)
     pic_h = 2.35
     pic_w = pic_h * 2210 / 715
-    s.shapes.add_picture(str(ROOT / "docs" / "img" / "structures.png"), Inches((13.333 - pic_w) / 2), Inches(4.5), height=Inches(pic_h))
+    s.shapes.add_picture(str(ROOT / "figures" / "structures_preview.png"), Inches((13.333 - pic_w) / 2), Inches(4.5), height=Inches(pic_h))
     footer(s, "Geometries are fixed (no relaxation) so the network and DFT are compared on identical structures; all 27 orderings have DFT labels")
     set_notes(s, "Backup: what was computed and why each group exists.")
 

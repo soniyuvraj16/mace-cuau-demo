@@ -130,16 +130,13 @@ animation from the saved results — handy for showing it again, or if you have
 to present without running. `--no-dashboard` turns it off; `--hold` keeps the
 page served until you press Enter.
 
-### Slides and background reading
+### Slides
 
-- `MACE_Agentic_Discovery_v2.pptx` — the talk (3 min) plus a demo slide and
-  eight backup slides (DFT, learned potentials, MACE as a graph, equivariance,
-  the math, results, the Cu–Au system, the data). `tools/revise_deck.py`
-  builds it from the original `MACE_Agentic_Discovery.pptx` and the numbers in
-  `results/`.
-- `docs/mace_primer.pdf` — a 12-page presenter's primer: DFT, MLIPs, MACE,
-  fine-tuning vs raw, Cu–Au, how the demo maps to discovery, and a question
-  bank.
+`MACE_Agentic_Discovery_v2.pptx` is the talk: the 3-minute deck, the demo
+slide, a scaling-up example, and eight backup slides (DFT, learned potentials,
+MACE as a graph, equivariance, the math, results, the Cu–Au system, the
+data). `tools/revise_deck.py` builds it from the original
+`MACE_Agentic_Discovery.pptx` and the numbers in `results/` after a run.
 
 ## How long it takes
 

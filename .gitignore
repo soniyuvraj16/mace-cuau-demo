@@ -13,5 +13,6 @@ potpaw*/
 /vasp/
 run_aimd.sh
 from_grace*/
-/tungtung.webp
+/tungtung.*
+/docs/
 *.tar.gz
